@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — C.3 / C.4.1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences {
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        margin: 0 0 18px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.08), rgba(192, 112, 46, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 16px 18px;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <p class="competences">
+            C.3 : J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel
+            <br>
+            &amp;
+            <br>
+            C.4.1 Je rédige un dossier de conception
+          </p>
+          <h1>Antenne HB9CV</h1>
+          <p class="subtitle">SAE de Radio Goniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2012.27.35.png.1.png"
+            alt="Radio goniomètre HB9CV"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Radio goniomètre — aperçu du prototype HB9CV.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Après avoir mené l’analyse fonctionnelle de l’antenne HB9CV dans le cadre du projet <strong>Challenge de Radiogoniométrie (CDR)</strong>, j’ai participé à la <strong>conception détaillée</strong> et à la <strong>réalisation du prototype</strong>. Cette étape m’a permis de transformer les exigences du cahier des charges en <strong>choix techniques concrets</strong> à travers des simulations, des calculs, et la modélisation du comportement du système.</p>
+        <p>Mon travail a porté sur les <strong>blocs Acquisition et Action</strong> de la partie matérielle, avec un focus particulier sur les performances radioélectriques de l’antenne et l’adaptation d’impédance pour assurer une transmission optimale.</p>
+        <p><strong>Lien du <a title="CDC" href="https://docs.google.com/document/d/1dYxpYdale1bkAtIvWoX03aTuQ-V4YHf4-1h87_zHmvI/edit?usp=share_link">Cahier des charges</a></strong></p>
+        <p><strong>Pour un plus haut niveau de technicité, le numéro de page du dossier de conception détaillée (<a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>) en lien avec chaque section est référencé.</strong></p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Modélisation sous MMANA-GAL</span>
+          <h2>Modélisation et dimensionnement de l’antenne HB9CV sous MMANA-GAL</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2013.27.35.png"
+              alt="Modélisation et dimensionnement de l’antenne HB9CV"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Modélisation et dimensionnement de l’antenne HB9CV sous MMANA-GAL.</figcaption>
+          </figure>
+          <p>J’ai modélisé l’antenne HB9CV sous <strong>MMANA-GAL</strong> afin de valider sa géométrie pour une fréquence de <strong>144 MHz</strong>, conformément au cahier des charges (EXIG_FREQUENCE).</p>
+          <ul>
+            <li>Les cotes principales (boom, réflecteur, directeur, gamma-match) ont été calculées avec le simulateur HB9CV.</li>
+            <li>Pour contourner les limitations du logiciel, j’ai <strong>découpé chaque élément en plusieurs segments</strong>, ce qui a conduit à un modèle final de <strong>13 segments</strong>.</li>
+            <li>Chaque segment a été défini par ses coordonnées (X, Y, Z) et placé selon les longueurs optimisées.</li>
+          </ul>
+          <p>Le boom supporte l’ensemble, le réflecteur est positionné à l’arrière, le directeur à l’avant, et la ligne de phasage (gamma-match) assure l’adaptation d’impédance.</p>
+          <ul>
+            <li>La <strong>segmentation automatique</strong> (DM1 = 800, DM2 = 80) garantit une simulation précise.</li>
+            <li>L’<strong>alimentation</strong> est appliquée sur le segment <em>w11c</em> à 10 V, simulant l’injection du signal RF.</li>
+          </ul>
+          <p>Cette modélisation a permis de reproduire fidèlement l’antenne dans le logiciel en vue des simulations électromagnétiques à venir.</p>
+          <p>Se référer à la page du 11 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Diagramme de rayonnement et performances</span>
+          <h2>Diagramme de rayonnement et analyse des performances</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2013.27.41.png"
+              alt="Diagramme de rayonnement et analyse des performances"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Diagramme de rayonnement et analyse des performances.</figcaption>
+          </figure>
+          <p>Cette simulation que j’ai réalisée sous <strong>MMANA-GAL</strong> permet d’évaluer les performances électromagnétiques de l’antenne HB9CV à <strong>144,1 MHz</strong>. La figure montre deux diagrammes de rayonnement : un en <strong>azimut</strong> (vue horizontale) et un en <strong>élévation</strong> (vue verticale).</p>
+          <p>J’ai obtenu un <strong>gain maximal de 12,23 dBi</strong>, ce qui confirme la <strong>directivité</strong> de l’antenne conformément à <strong>l’exigence EXIG_DIRECTIVITE</strong>. Le <strong>rapport avant/arrière</strong> est de <strong>13,01 dB</strong>, bien supérieur au minimum de 3 dB fixé par <strong>EXIG_GAIN</strong>. Cela montre que l’antenne émet principalement dans une direction, tout en atténuant les signaux arrière.</p>
+          <p>La <strong>fréquence de résonance mesurée</strong> est de <strong>144,1 MHz</strong>, parfaitement conforme à <strong>EXIG_FREQUENCE</strong> (144 MHz ± 1 MHz).</p>
+          <p>L’<strong>impédance simulée</strong> est de <strong>57,06 + j37,22 Ω</strong>, alors que <strong>l’exigence EXIG_IMPEDANCE</strong> demande une adaptation à <strong>50 Ω</strong> pour maximiser le transfert d’énergie entre l’antenne et le récepteur.</p>
+          <p>Une impédance mal adaptée peut provoquer des <strong>réflexions du signal</strong> et donc des pertes. Ici, le <strong>paramètre S11</strong> reste au-dessus de -10 dB dans la bande 143–145 MHz, ce qui implique une <strong>efficacité partielle</strong>. Le <strong>rapport d’ondes stationnaires (ROS)</strong> mesuré est de <strong>2,0</strong>, un résultat encore acceptable mais améliorable.</p>
+          <p>Cette simulation constitue une <strong>preuve directe</strong> des performances du prototype et montre à la fois les points <strong>validés</strong> et ceux nécessitant un <strong>ajustement</strong>, notamment l’impédance.</p>
+          <p>Se référer à la page du 13 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Analyse de l’angle d’ouverture</span>
+          <h2>Analyse de l’angle d’ouverture</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2013.27.49.png"
+              alt="Analyse de l’angle d’ouverture de l’antenne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Analyse de l’angle d’ouverture.</figcaption>
+          </figure>
+          <p>Cette figure montre le <strong>diagramme polaire de rayonnement</strong> que j’ai généré sous MMANA-GAL pour analyser l’<strong>angle d’ouverture</strong> de l’antenne HB9CV.</p>
+          <p>L’<strong>exigence EXIG_OUVERTURE</strong> impose un <strong>angle inférieur à 160°</strong>, mesuré entre les deux points du diagramme où le <strong>gain chute de 3 dB</strong> par rapport au maximum.</p>
+          <p>Sur ce diagramme, j’ai mesuré un angle d’ouverture d’environ <strong>74°</strong>, ce qui respecte largement l’exigence. Cela signifie que l’antenne concentre bien son rayonnement dans une zone précise, ce qui renforce sa directivité et sa capacité à localiser la radiobalise.</p>
+          <p>Cette simulation constitue une <strong>preuve graphique directe</strong> de la conformité de l’antenne à <strong>l’exigence d’ouverture angulaire</strong>.</p>
+          <p>Se référer à la page du 14 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Modélisation 3D de l’antenne</span>
+          <h2>Modélisation 3D de l’antenne</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2013.27.57.png"
+              alt="Modélisation 3D de l’antenne HB9CV"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Modélisation 3D de l’antenne dans MMANA-GAL.</figcaption>
+          </figure>
+          <p>Cette capture montre le <strong>modèle 3D de l’antenne HB9CV</strong> tel que je l’ai construit dans <strong>MMANA-GAL</strong>, après avoir défini et positionné tous les segments.</p>
+          <p>On y distingue clairement les <strong>éléments principaux</strong> :</p>
+          <ul>
+            <li>le <strong>boom</strong> (support central),</li>
+            <li>le <strong>réflecteur</strong> à l’arrière,</li>
+            <li>le <strong>directeur</strong> à l’avant,</li>
+            <li>et le <strong>gamma-match</strong>, utilisé pour l’adaptation d’impédance.</li>
+          </ul>
+          <p>Les <strong>courbes colorées autour de l’antenne</strong> représentent le <strong>diagramme de rayonnement</strong> en 3D, généré par le logiciel. Cette visualisation m’a permis de <strong>vérifier la cohérence géométrique</strong> de la modélisation et de <strong>valider visuellement la directivité</strong> attendue.</p>
+          <p>Ce modèle constitue une <strong>preuve de conformité structurelle</strong>, en lien direct avec les exigences du cahier des charges.</p>
+          <p>Se référer à la page du 15 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Impédance initiale de l’antenne</span>
+          <h2>Impédance initiale de l’antenne</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.53.34.png"
+              alt="Impédance initiale de l’antenne HB9CV"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Impédance initiale de l’antenne HB9CV (Qucs Studio).</figcaption>
+          </figure>
+          <p>Cette simulation sous <strong>Qucs Studio</strong> m’a permis d’analyser l’<strong>impédance réelle</strong> de l’antenne HB9CV (sa <strong>résistance</strong>), en important le fichier <strong>.s1p</strong> généré avec MMANA-GAL dans un montage de test. L’objectif est de vérifier la <strong>conformité avec l’exigence EXIG_IMPEDANCE</strong>, qui impose une adaptation à <strong>50 Ω</strong> pour assurer une bonne transmission du signal.</p>
+          <p>Sur la <strong>gauche</strong>, on voit le <strong>montage de simulation</strong> :</p>
+          <ul>
+            <li>Une source de signal (<strong>P1</strong>) connectée à une impédance de <strong>50 Ω</strong> (valeur idéale),</li>
+            <li>Le bloc <strong>SnP</strong> qui contient les données d’impédance réelles de l’antenne (fichier HB9CV_ANTENA.s1p),</li>
+            <li>La simulation se fait sur une plage de <strong>140 à 155 MHz</strong>.</li>
+          </ul>
+          <p>Sur la <strong>droite</strong>, l’<strong>abaque de Smith</strong> permet de visualiser graphiquement le comportement de l’impédance selon la fréquence :</p>
+          <ul>
+            <li>Le <strong>point rouge</strong> correspond à l’impédance de l’antenne à <strong>144 MHz</strong>,</li>
+            <li>On y lit : <strong>Z = 59 / 32,1°</strong>, soit environ <strong>59 + j37 Ω</strong>, ce qui signifie une impédance <strong>non adaptée</strong> (trop éloignée du centre).</li>
+          </ul>
+          <p>Une antenne bien adaptée aurait son point <strong>au centre du graphique</strong>. Ici, la distance par rapport au centre montre que le <strong>signal est partiellement réfléchi</strong>, ce qui diminue l’efficacité de l’antenne.</p>
+          <p>Cette figure constitue une <strong>preuve claire de la non-conformité initiale</strong> de l’antenne à 144 MHz, et justifie la nécessité d’un <strong>réseau d’adaptation d’impédance</strong>.</p>
+          <p>Se référer à la page du 16 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.35s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Montage avec adaptation d’impédance</span>
+          <h2>Montage avec adaptation d’impédance</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.53.45.png"
+              alt="Montage avec adaptation d’impédance"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Montage adapté de l’antenne et fonction tuning.</figcaption>
+          </figure>
+          <p>Pour corriger l’impédance de l’antenne (trop éloignée de 50 Ω), j’ai ajouté un <strong>condensateur en série</strong> dans le circuit.</p>
+          <p>Dans ce montage, on voit :</p>
+          <ul>
+            <li>La <strong>source de signal</strong> (Z = 50 Ω),</li>
+            <li>Le <strong>condensateur C1</strong>, de <strong>33 pF</strong>,</li>
+            <li>Le bloc <strong>SnP</strong>, qui contient les données d’impédance réelles de l’antenne.</li>
+          </ul>
+          <p>Le condensateur permet d’<strong>ajuster la partie réactive</strong> de l’impédance (la composante imaginaire), sans consommer d’énergie.</p>
+          <p>J’ai utilisé l’outil <strong>“tuning”</strong> (à gauche) pour tester différentes valeurs. La <strong>valeur optimale</strong> trouvée est <strong>33 pF</strong>. Elle améliore nettement l’adaptation, comme le montrent les résultats dans la figure suivante.</p>
+          <p>Cette correction est essentielle pour respecter <strong>l’exigence EXIG_IMPEDANCE</strong> du cahier des charges.</p>
+          <p>Se référer à la page du 17 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.4s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Abaque de Smith avec impédance ajustée</span>
+          <h2>Abaque de Smith avec impédance ajustée</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.53.56.png"
+              alt="Abaque de Smith avec impédance ajustée"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Abaque de Smith avec impédance ajustée.</figcaption>
+          </figure>
+          <p>Après l’ajout du <strong>condensateur de 33 pF</strong>, j’ai simulé à nouveau l’impédance de l’antenne à <strong>144 MHz</strong>.</p>
+          <p>Sur cet <strong>abaque de Smith</strong>, le <strong>point rouge</strong> est désormais <strong>au centre du graphique</strong>, ce qui signifie que l’<strong>impédance est parfaitement adaptée</strong> : <strong>Z = 50 / -2,42°</strong>, soit <strong>50 Ω quasi pur</strong>, sans composante réactive.</p>
+          <p>On observe aussi que le paramètre <strong>S11</strong> est très faible (<strong>0,0211</strong>), ce qui indique que <strong>moins de 1 % du signal est réfléchi</strong>. Cela répond pleinement à l’exigence <strong>EXIG_IMPEDANCE</strong> (S11 &lt; -10 dB).</p>
+          <p>Cette figure confirme que le <strong>réseau d’adaptation est efficace</strong> : le signal sera transmis à l’antenne avec <strong>un minimum de perte</strong>.</p>
+          <p>Se référer à la page du 17 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.45s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Paramètre S11 sur la plage 143–145 MHz</span>
+          <h2>Paramètre S11 sur la plage 143–145 MHz</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.54.08.png"
+              alt="Paramètre S11 sur la plage 143–145 MHz"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Paramètre S11 sur la plage 143–145 MHz.</figcaption>
+          </figure>
+          <p>Cette courbe montre l’évolution du paramètre <strong>S11</strong>, qui mesure la <strong>quantité de signal réfléchi</strong> par l’antenne. Plus la valeur de S11 est basse, plus l’antenne est bien adaptée.</p>
+          <p>Ici, j’observe :</p>
+          <ul>
+            <li><strong>-17,6 dB à 143 MHz</strong></li>
+            <li><strong>-24,7 dB à 145 MHz</strong></li>
+          </ul>
+          <p>Ces valeurs sont <strong>inférieures à -10 dB</strong>, ce qui signifie que <strong>moins de 10 % du signal est réfléchi</strong>. L’exigence <strong>EXIG_IMPEDANCE</strong> est donc bien respectée sur toute la bande utile [143–145 MHz].</p>
+          <p><strong>Validation de l’adaptation par calcul</strong></p>
+          <p>L’impédance initiale était : <strong>ZA = 57,06 + j37,22 Ω</strong></p>
+          <p>J’ai exprimé cela sous forme normalisée : <strong>z = 1,14 + j0,75</strong></p>
+          <p>Pour compenser la <strong>partie imaginaire (j37,22 Ω)</strong>, j’ai utilisé la formule de la <strong>réactance capacitive</strong> : <strong>Xc = 1 / (2πfC)</strong></p>
+          <p>En résolvant pour <strong>C</strong> avec <strong>f = 144 MHz</strong>, j’ai trouvé une capacité de <strong>29,7 pF</strong>.</p>
+          <p>En pratique, la simulation m’a conduit à utiliser un <strong>condensateur de 33 pF</strong>. Cet écart s’explique par :</p>
+          <ul>
+            <li>Les <strong>approximations</strong> du modèle,</li>
+            <li>Les <strong>effets parasites</strong> non modélisés,</li>
+            <li>Les <strong>tolérances des composants réels</strong>.</li>
+          </ul>
+          <p>Se référer à la page du 18 <a title="DDC" href="https://drive.google.com/file/d/1neQv--F9IharFkWIq5RTc1PTxghB-g96/view?usp=share_link">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.5s;">
+        <h2>Conclusion de la conception détaillée du Radio Goniomètre</h2>
+        <p>Dans ce projet, j’ai transformé les spécifications du cahier des charges en un prototype fonctionnel, en combinant <strong>simulations</strong>, <strong>calculs</strong> et <strong>choix de composants adaptés</strong>.</p>
+        <p>L’antenne HB9CV a d’abord présenté une impédance non conforme, mais j’ai corrigé ce point grâce à l’<strong>ajout d’un condensateur</strong> calculé puis ajusté par simulation sous <strong>Qucs Studio</strong>. Cette adaptation a été validée par l’<strong>abaque de Smith</strong> et l’analyse du <strong>paramètre S11</strong>, prouvant que l’antenne est maintenant bien adaptée sur la plage [143–145 MHz].</p>
+        <p>Ce travail m’a permis de valider la <strong>conception complète du prototype</strong>, en assurant à la fois la conformité technique et la faisabilité pratique pour les prochaines étapes de réalisation.</p>
+      </section>
+    </main>
+  </body>
+</html>

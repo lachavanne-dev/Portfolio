@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Portfolio immersif de Paul Lachavanne - navigation fluide entre projets et compétences C1/C2 disponible." />
+  <title>Portfolio - Paul Lachavanne</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="background-orb" aria-hidden="true"></div>
+  <header class="navbar" data-navbar>
+    <button class="logo" type="button" data-scroll-target="#hero">Paul Lachavanne</button>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <button type="button" data-scroll-target="#hero" data-nav>Accueil</button>
+      <button type="button" data-scroll-target="#projects" data-nav>Projets</button>
+      <button type="button" data-scroll-target="#skills" data-nav>Compétences</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="hero" class="hero">
+      <p class="hero-eyebrow">Portfolio immersif</p>
+      <h1>
+        Projets et compétences en électronique embarquée.
+      </h1>
+      <p class="hero-subtext">
+        Accédez aux projets, ou accédez directement aux compétences pour une navigation bidirectionnelle.
+      </p>
+      <div class="hero-actions">
+        <button class="action-btn" type="button" data-scroll-target="#projects">Explorer les projets</button>
+        <button class="action-btn secondary" type="button" data-scroll-target="#skills">Voir les compétences</button>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Onglet Projets</p>
+          <h2>Des images cliquables et professionnelles pour chaque dossier.</h2>
+          <p class="section-desc">
+            Chaque visuel vous branche sur les compétences associées : un clic, la modale affiche instantanément le
+            statut et les
+            livrables C1/C2.
+          </p>
+        </div>
+      </header>
+      <div class="grid" data-project-grid role="list"></div>
+    </section>
+
+    <section id="skills" class="section">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Onglet Compétences</p>
+          <h2>Cartographier les compétences et retourner vers les projets.</h2>
+          <p class="section-desc">
+            Cliquez sur une compétence pour afficher les projets reliés, puis rouvrez le projet correspondant pour
+            accéder au dossier
+            Concevoir.
+          </p>
+        </div>
+      </header>
+      <div class="grid" data-competence-grid role="list"></div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" data-modal hidden>
+    <div class="modal-content">
+      <button class="close-btn" type="button" data-close-modal aria-label="Fermer">&#xD7;</button>
+      <div class="modal-body" data-modal-body></div>
+    </div>
+  </div>
+
+  <script src="kah_assets.js"></script>
+  <script src="data.js"></script>
+  <script src="parallax.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

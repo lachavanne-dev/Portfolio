@@ -1,0 +1,28 @@
+<svg width="640" height="400" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="robotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38F5FF" />
+      <stop offset="100%" stop-color="#00FFA3" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="32" fill="#060612" />
+  <g opacity="0.85" stroke="url(#robotGradient)" stroke-width="2" fill="none">
+    <path d="M110 260 C160 200 220 200 270 260 S380 320 430 260" />
+    <rect x="200" y="120" width="240" height="160" rx="32" />
+    <circle cx="260" cy="180" r="32" />
+    <circle cx="380" cy="180" r="32" />
+    <path d="M220 320 L220 360" stroke="#fff" stroke-opacity="0.25" />
+    <path d="M420 320 L420 360" stroke="#fff" stroke-opacity="0.25" />
+  </g>
+  <g fill="#ffffff" fill-opacity="0.6">
+    <circle cx="260" cy="180" r="12" />
+    <circle cx="380" cy="180" r="12" />
+    <rect x="296" y="200" width="48" height="4" />
+  </g>
+  <text x="48" y="330" fill="#9FB4FF" font-family="'Inter', 'Segoe UI', sans-serif" font-size="22" font-weight="600">
+    Robot Sumo autonome
+  </text>
+  <text x="48" y="360" fill="#E5F3FF" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16">
+    Robotique & Contrôle - Stratégies IA embarquée
+  </text>
+</svg>

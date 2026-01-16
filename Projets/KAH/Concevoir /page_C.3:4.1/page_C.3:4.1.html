@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kart à Hélice — C.3 / C.4.1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences {
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        margin: 0 0 18px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .split {
+        display: grid;
+        gap: 28px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+        align-items: center;
+      }
+
+      .split.stacked {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .split.stacked .image-frame {
+        order: -1;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .action-grid {
+        display: grid;
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .action-item {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .action-item h3 {
+        margin: 0 0 12px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      .action-item .legend-flow .image-frame {
+        width: 54%;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .code-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .code-grid figure {
+        margin: 0;
+      }
+
+      .code-grid h3 {
+        margin: 18px 0 10px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .split {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame,
+        .action-item .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <p class="competences">
+            C.3 : J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel
+            <br>
+            &amp;
+            <br>
+            C.4.1 Je rédige un dossier de conception
+          </p>
+          <h1>Kart à Hélice</h1>
+          <p class="subtitle">SAE Kart à Hélice</p>
+        </div>
+        <figure class="hero-card">
+          <img src="image/kart_a_helice.jpg" alt="Vue 3D du Kart à Hélice" loading="lazy" decoding="async">
+          <figcaption>KAH — vue d'ensemble du prototype.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Après avoir réalisé l’analyse fonctionnelle du système “Kart à Hélice” (KAH), l’étape suivante a été de passer à la conception détaillée. Cette phase consiste à déterminer de manière définitive l'architecture électronique et informatique ainsi que le choix final des composants des différents éléments du produit en transformant les spécifications générales issues de l’analyse fonctionnelle en plans et schémas précis permettant de réaliser un prototype fonctionnel.</p>
+        <p>J’ai contribué à la réalisation du prototype de l’émetteur ( télécommande ), en particulier sur les blocs “Acquisition” et “Action” de l’électronique, mais également à celui du récepteur ( Kart à hélice ) sur les blocs “Acquisition” et “Action” de l’informatique.</p>
+        <p>J'ai donc choisi de manière définitive les composants électroniques des blocs "Action" et Acquisition" par l'intermédiaire de calculs (manipulation de grandeurs physiques) et d'informations provenant des documents techniques de chaque composant afin de répondre pleinement aux exigences du <a href="https://docs.google.com/document/d/1wp9HxB1BugEzR-jQBGManNxMac43q-Pw/edit?usp=sharing&amp;ouid=111011439869493040299&amp;rtpof=true&amp;sd=true">Cahier des charges</a>.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <h2>Conception des schémas electroniques</h2>
+        <p>Sur le logiciel "Proteus" j’ai conçu les schémas électroniques de l'émetteur. Les schémas incluent les connexions électriques entre les composants, Blocs fonctionnels ainsi que leur disposition sur le circuit imprimé.</p>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative Schéma électrique étage potentiomètre (Bloc Acquisition)</span>
+          <h2>Schéma électrique étage potentiomètre (Bloc Acquisition)</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.13.28.png"
+              alt="Schéma électrique étage potentiomètre"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma électrique étage potentiomètre (Bloc Acquisition).</figcaption>
+          </figure>
+          <p>Afin de pouvoir commander la vitesse et la direction du Kart, j'ai dimensionné cet étage en branchant à l'alimentation électrique (<strong>VCC</strong>) un potentiomètre linéaire nommé "<strong>RV1</strong>" sur le schéma. La broche "<strong>3</strong>" d'une extrémité est placée sur le potentiel électrique le plus élevé de (+5V) et celle de l'autre extrémité "<strong>1</strong>" est placée sur le potentiel électrique le plus bas (la masse).</p>
+          <p>C'est une résistance variable permettant permettant de faire varier la quantité de courant électrique en sortie. Ainsi, la broche "<strong>2</strong>" (de sortie) est branchée à celle du microcontrôleur "<strong>Analog potar2</strong>". C'est une broche analogique. Elle permet au microcontrôleur du bloc "Traitement" d'interpréter les signaux de cet étage du bloc "Action". Je me suis assuré par calcul lors de la rédaction du "<a title="Dossier de conception" href="https://drive.google.com/file/d/1k2RCRigF1a7U5PD_dhQXLK_Uc17DWpvz/view?usp=share_link">DDC</a>" qu'un potentiomètre de résistance électrique maximale d'une valeur de <strong>10kΩ</strong> était adapté en me référant à la précision de l'exigence traitement du <a href="https://docs.google.com/document/d/1wp9HxB1BugEzR-jQBGManNxMac43q-Pw/edit?usp=sharing&amp;ouid=111011439869493040299&amp;rtpof=true&amp;sd=true">Cahier des charges</a>. Afin de réaliser ces calculs, Je me suis appuyé sur ces éléments "<a title="dimensionner un potentiomètre" href="https://drive.google.com/file/d/1td-Ef5qiAO74IlJBTvJBL0XZdCQfvyTS/view?usp=share_link">dimensionner un potentiomètre</a>".</p>
+          <p>J'ai également sélectionné et placé un condensateur "<strong>C1</strong>" dont j'ai choisi la valeur de sa capacité Farads par calcul. La ressource "<a title="dimensionner un condensateur" href="https://drive.google.com/file/d/1IguVAdiDQeO5tcciyWCLXRl8fPxSUf2A/view?usp=share_link">dimensionner un condensateur</a>" m'a servi d'appui. Je l'ai branché entre la masse et la sortie du potentiomètre (broche "<strong>2</strong>") afin de lisser le signal électrique en éliminant le “bruit” indésirable.</p>
+          <p>En effet, Lorsqu’un utilisateur ajuste le potentiomètre, des variations rapides et des interférences peuvent apparaître dans le signal. Ces variations, ou “bruit”, peuvent fausser les mesures du système.</p>
+          <p>Le condensateur agit alors comme un filtre passe-bas, ce qui signifie qu’il permet aux signaux de basse fréquence (les mouvements lents et souhaités des doigts sur les curseurs) de passer tout en bloquant les signaux de haute fréquence (les changements rapides et indésirables de tension). Cette stabilité permet au microcontrôleur d'interpréter de manière fiable les signaux électriques envoyés par les potentiomètres de commande.</p>
+          <p>Sachant que la télécommande doit comporter 2 interfaces de commande (vitesse / direction), j'ai réalisé deux fois ce schéma électrique en prenant soins de connecter les broches de sortie des potentiomètres sur des entrées analogique différentes du microcontrôleur.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative Schéma électrique étage bouton poussoir avec le pull up interne du MCU (Bloc Acquisition)</span>
+          <h2>Schéma électrique étage bouton poussoir avec le pull up interne du MCU (Bloc Acquisition)</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.13.44.png"
+              alt="Schéma électrique étage bouton poussoir avec pull up interne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma électrique étage bouton poussoir avec le pull up interne du MCU (Bloc Acquisition).</figcaption>
+          </figure>
+          <p>Afin de d'informer le microcontrôleur de l'intention de l'utilisateur de faire retentir le Klaxon du Kart, j'ai sélectionné un bouton poussoir (ici "<strong>K1</strong>") que j'ai branché entre la masse (potentiel électrique le plus bas) et une entrée binaire du microcontrôleur. Cette entrée est reliée à une résistance interne à celui-ci (ici "<strong>R4</strong>") elle-même reliée à l'alimentation électrique (<strong>VCC</strong>). Ainsi, lorsque le bouton n'est pas pressé, le courant se dirige vers le microcontrôleur provoquant un état logique "haut". A l'inverse, lorsque celui-ci est pressé, le courant est tiré au potentiel le plus bas ( la masse) en passant à travers celui-ci. L'état logique associé a cette entrée du microcontrôleur est alors "bas"</p>
+          <p>Cela laisse la possibilité de programmer par la suite le microcontrôleur afin d'envoyer le signal "Klaxon" au récepteur du Kart à hélice lorsqu'un état "bas" est détecté.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative Schéma électrique leds infrarouges</span>
+          <h2>Schéma électrique leds infrarouges</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.13.56.png"
+              alt="Schéma électrique des LEDs infrarouges"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma électrique leds infrarouges.</figcaption>
+          </figure>
+          <p>L'objectif du bloc "Action" étant d'envoyer les informations de la télecommande vers le récepteur du Kart, j'ai dimensionné cet étage ainsi.</p>
+          <p>J'ai sélectionné deux diodes infrarouges "<strong>D2</strong>" &amp; "<strong>D3</strong>", un transistor "<strong>Q2</strong>" ainsi que deux résistances "<strong>R3</strong>" &amp; "<strong>R4</strong>". en fonction de leurs spécifications techniques. En effet l'exigence de puissance de l'émmetteur du CDC stipule que le courant devant traverser les diodes doit être supérieur à 200 mA</p>
+          <p>Cependant le courant maximale pouvant être délivré par le microcontrôleur sans le faire surchauffer est largement insuffisant. C'est pourquoi j'ai relié la broche positive de "<strong>D2</strong>"à l'alimentation VCC (pouvant générer un courant suffisant) et sa broche négative à la broche positive de la diode D3 formant ainsi un ensemble en série. La valeur de la résistance "<strong>R3</strong>"placée en amont des diodes à été calculé afin de permettre le passage d'un courant suffisant tout en les protégeant des surtensions. Je me suis donc référé aux documents techniques les concernant (<a title="TSAL6200.pdf" href="https://drive.google.com/file/d/1OwQK5T9HxedeSyQ0HgRN-wHnze99t21i/view?usp=share_link">TSAL6200.pdf</a>) afin de déterminer le courant maximal pouvant être supporté et ainsi dimensionner la résistance.</p>
+          <p>J'ai choisis ce transistor en fonction de sa capacité à gérer un tel courant à partir de sa fiche technique (<a title="BC337.pdf" href="https://drive.google.com/file/d/1jQiOUReO2vtgz--CUtAftq-C8sQSQc76/view?usp=share_link">BC337.pdf</a>). Il joue ici le rôle de "drain" de courant électrique. Le "<strong>collecteur</strong>" du transistor (broche du haut) est relié à la broche négative de la diode "<strong>D3</strong>" et son <strong>émetteur</strong> (broche du bas) est relié à la masse (potentiel électrique le plus bas). Ainsi, les diodes infrarouges sont reliées à la masse par l'intermédiaire de ce "drain" et le courant les traversant dépends de ce dernier. Sa "<strong>Base</strong>" (broche du milieu) est reliée à une broche de sortie binaire (ici "<strong>InfraIN</strong>") du microcontrôleur par l'intermédiaire de la résistance <strong>"R4"</strong>. Celle-ci permet de limiter le courant sortant de cette broche vers la "<strong>Base</strong>". Cette configuration permet de venir "drainer" un fort courant à travers les diodes en provenance de l'alimentation à partir d'un courant bien plus faible venant du microcontôleur. Le fort courant des diodes peut donc être contrôlé par celui-ci sans le traverser.</p>
+          <p>Ces variations rapides et contrôlées de courant provoquées par le microcontrôleur représentent les informations codées. Elles sont donc transmises au récepteur sous forme de signal infrarouge (lumière invisible à l'oeil nu) par l'intermédiaire de ces diodes.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative Schéma électrique LED verte</span>
+          <h2>Schéma électrique LED verte</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-14%20a%CC%80%2011.14.13.png"
+              alt="Schéma électrique LED verte"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma électrique LED verte.</figcaption>
+          </figure>
+          <p>Cet étage concerne l’indicateur lumineux (vert) informant de la mise sous tension de la télécommande. Le CDC imposait une certaine luminosité exprimée en Candela. J’ai donc pris soin de placer en amont de la LED une résistance "<strong>R3</strong>" d’une valeur adaptée. En analysant les documents techniques relatifs à la LED verte "<strong>D3</strong>", j’ai pu déduire le courant nécessaire pour atteindre la luminosité exigée par l’exigence “indicateur” de l’émetteur du CDC. J’ai par la suite dimensionné la bonne valeur de résistance pour un tel courant.</p>
+          <p>J'ai branché l'ensemble (LED + résistance) entre l'alimentation VCC et la masse afin de laisser un courant passer lors de la mise sous tension.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.35s;">
+        <h2>Conception du code informatique</h2>
+        <p>J’ai personnellement développé les blocs “Acquisition” et “Action” de la partie informatique du récepteur du kart à hélice en utilisant une plateforme Arduino, un logiciel permettant d'écrire du code en language C++ et de le convertir en language binaire. Les microcontroleurs peuvent uniquement interpréter ce dernier composé d'une succession d'état "haut" et "bas" (0 et 1). Ces blocs sont essentiels pour recevoir les signaux envoyés par l’émetteur et les transformer en actions physiques du kart. Pour se faire, j'ai employé de manière informatique le protocole NEC de transmission infrarouge conformément à cette fiche de synthèse "<a title="Synthèse_cours.pdf" href="https://drive.google.com/file/d/1FfMl4AnTzUrHXUHijx9B5Zh8eJu7h81w/view?usp=share_link">Synthèse_cours.pdf</a>".</p>
+        <p>J'ai téléchargé les bibliothèques NEC pour Arduino pour décoder les signaux infrarouges. Ces algorithmes interprètent les signaux reçus et vérifient leur validité/intégrité.</p>
+        <p>Ce protocole été donc adapté à l'exigence de traitement informatique du récepteur du "<a href="https://docs.google.com/document/d/1wp9HxB1BugEzR-jQBGManNxMac43q-Pw/edit?usp=sharing&amp;ouid=111011439869493040299&amp;rtpof=true&amp;sd=true">Cahier des charges</a>".</p>
+      </section>
+
+      <section style="--delay: 0.4s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Extrait code informatique bloc "Acquisition"</span>
+          <h2>Extrait code informatique bloc "Acquisition"</h2>
+          <figure class="image-frame float-right">
+            <img src="image/acquisition.png" alt="Extrait code informatique bloc Acquisition" loading="lazy" decoding="async">
+            <figcaption>Extrait code informatique bloc "Acquisition".</figcaption>
+          </figure>
+          <p>Cette section du programme se consacre à l'acquisition des trames de données envoyées par l'émetteur du kart à hélice.</p>
+          <p>j'ai codé cette ligne "<strong>uint8_t adresseNEC</strong>" afin de stocker l'adresse extraite de la trame d'information reçue. L'adresse permet de s'assurer que la trame provient bien de l'émetteur désigné (la bonne télécommande), offrant une couche de vérification pour éviter les interférences avec d'autres dispositifs infrarouges.</p>
+          <p>Cette deuxième ligne "<strong>uint8_t donneeNEC</strong>" sert à stocker la donnée utile extraite de la trame d'information. Cette donnée comprend les commandes de direction et de vitesse pour le moteur du kart.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.5s;">
+        <span class="eyebrow">Bloc Action — extraits &amp; légendes</span>
+        <h2>Extrait code informatique bloc "Action"</h2>
+        <div class="action-grid">
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Fonctions d’Action</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2001.10.33.png.1.png"
+                  alt="Fonctions d’Action"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Fonctions d’Action.</figcaption>
+              </figure>
+              <p>Dans cette section, j’ai configuré les différentes parties du système de contrôle du “Kart à Hélice” en utilisant le microcontrôleur Arduino. La fonction setup() est utilisée pour initialiser les composants nécessaires avant que le programme principal ne commence à s’exécuter.</p>
+              <p>Premièrement, j’ai configuré la communication avec la ligne <strong>Serial.begin(9600)</strong>; Cela permet au microcontrôleur de communiquer à une vitesse de transmission de 9600 bits par seconde, afin de recevoir et d'envoyer des données.</p>
+              <p>Ensuite, j’ai configuré la broche <strong>RECV_PIN</strong> comme une entrée avec <strong>pinMode(RECV_PIN, INPUT)</strong>; Cela permet de recevoir les données infrarouges envoyées par la télécommande. Cela permet au microcontôleur de lire ces signaux.</p>
+              <p>Pour contrôler les composants de sortie, j’ai configuré la broche <strong>LedBleue_Pin</strong> comme une sortie avec <strong>pinMode(LedBleue_Pin, OUTPUT);</strong>. Cela permet à l’Arduino de contrôler la LED bleue, en l’allumant ou en l’éteignant selon la validité des informations reçues. De la même manière, j’ai configuré la broche <strong>Buzzer_Pin</strong> comme une sortie avec <strong>pinMode(Buzzer_Pin, OUTPUT)</strong>; , ce qui permet de contrôler le Klaxon, en l’activant ou en le désactivant selon les commandes reçues (appui du bouton poussoir).</p>
+              <p>J’ai également associé un objet servomoteur à la broche <strong>ServomotorPin</strong> en utilisant la ligne <strong>Servomotor.attach(ServomotorPin)</strong>; Cela permet à l’Arduino de contrôler le servomoteur pour diriger les roues du kart en ajustant leur angle. De plus, j’ai associé un objet moteur brushless à la broche <strong>MotorbrushlessPin</strong> avec <strong>Motorbrushless.attach(MotorbrushlessPin)</strong>; permettant à l’Arduino de contrôler la vitesse et la direction du moteur brushless pour propulser le kart.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Contrôle de la LED Bleue</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2001.10.38.png.2.png"
+                  alt="Contrôle de la LED Bleue"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Contrôle de la LED Bleue.</figcaption>
+              </figure>
+              <p>J'ai implémenté une fonction pour contrôler l’état de la LED bleue. Cette fonction, appelée actionLedBleue, permet d’allumer ou d’éteindre la LED en fonction de l’état reçu. Si l’état est vrai, la LED s’allume, et si l’état est faux, la LED s’éteint. <em>(L'état associé concerne la validité des informations reçues)</em>.</p>
+              <p>Cette fonction utilise la commande <strong>digitalWrite</strong> pour envoyer un signal électrique à la broche de la LED bleue, où <strong>HIGH</strong> signifie que la LED est allumée et <strong>LOW</strong> signifie qu’elle est éteinte. Cela permet d’indiquer visuellement l’état du système et de vérifier que la télécommande fonctionne correctement.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Contrôle du Servomoteur</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2001.10.45.png.1.png"
+                  alt="Contrôle du Servomoteur"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Contrôle du Servomoteur.</figcaption>
+              </figure>
+              <p>Pour contrôler la direction des roues du kart, j’ai utilisé un servomoteur. La fonction <strong>actionServomoteur</strong> ajuste l’angle des roues en fonction de la commande reçue de la télécommande. Elle prend un paramètre qui représente l’angle des roues et convertit cette valeur de 0 à 15 en une plage de 0 à 180 degrés, ce qui correspond à l’angle de rotation du servomoteur.</p>
+              <p>Cette conversion est réalisée par la fonction map, et l’angle converti est ensuite envoyé au servomoteur via la commande <strong>write</strong>. Cela permet de diriger les roues du kart de manière précise et proportionnelle aux mouvements du joystick de la télécommande.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Contrôle du Moteur Brushless</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2001.10.48.png.1.png"
+                  alt="Contrôle du Moteur Brushless"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Contrôle du Moteur Brushless.</figcaption>
+              </figure>
+              <p>Pour contrôler la vitesse du kart, j’ai utilisé un moteur brushless. La fonction <strong>actionMoteurBrushless</strong> permet de régler la vitesse du moteur en fonction de la commande reçue de la télécommande. Elle prend un paramètre qui représente le niveau de vitesse et le convertit de 0 à 15 en une plage de 0 à 180 degrés.</p>
+              <p>Cette conversion est réalisée par la fonction map, et la vitesse convertie est ensuite envoyée au moteur brushless via la commande <strong>write</strong>. Cela permet de contrôler la vitesse du kart de manière fluide et proportionnelle aux commandes de la télécommande, assurant ainsi une expérience de conduite précise.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Contrôle du Klaxon</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2001.10.54.png.1.png"
+                  alt="Contrôle du Klaxon"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Contrôle du Klaxon.</figcaption>
+              </figure>
+              <p>Pour ajouter des alertes sonores au système, j’ai utilisé un buzzer. La fonction actionBuzzer active ou désactive le buzzer en fonction de la commande reçue. Si la commande est de l’activer, le buzzer émet un son à 4000 Hz. Si la commande est de le désactiver, le buzzer s’arrête.</p>
+              <p>Cette fonction utilise la commande <strong>tone</strong> pour émettre le son et <strong>noTone</strong> pour arrêter le son. Cela permet d’utiliser le buzzer pour des alertes ou des notifications sonores, par exemple pour signaler une action spécifique ou pour confirmer une commande reçue.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section style="--delay: 0.6s;">
+        <h2>Conclusion détaillée du Kart à Hélice</h2>
+        <p>Dans le cadre de ce projet, j’ai développé des fonctions essentielles pour contrôler les composants du kart en utilisant un microcontrôleur Arduino. J’ai assuré la communication avec la télécommande, interprété les commandes reçues et les ai traduites en actions précises. Les fonctions de contrôle permettent d’indiquer visuellement l’état du système avec la LED bleue, d’ajuster l’angle des roues pour une direction précise avec le servomoteur, de réguler la vitesse pour une propulsion fluide avec le moteur brushless, et de fournir des alertes sonores avec le buzzer.</p>
+        <p>Sur le plan électronique, j’ai conçu les circuits pour les parties acquisition et action de l’émetteur, en intégrant les composants nécessaires, en configurant les broches pour la réception des signaux infrarouges, et en activant les actionneurs. Cette étape a permis de garantir la fiabilité des signaux envoyés et leur interprétation correcte par le récepteur.</p>
+        <p>Du côté informatique, j’ai travaillé sur les parties acquisition et action du récepteur, en développant des algorithmes pour décoder les signaux infrarouges reçus, valider les données, et exécuter les commandes. Cela a assuré que les instructions transmises par la télécommande soient correctement interprétées et appliquées, permettant un contrôle précis du kart.</p>
+        <p>L’utilisation de composants électroniques appropriés et la conception soignée des algorithmes informatiques ont été cruciales pour garantir la fiabilité et la précision des commandes. Ces efforts ont permis de transformer les spécifications en un prototype opérationnel et efficace.</p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<svg width="640" height="400" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="antenneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7F5AF0" />
+      <stop offset="100%" stop-color="#2CB67D" />
+    </linearGradient>
+    <radialGradient id="antenneGlow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#0f0f12" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="32" fill="#0f0f12" />
+  <rect width="640" height="400" rx="32" fill="url(#antenneGlow)" />
+  <g transform="translate(120 60)" stroke="url(#antenneGradient)" stroke-width="2" fill="none">
+    <path d="M40 20 L200 20 L320 100 L200 180 L40 180 Z" opacity="0.5" />
+    <path d="M40 200 L200 200 L320 280 L200 360 L40 360 Z" opacity="0.35" />
+    <circle cx="200" cy="180" r="140" opacity="0.35" />
+    <circle cx="200" cy="180" r="80" opacity="0.6" />
+    <line x1="200" y1="0" x2="200" y2="320" opacity="0.5" />
+    <line x1="80" y1="60" x2="320" y2="140" opacity="0.25" />
+  </g>
+  <text x="48" y="340" fill="#9FB4FF" font-family="'Inter', 'Segoe UI', sans-serif" font-size="22" font-weight="600">
+    Antenne HB9CV
+  </text>
+  <text x="48" y="366" fill="#E5F3FF" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16">
+    Radio & Hyperfréquences - Prototype terrain
+  </text>
+</svg>

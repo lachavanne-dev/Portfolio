@@ -1,0 +1,802 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-color: #fefcf9;
+  --bg-alt: #f6efe4;
+  --surface-color: #fffdf7;
+  --surface-pop: #f6efe4;
+  --primary-color: #c25a38;
+  --secondary-color: #1d6b68;
+  --accent-3: #e0a458;
+  --text-main: #1b1a17;
+  --text-secondary: #5a554e;
+  --line: rgba(27, 26, 23, 0.12);
+  --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+  --nav-height: 80px;
+  --card-radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.background-orb {
+  position: fixed;
+  inset: -20% auto auto -10%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(194, 90, 56, 0.28), transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--nav-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  background: rgba(255, 253, 247, 0.88);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--line);
+}
+
+.navbar--solid {
+  background: rgba(255, 253, 247, 0.95);
+}
+
+.logo {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--text-main);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.35rem 0;
+}
+
+.nav-links button:hover,
+.nav-links button.active {
+  color: var(--text-main);
+}
+
+.nav-links button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+.container {
+  padding: calc(var(--nav-height) + 40px) 5% 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 0 40px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: var(--secondary-color);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.hero h1 span {
+  color: var(--primary-color);
+}
+
+.hero-subtext {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+}
+
+.section-desc {
+  margin-top: 0.5rem;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding-top: 2rem;
+}
+
+.card {
+  background: var(--surface-color);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-color);
+}
+
+.card-image {
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-eyebrow {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.card-title {
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.card-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(194, 90, 56, 0.15);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.skill-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.skill-code {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--text-secondary);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid var(--line);
+  color: var(--text-secondary);
+}
+
+.status-pill--active {
+  border-color: rgba(29, 107, 104, 0.45);
+  color: var(--secondary-color);
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--primary-color);
+  color: #fffdf7;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.action-btn.secondary {
+  background: var(--secondary-color);
+  color: #fffdf7;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 26, 23, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  background: var(--surface-pop);
+  width: 100%;
+  max-width: 820px;
+  border-radius: var(--card-radius);
+  padding: 2.5rem 2.5rem 2rem;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.35s ease;
+  border: 1px solid var(--line);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--text-main);
+  font-size: 1.2rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: rgba(27, 26, 23, 0.05);
+}
+
+.modal-title {
+  margin: 0.5rem 0;
+  font-size: 1.8rem;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--surface-color);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+}
+
+.modal-list-item p {
+  margin: 0.3rem 0 0;
+  color: var(--text-secondary);
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 160px;
+}
+
+.modal-actions .action-btn {
+  width: 100%;
+}
+
+.modal-actions .action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.badge--available {
+  color: var(--secondary-color);
+}
+
+.badge--soon {
+  color: var(--accent-3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modal-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 24px;
+  }
+
+  .nav-links {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--surface-color);
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .nav-links button {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  .container {
+    padding-bottom: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .card-image {
+    height: 180px;
+  }
+
+  .modal-content {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+}
+
+/* Ajoute ceci à la fin ou remplace les sections correspondantes */
+
+/* --- Skill Cards & Hover Effects --- */
+.skill-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.skill-content {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Le menu caché par défaut */
+.skill-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-pop);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  pointer-events: none; /* Empêche le clic quand invisible */
+}
+
+/* Au survol de la carte, on affiche l'overlay */
+.skill-card:hover .skill-hover-overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.skill-card:hover .skill-content {
+  opacity: 0.2;
+  transform: scale(0.95);
+}
+
+.hover-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.hover-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.hover-btn {
+  background: rgba(194, 90, 56, 0.15);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.hover-btn:hover {
+  background: var(--primary-color);
+  color: #fffdf7;
+}
+
+/* --- Modale Projet : Liste des compétences --- */
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--surface-color);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  transition: background 0.2s;
+}
+
+.skill-row:hover {
+  background: var(--bg-alt);
+}
+
+.skill-row-pages {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0.4; /* Discret par défaut */
+  transition: opacity 0.2s;
+}
+
+/* Au survol de la ligne, on illumine les boutons */
+.skill-row:hover .skill-row-pages {
+  opacity: 1;
+}
+
+.page-chip {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background: var(--bg-alt);
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.page-chip:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* --- Modale Selecteur de Projet (Chemin B) --- */
+.project-selector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.project-select-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--surface-color);
+  border-radius: var(--card-radius);
+  text-decoration: none;
+  color: var(--text-main);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.project-select-item:hover {
+  border-color: var(--primary-color);
+  transform: translateX(5px);
+  background: rgba(194, 90, 56, 0.12);
+}
+
+.project-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.icon-arrow {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* --- DESIGN SPÉCIFIQUE MODALE PROJET (LISTE DÉTAILLÉE) --- */
+
+.skill-list-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--surface-color); /* Fond carte */
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem; /* Espacement entre les lignes */
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-list-row:hover {
+  background: var(--surface-pop); /* Légèrement plus clair au survol */
+  border-color: var(--primary-color);
+  transform: translateX(5px); /* Petit mouvement satisfaisant */
+}
+
+/* Colonne Gauche : Textes */
+.skill-info-col {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.skill-name {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.skill-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Colonne Droite : Zone d'action */
+.skill-action-col {
+  position: relative;
+  width: 180px; /* Largeur fixe pour éviter que ça bouge */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Le texte "Voir les pages ->" */
+.action-hint {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  right: 0;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Le groupe de boutons (caché au départ) */
+.pages-group {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none; /* Empêche de cliquer si invisible */
+}
+
+/* --- L'ANIMATION AU SURVOL (LA MAGIE) --- */
+
+/* Quand on survole la ligne, le texte part à gauche et disparaît */
+.skill-list-row:hover .action-hint {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* Quand on survole la ligne, les boutons arrivent de la droite */
+.skill-list-row:hover .pages-group {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all; /* Active le clic */
+}
+
+/* Style des petits boutons C1/C2... */
+.page-mini-btn {
+  background: var(--primary-color);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+}
+
+.page-mini-btn:hover {
+  background: #d06a45;
+}
+
+/* Responsive mobile : On empile si l'écran est petit */
+@media (max-width: 600px) {
+  .skill-list-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .skill-action-col {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .action-hint {
+    right: auto; left: 0;
+  }
+  .pages-group {
+    right: auto; left: 0;
+  }
+}
