@@ -99,7 +99,7 @@ window.portfolioData = {
       tagline: "Détection adverse, stratégie embarquée, contrôle moteur",
       image: "assets/robot.svg",
       context: "SAE",
-      year: "2023",
+      year: "2024",
       tags: ["Électronique", "C++", "Capteurs"]
     }
   ],
