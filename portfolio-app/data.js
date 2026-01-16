@@ -74,11 +74,11 @@ window.portfolioData = {
       folderRoot: "../Projets/Antenne_HB9CV", // Dossier racine accessible depuis portfolio-app
       reportFile: "page_Antenne HB9CV.pdf",
       title: "Antenne HB9CV",
-      tagline: "Double bande VHF à haut rendement",
+      tagline: "Radiogoniométrie 144 MHz : simulations (MMANA-GAL, Qucs Studio), fabrication, mesures (VNA/RTL-SDR) et tests terrain",
       image: "assets/antenne.svg",
-      context: "Radio & Hyperfréquences",
-      year: "2024",
-      tags: ["Architecture RF", "Usinage", "Mesures"]
+      context: "SAE S4",
+      year: "2025",
+      tags: ["RF", "Simulation", "Mesures"]
     },
     {
       id: "kah",
