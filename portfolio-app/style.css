@@ -519,122 +519,14 @@ body {
 
 /* Ajoute ceci à la fin ou remplace les sections correspondantes */
 
-/* --- Skill Cards & Hover Effects --- */
+/* --- Skill Cards --- */
 .skill-card {
   position: relative;
-  overflow: hidden;
   min-height: 200px;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 2rem;
-}
-
-.skill-content {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* Le menu caché par défaut */
-.skill-hover-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--surface-pop);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  pointer-events: none; /* Empêche le clic quand invisible */
-}
-
-/* Au survol de la carte, on affiche l'overlay */
-.skill-card:hover .skill-hover-overlay {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
-}
-
-.skill-card:hover .skill-content {
-  opacity: 0.2;
-  transform: scale(0.95);
-}
-
-.hover-title {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.hover-btn-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  justify-content: center;
-}
-
-.hover-btn {
-  background: rgba(194, 90, 56, 0.15);
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.hover-btn:hover {
-  background: var(--primary-color);
-  color: #fffdf7;
-}
-
-/* --- Modale Projet : Liste des compétences --- */
-.skill-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: var(--surface-color);
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  transition: background 0.2s;
-}
-
-.skill-row:hover {
-  background: var(--bg-alt);
-}
-
-.skill-row-pages {
-  display: flex;
-  gap: 0.5rem;
-  opacity: 0.4; /* Discret par défaut */
-  transition: opacity 0.2s;
-}
-
-/* Au survol de la ligne, on illumine les boutons */
-.skill-row:hover .skill-row-pages {
-  opacity: 1;
-}
-
-.page-chip {
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  background: var(--bg-alt);
-  border: 1px solid var(--text-secondary);
-  color: var(--text-secondary);
-  border-radius: 4px;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.page-chip:hover {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-  transform: translateY(-2px);
 }
 
 /* --- Modale Selecteur de Projet (Chemin B) --- */
@@ -687,6 +579,8 @@ body {
   margin-bottom: 1rem; /* Espacement entre les lignes */
   position: relative;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
 }
 
 .skill-list-row:hover {
@@ -717,9 +611,7 @@ body {
 
 /* Colonne Droite : Zone d'action */
 .skill-action-col {
-  position: relative;
   width: 180px; /* Largeur fixe pour éviter que ça bouge */
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -731,55 +623,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: absolute;
-  right: 0;
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Le groupe de boutons (caché au départ) */
-.pages-group {
-  display: flex;
-  gap: 8px;
-  position: absolute;
-  right: 0;
-  opacity: 0;
-  transform: translateX(20px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none; /* Empêche de cliquer si invisible */
-}
-
-/* --- L'ANIMATION AU SURVOL (LA MAGIE) --- */
-
-/* Quand on survole la ligne, le texte part à gauche et disparaît */
-.skill-list-row:hover .action-hint {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-/* Quand on survole la ligne, les boutons arrivent de la droite */
-.skill-list-row:hover .pages-group {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: all; /* Active le clic */
-}
-
-/* Style des petits boutons C1/C2... */
-.page-mini-btn {
-  background: var(--primary-color);
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: background 0.2s;
-}
-
-.page-mini-btn:hover {
-  background: #d06a45;
 }
 
 /* Responsive mobile : On empile si l'écran est petit */
@@ -792,11 +635,5 @@ body {
   .skill-action-col {
     width: 100%;
     justify-content: flex-start;
-  }
-  .action-hint {
-    right: auto; left: 0;
-  }
-  .pages-group {
-    right: auto; left: 0;
   }
 }

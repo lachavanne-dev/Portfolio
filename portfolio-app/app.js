@@ -9,6 +9,7 @@ const navbar = document.querySelector('[data-navbar]');
 
 // Maps pour accès rapide
 const projectMap = Object.fromEntries(projects.map((p) => [p.id, p]));
+const defaultPageOverrides = new Set(['kah', 'antenne']);
 
 // --- UTILITAIRE : Générateur d'URL ---
 function getFileUrl(project, skillKey, pageDef) {
@@ -32,6 +33,17 @@ function getFileUrl(project, skillKey, pageDef) {
 
   const resolvedPath = `${project.folderRoot}/${skillData?.folder ?? ''}/${filename}`;
   return encodeURI(resolvedPath);
+}
+
+function getDefaultPage(skillKey, project) {
+  const skillData = structure[skillKey];
+  if (!skillData?.pages?.length) return null;
+
+  if (project && defaultPageOverrides.has(project.id) && skillData.pages[1]) {
+    return skillData.pages[1];
+  }
+
+  return skillData.pages[0];
 }
 
 // --- 1. GÉNÉRATION GRID PROJETS ---
@@ -80,34 +92,17 @@ skillsInfo.forEach((skill) => {
   const card = document.createElement('article');
   card.className = 'card skill-card';
 
-  // Création des boutons pour le menu au survol
-  const buttonsHtml = skillDef.pages.map(page => `
-    <button class="hover-btn" data-page-code="${page.code}">
-      <span class="btn-code">${page.code}</span>
-    </button>
-  `).join('');
-
   card.innerHTML = `
     <div class="skill-content">
       <h3 class="card-title">${skill.name}</h3>
       <p class="card-desc">${skill.summary}</p>
     </div>
-    <div class="skill-hover-overlay">
-      <p class="hover-title">Choisir une page</p>
-      <div class="hover-btn-group">
-        ${buttonsHtml}
-      </div>
-    </div>
   `;
 
-  // Interaction : Click sur une page -> Ouvrir le choix du projet
-  card.querySelectorAll('.hover-btn').forEach((btn, index) => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const pageDef = skillDef.pages[index];
-      openProjectSelectorModal(skill.id, pageDef);
-    });
-  });
+  const defaultPage = getDefaultPage(skill.id, null);
+  if (defaultPage) {
+    card.addEventListener('click', () => openProjectSelectorModal(skill.id));
+  }
 
   if (competenceGrid) competenceGrid.appendChild(card);
 });
@@ -118,36 +113,28 @@ function openProjectModal(project) {
   modalBody.innerHTML = '';
   modalBody.appendChild(createEyebrow(project.context));
   modalBody.appendChild(createTitle(project.title));
-  modalBody.appendChild(createSubtitle("Passez la souris sur une compétence pour dévoiler les fichiers."));
+  modalBody.appendChild(createSubtitle("Cliquez sur une compétence pour ouvrir la page d'entrée."));
 
   const list = document.createElement('div');
   list.className = 'modal-list';
 
   // On parcourt toutes les compétences
   Object.entries(structure).forEach(([skillKey, skillData]) => {
-    const row = document.createElement('div');
-    row.className = 'skill-list-row'; // Classe spécifique pour le design "Liste"
+    const defaultPage = getDefaultPage(skillKey, project);
+    if (!defaultPage) return;
 
-    // Création des boutons (cachés par défaut via CSS)
-    const buttonsHtml = skillData.pages.map(page => {
-      const url = getFileUrl(project, skillKey, page);
-      // target="_blank" pour ouvrir dans un nouvel onglet
-      return `<a href="${url}" target="_blank" class="page-mini-btn">${page.code}</a>`;
-    }).join('');
+    const url = getFileUrl(project, skillKey, defaultPage);
+    const row = document.createElement('a');
+    row.className = 'skill-list-row';
+    row.href = url;
+    row.target = '_blank';
+    row.rel = 'noopener';
 
     // Structure HTML : Gauche (Infos) + Droite (Zone d'action interactive)
     row.innerHTML = `
       <div class="skill-info-col">
         <strong class="skill-name">${skillData.label}</strong>
         <p class="skill-description">${skillData.description}</p>
-      </div>
-      
-      <div class="skill-action-col">
-        <span class="action-hint">Voir les pages &rarr;</span>
-        
-        <div class="pages-group">
-          ${buttonsHtml}
-        </div>
       </div>
     `;
 
@@ -159,22 +146,26 @@ function openProjectModal(project) {
 }
 
 // --- LOGIQUE B : MODALE SELECTEUR PROJET (On a la page, on choisit le projet) ---
-function openProjectSelectorModal(skillKey, pageDef) {
+function openProjectSelectorModal(skillKey) {
+  const skillData = structure[skillKey];
   modalBody.innerHTML = '';
   modalBody.appendChild(createEyebrow("Accès rapide"));
-  modalBody.appendChild(createTitle(`Page ${pageDef.code}`));
-  modalBody.appendChild(createSubtitle("Sélectionnez le projet pour ouvrir ce document."));
+  modalBody.appendChild(createTitle(skillData?.label ?? "Compétence"));
+  modalBody.appendChild(createSubtitle("Sélectionnez le projet pour ouvrir la page d'entrée."));
 
   const list = document.createElement('div');
   list.className = 'modal-list project-selector-list';
 
   projects.forEach(project => {
-    const url = getFileUrl(project, skillKey, pageDef);
+    const defaultPage = getDefaultPage(skillKey, project);
+    if (!defaultPage) return;
+    const url = getFileUrl(project, skillKey, defaultPage);
 
     const item = document.createElement('a');
     item.className = 'project-select-item';
     item.href = url;
     item.target = "_blank";
+    item.rel = "noopener";
     item.innerHTML = `
       <span class="project-name">${project.title}</span>
       <span class="icon-arrow">→</span>

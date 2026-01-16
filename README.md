@@ -9,6 +9,32 @@ Follow the rules below to keep the same visual logic.
 - Do not use parallax on KAH (keep the hero image fixed).
 - Do not use filler blocks like `<div class="media-fill">`.
 
+## Competences Navigation (Hero)
+The C3/C4.1 pages use a framed navigation block with left/right arrows around the competencies text.
+Replicate this structure and styling for new pages:
+
+```html
+<div class="competences-nav" aria-label="Navigation des compétences">
+  <a class="nav-arrow" href="../page_C.1:C.2/page_C.1:C.2.pdf" aria-label="Aller à C1/C2">
+    &larr;
+  </a>
+  <p class="competences-text">
+    J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel
+    <br>
+    &amp;
+    <br>
+    Je rédige un dossier de conception
+  </p>
+  <a class="nav-arrow" href="../page_C.4.2.pdf" aria-label="Aller à C4.2">
+    &rarr;
+  </a>
+</div>
+```
+
+Rules:
+- Use `.competences-nav`, `.competences-text`, and `.nav-arrow`.
+- The left arrow links to the local C1/C2 PDF, the right arrow links to the local C4.2 PDF.
+
 ## Legend + Image Pattern (Core)
 Use the same pattern everywhere a legend is paired with an image:
 
