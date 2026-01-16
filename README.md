@@ -65,6 +65,12 @@ On small screens, floats are disabled and images go full width:
 - Do not keep legends and images in separate sections when they belong together.
 - Do not shrink legend images to small thumbnails.
 
+## Image Links (GitHub Pages / Safari)
+- Prefer ASCII-only filenames (a-z, 0-9, `-`, `_`) to avoid broken images.
+- If you keep accents, use NFC/precomposed characters and URL-encode them:
+  - `é` -> `%C3%A9` (not `e%CC%81`)
+  - `à` -> `%C3%A0` (not `a%CC%80`)
+
 ## Current Reference
 The layout is implemented in:
 - `Projets/KAH/Concevoir /page_C.3:4.1/page_C.3:4.1.html`
