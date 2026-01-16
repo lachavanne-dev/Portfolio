@@ -74,7 +74,7 @@ window.portfolioData = {
       folderRoot: "../Projets/Antenne_HB9CV", // Dossier racine accessible depuis portfolio-app
       reportFile: "page_Antenne HB9CV.pdf",
       title: "Antenne HB9CV",
-      tagline: "Radiogoniométrie 144 MHz : simulations (MMANA-GAL, Qucs Studio), fabrication, mesures (VNA/RTL-SDR) et tests terrain",
+      tagline: "Radiogoniométrie 144 MHz : simulation, fabrication et mesures",
       image: "assets/antenne.svg",
       context: "SAE S4",
       year: "2025",
