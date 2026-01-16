@@ -89,18 +89,18 @@ window.portfolioData = {
       image: window.KAH_ASSETS ? window.KAH_ASSETS.color : "assets/kah_color.png",
       context: "SAE",
       year: "2024",
-      tags: ["Électronique", "PCB", "Tests"]
+      tags: ["Électronique", "C++", "Transmission IR,"]
     },
     {
       id: "robot",
       folderRoot: "../Projets/Robot_Sumo",
       reportFile: "page_Robot_sumo.pdf",
       title: "Robot Sumo autonome",
-      tagline: "Robotisation & IA embarquée",
+      tagline: "Détection adverse, stratégie embarquée, contrôle moteur",
       image: "assets/robot.svg",
-      context: "Robotique & Contrôle",
+      context: "SAE",
       year: "2023",
-      tags: ["Autonomie", "C++", "Prototype"]
+      tags: ["Électronique", "C++", "Capteurs"]
     }
   ],
   skillsInfo: [
