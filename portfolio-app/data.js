@@ -84,12 +84,12 @@ window.portfolioData = {
       id: "kah",
       folderRoot: "../Projets/KAH",
       reportFile: "page_KAH.pdf",
-      title: "KAH - Kart à Hélice",
-      tagline: "Propulsion électrique et aérodynamisme",
+      title: "Kart à Hélice",
+      tagline: "Transmission infrarouge, schémas électriques, PCB, tests et corrections",
       image: window.KAH_ASSETS ? window.KAH_ASSETS.color : "assets/kah_color.png",
-      context: "Mécanique & Énergie",
+      context: "SAE",
       year: "2024",
-      tags: ["Propulsion", "Structure", "Essais"]
+      tags: ["Électronique", "PCB", "Tests"]
     },
     {
       id: "robot",
