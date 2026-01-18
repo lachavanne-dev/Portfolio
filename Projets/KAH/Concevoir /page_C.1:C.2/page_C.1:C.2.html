@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kart à Hélice — C.1 / C.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        margin: 0 0 18px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        text-align: center;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      section h3 {
+        margin: 24px 0 10px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 16px 20px;
+        padding: 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow is-disabled" href="#" aria-label="Vous êtes sur C1/C2" aria-disabled="true" tabindex="-1">
+              &larr;
+            </a>
+            <p class="competences-text">
+              J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)
+              <br>
+              &amp;
+              <br>
+              Je propose une solution technique pour répondre à une fonction
+            </p>
+            <a class="nav-arrow" href="../page_C.3:4.1/page_C.3:4.1.html" aria-label="Aller à C3/C4.1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Kart à Hélice</h1>
+          <p class="subtitle">SAE Kart à Hélice</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/KAH.jpeg" alt="Prototype du Kart à Hélice" loading="lazy" decoding="async">
+          <figcaption>KAH — vue d'ensemble du prototype.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Introduction</span>
+        <h2>Analyse fonctionnelle du Kart à Hélice</h2>
+        <p>Dans le cadre du projet "Kart à Hélice" (KAH), j'ai contribué à la réalisation d'une analyse fonctionnelle complète du système. Cette analyse a permis de définir clairement les besoins et les contraintes du projet, en se basant sur les exigences du <a href="https://docs.google.com/document/d/1wp9HxB1BugEzR-jQBGManNxMac43q-Pw/edit?usp=sharing&amp;ouid=111011439869493040299&amp;rtpof=true&amp;sd=true">cahier des charges</a>.</p>
+        <p>Pour mener à bien cette tâche, j'ai suivi plusieurs étapes essentielles afin de structurer les besoins et préparer les choix techniques à venir.</p>
+        <h3>Identification des besoins utilisateurs</h3>
+        <p>La première étape a été de comprendre les besoins des utilisateurs. Pour le projet KAH, les principaux besoins identifiés étaient :</p>
+        <ul>
+          <li>L'émetteur doit avoir des dimensions spécifiques (120 mm x 80 mm).</li>
+          <li>Le système doit inclure des potentiomètres pour contrôler la vitesse et la direction du kart ainsi qu'un bouton contrôlant le klaxon.</li>
+          <li>La transmission infrarouge doit couvrir une distance suffisante.</li>
+          <li>Un indicateur lumineux vert doit indiquer l'allumage de la télécommande et un autre bleu doit indiquer la bonne communication entre le kart à hélice et la télécommande.</li>
+        </ul>
+        <p>Ces besoins ont été identifiés grâce à une analyse approfondie du cahier des charges afin d'élaborer l'architecture préliminaire.</p>
+        <h3>Élaboration de diagrammes fonctionnels</h3>
+        <p>Pour mieux visualiser les interactions entre les différents composants du système, j'ai contribué à l'élaboration de plusieurs diagrammes fonctionnels. Ces diagrammes illustrent comment les données sont transmises et traitées au sein du système, et montrent les relations entre les différentes parties de l'émetteur et du récepteur aussi bien au niveau électronique qu'informatique.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Diagramme fonctionnel électronique</span>
+          <h2>Architecture électronique fonctionnelle de l'émetteur</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-11%20a%CC%80%2023.37.53.png"
+              alt="Diagramme fonctionnel électronique de l'émetteur"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Diagramme fonctionnel électronique de l'émetteur (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>Ce diagramme montre l'architecture électronique fonctionnelle et préliminaire de l'émetteur (télécommande) du système "Kart à Hélice" (KAH). Il est divisé en plusieurs blocs principaux qui illustrent les différentes étapes du traitement de l'information et des actions exécutées par le système.</p>
+          <p>Dans chaque bloc sont référencés des composants électroniques potentiels. J'ai élaboré le bloc "<strong>Acquisition</strong>" qui consiste en l'acquisition des informations envoyées par l'utilisateur (mouvements des doigts sur les manettes de la télécommande) sous forme de signal électrique, en vue d'être traitées par les composants du bloc "Traitement". Les signaux sont ensuite envoyés au bloc "<strong>Action</strong>", dont j'ai été l'élaborateur, afin d'envoyer physiquement un signal lumineux (infrarouge) au récepteur du Kart à Hélice.</p>
+          <p>J'ai effectué une recherche approfondie pour identifier les composants les plus adaptés en fonction des spécifications techniques du cahier des charges. Voici la liste correspondante :</p>
+          <p><strong>Blocs Acquisition :</strong></p>
+          <ul>
+            <li>2 potentiomètres linéaires : placés sur la télécommande, ils permettent de capturer les informations envoyées par l'utilisateur sous forme de signal électrique. Leur fonction finale est de contrôler la vitesse et la direction du kart à hélice de manière proportionnelle aux mouvements des doigts.</li>
+            <li>Bouton poussoir : il permet de capturer l'information d'appui afin de faire retentir le klaxon du kart.</li>
+          </ul>
+          <p><strong>Blocs Action :</strong></p>
+          <ul>
+            <li>2 diodes infrarouges : elles envoient les informations de l'émetteur vers le récepteur sous forme de signal infrarouge.</li>
+            <li>Transistor : permet de drainer un courant important devant traverser les diodes.</li>
+            <li>2 résistances : permettent de limiter le courant traversant les diodes et éviter leur destruction.</li>
+            <li>Une LED verte : indique la mise sous tension de l'émetteur.</li>
+            <li>Une résistance associée : limite le courant traversant la LED verte.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Diagramme fonctionnel informatique</span>
+          <h2>Architecture informatique du récepteur</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-12%20a%CC%80%2014.27.18.png"
+              alt="Diagramme fonctionnel informatique du récepteur"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Diagramme fonctionnel informatique du récepteur (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>Ce diagramme montre l'architecture informatique fonctionnelle et préliminaire du récepteur du système "Kart à Hélice" (KAH). Il est divisé en trois blocs principaux qui illustrent les différentes étapes d'acquisition, de traitement de l'information et des actions exécutées par le système.</p>
+          <p>J'ai personnellement élaboré le bloc "<strong>Traitement</strong>" informatique afin d'interpréter de manière logicielle les informations de la télécommande codées et reçues par le bloc "<strong>Acquisition</strong>", puis de les envoyer vers le bloc "Action". Ce dernier a pour fonction d'activer physiquement les différents éléments du kart à hélice (moteur, direction, klaxon).</p>
+          <p>Ce bloc traitement permet de :</p>
+          <ul>
+            <li>détecter l'absence d'informations reçues ;</li>
+            <li>décoder ces informations ;</li>
+            <li>contrôler leur validité ;</li>
+            <li>identifier si leur adresse de provenance est bien celle attendue ;</li>
+            <li>extraire l'information de puissance moteur et de direction de roue.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Architecture fonctionnelle mécanique</span>
+          <h2>Implantation des composants</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-11%20a%CC%80%2023.47.00.png"
+              alt="Architecture fonctionnelle mécanique de la télécommande"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Architecture fonctionnelle mécanique de la télécommande (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>Sur le plan d'architecture mécanique, j'ai établi un aperçu des futurs emplacements des composants électroniques présélectionnés (commande de propulsion et de direction...) ainsi que les cotations des dimensions de la carte de la télécommande (120 mm x 80 mm), trous de fixation (3 mm de diamètre) et espace bord/centre des trous (5 mm), de sorte à réaliser un produit ergonomique.</p>
+          <p>Ces emplacements et choix de composants provisoires ont été définitivement établis lors de la phase de conception détaillée de l'architecture fonctionnelle mécanique.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <span class="eyebrow">Conclusion</span>
+        <h2>Conclusion préliminaire</h2>
+        <p>L'analyse fonctionnelle du projet "Kart à Hélice" a permis de définir clairement les besoins et les contraintes du système. Cette étape a été fondamentale pour garantir que toutes les spécifications techniques étaient bien définies et que le système répondrait aux attentes des utilisateurs.</p>
+      </section>
+    </main>
+  </body>
+</html>

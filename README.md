@@ -8,6 +8,7 @@ Follow the rules below to keep the same visual logic.
   - `main { max-width: 1360px; padding: 64px 4% 96px; }`
 - Do not use parallax on KAH (keep the hero image fixed).
 - Do not use filler blocks like `<div class="media-fill">`.
+- Do not prefix subtitles with page codes like `C.1 / C.2 —`.
 
 ## Competences Navigation (Hero)
 The C3/C4.1 pages use a framed navigation block with left/right arrows around the competencies text.
@@ -102,19 +103,23 @@ The layout is implemented in:
 - `Projets/KAH/Concevoir /page_C.3:4.1/page_C.3:4.1.html`
 
 ## Documents Links (Robot Sumo)
+- Robot Sumo CDC: https://drive.google.com/file/d/1XhT6rMI2dUtggBxUtkloPJIP-XvWB410/view?usp=sharing
 - Robot Sumo DDC: https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing
 - Robot Sumo DDV: https://drive.google.com/file/d/1TVGU2KhjIrB6y-A300iYKvnYUZOYLzVY/view?usp=sharing
 - Robot Sumo DDF: https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing
 
 ## Documents Links (KAH)
+- KAH CDC: https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing
 - KAH DDC: https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing
 - KAH DDF: https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing
 - KAH DDV: https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing
 
 ## Documents Links (Antenne HB9CV)
+- Antenne HB9CV CDC: https://drive.google.com/file/d/1A259rmQ04lvbxshtdKF31VHtdtonBwD9/view?usp=sharing
 - Antenne HB9CV DDC: https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing
 - Antenne HB9CV DDF: https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing
 - Antenne HB9CV DDV: https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing
 
 ## Hyperlink Rules (Concevoir / Vérifier)
 - For each project, the "Concevoir" and "Vérifier" collections must include the appropriate hyperlink in every image caption.
+- Exception: the first (hero) project image does not include a link.

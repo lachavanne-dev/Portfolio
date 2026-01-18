@@ -7,7 +7,15 @@ const SKILL_STRUCTURE = {
     folder: "Concevoir ", // dossier avec espace final dans l'arborescence
     // J'utilise ici les noms EXACTS de ton arborescence
     pages: [
-      { code: "C1/C2", file: "page_C.1:C.2/page_C.1:C.2.pdf" },
+      {
+        code: "C1/C2",
+        file: "page_C.1:C.2/page_C.1:C.2.pdf",
+        fileByProject: {
+          kah: "page_C.1:C.2/page_C.1:C.2.html",
+          antenne: "page_C.1:C.2/page_C.1:C.2.html",
+          robot: "page_C.1:C.2/page_C.1:C.2.html"
+        }
+      },
       {
         code: "C3/C4.1",
         file: "page_C.3:4.1.pdf", // Supposé pdf

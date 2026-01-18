@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — C.1 / C.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        margin: 0 0 18px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        text-align: center;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      section h3 {
+        margin: 24px 0 10px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 16px 20px;
+        padding: 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow is-disabled" href="#" aria-label="Vous êtes sur C1/C2" aria-disabled="true" tabindex="-1">
+              &larr;
+            </a>
+            <p class="competences-text">
+              J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)
+              <br>
+              &amp;
+              <br>
+              Je propose une solution technique pour répondre à une fonction
+            </p>
+            <a class="nav-arrow" href="../page_C.3:4.1/page_C.3:4.1.html" aria-label="Aller à C3/C4.1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Antenne HB9CV</h1>
+          <p class="subtitle">SAE Radio Goniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="../../../images/Antenne_HB9CV.jpeg"
+            alt="Prototype d'antenne HB9CV"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Radio goniomètre — aperçu du prototype HB9CV.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Introduction</span>
+        <h2>Analyse fonctionnelle du radio goniomètre</h2>
+        <p>Dans le cadre du projet <strong>Challenge de Radiogoniométrie (CDR)</strong>, j'ai participé à la conception fonctionnelle complète d'un <strong>système de radiogoniométrie</strong> (Radio Goniomètre). L'objectif de ce système est de localiser une balise émettrice en détectant la direction du signal radio, conformément aux pratiques de la chasse au renard sportive.</p>
+        <p>Dans un premier temps, mon implication s'est concentrée sur <strong>l'analyse fonctionnelle préliminaire</strong> et le <strong>dimensionnement technique</strong> de l'antenne directive (type HB9CV), en conformité avec les exigences définies dans le cahier des charges. Ce travail a permis de traduire les besoins du client en solutions techniques concrètes, à travers une modélisation sous <strong>MMANA-GAL</strong> et <strong>Qucs Studio</strong>.</p>
+        <h3>Description de l'activité</h3>
+        <p>Pour répondre aux attentes fonctionnelles du projet, j'ai suivi une démarche méthodique en plusieurs étapes :</p>
+        <h3>Identification des besoins utilisateurs</h3>
+        <p>À partir du <strong>cahier des charges fourni par l'ARGG</strong>, j'ai extrait et structuré les <strong>exigences fonctionnelles</strong> selon trois catégories principales :</p>
+        <ul>
+          <li><strong>Exigences mécaniques</strong> : portabilité à une main, intégration d'une tablette, masse inférieure à 1,4 kg, mémoire de forme.</li>
+          <li><strong>Exigences d'acquisition d'information</strong> : fréquence de résonance à 144 MHz ± 2 MHz, directivité, impédance adaptée, gain et ouverture angulaire.</li>
+          <li><strong>Exigences d'action</strong> : connectique SMA femelle solide et intégrée.</li>
+        </ul>
+        <h3>Élaboration des fiches d'aide à la décision (FAD)</h3>
+        <p>Pour mieux visualiser les interactions entre les différents composants du système, j'ai contribué à l'élaboration de plusieurs fiches d'aide à la décision (FAD). Ces FAD illustrent comment les différents éléments mécaniques et fonctionnels sont sélectionnés au sein du système.</p>
+        <p><strong>Lien du <a title="CDC" href="https://drive.google.com/file/d/1A259rmQ04lvbxshtdKF31VHtdtonBwD9/view?usp=sharing">Cahier des charges</a></strong></p>
+        <p><strong>Pour un plus haut niveau de technicité, le numéro de page du dossier de conception détaillée (<a title="DDC" href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>) en lien avec chaque section est référencé.</strong></p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative — FAD mécanique</span>
+          <h2>Choix de la technologie (HB9CV vs Yagi)</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2012.46.17.png"
+              alt="FAD mécanique : choix de la technologie"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>FAD mécanique : choix de la technologie (<a href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>J'ai comparé les antennes <strong>HB9CV</strong> et <strong>Yagi</strong> selon les exigences du cahier des charges.</p>
+          <ul>
+            <li><strong>Dimensions</strong> : la HB9CV respecte la contrainte (260,4 mm × 1041 mm &lt; 0,6 m × 1,2 m). La Yagi dépasse les limites (0,68 m de boom).</li>
+            <li><strong>Masse</strong> : la HB9CV, avec deux éléments actifs, est plus légère et adaptée à une utilisation mobile.</li>
+            <li><strong>Intégration tablette</strong> : le centre de gravité équilibré de la HB9CV permet une meilleure intégration d'une tablette 10". La Yagi, plus longue, complique cette intégration.</li>
+            <li><strong>Assemblage</strong> : le design simple de la HB9CV facilite le montage et limite les erreurs.</li>
+          </ul>
+          <p>J'ai donc retenu la <strong>HB9CV</strong>, seule technologie conforme aux contraintes mécaniques du CDC.</p>
+          <p>Se référer à la page 6 du <a title="DDC" href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative — FAD mécanique</span>
+          <h2>Choix des matériaux</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2012.46.30.png"
+              alt="FAD mécanique : choix des matériaux"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>FAD mécanique : choix des matériaux (<a href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>J'ai comparé trois matériaux en lien avec les exigences du cahier des charges concernant la <strong>rigidité</strong> (EXIG_RIGIDITE) et la <strong>compatibilité électromagnétique</strong> (EXIG_CAPTEUR).</p>
+          <ul>
+            <li><strong>Aluminium</strong> : bon compromis entre mémoire de forme, durabilité, conductivité et légèreté. Il respecte les contraintes techniques et budgétaires.</li>
+            <li><strong>Cuivre</strong> : très bon conducteur, mais trop dense et peu adapté mécaniquement.</li>
+            <li><strong>PVC</strong> : léger et économique, mais non conducteur donc incompatible avec les éléments rayonnants.</li>
+          </ul>
+          <p>J'ai retenu <strong>l'aluminium</strong> comme le matériau le plus adapté à la conception de l'antenne.</p>
+          <p>Se référer à la page 7 du <a title="DDC" href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative — FAD acquisition</span>
+          <h2>Choix de la technologie (performances radio)</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2012.46.38.png"
+              alt="FAD acquisition : performances radio"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>FAD acquisition : performances radio (<a href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>J'ai comparé les antennes <strong>HB9CV</strong> et <strong>Yagi</strong> en lien avec les exigences du cahier des charges sur les performances radio (EXIG_DIRECTIVITE, EXIG_FREQUENCE, EXIG_IMPEDANCE, EXIG_GAIN, EXIG_OUVERTURE, EXIG_CAPTEUR).</p>
+          <ul>
+            <li><strong>Directivité</strong> : HB9CV ~15 dB avec 120° ; Yagi ~12 dB avec 70°, plus précise.</li>
+            <li><strong>Fréquence</strong> : les deux résonnent théoriquement à 144 MHz ± 1 MHz.</li>
+            <li><strong>Impédance</strong> : les deux visent une adaptation à 50 Ω (S11 &lt; -10 dB à valider).</li>
+            <li><strong>Gain</strong> : HB9CV ~5,15 dBi ; Yagi ~7,38 dBi.</li>
+            <li><strong>Ouverture</strong> : les deux respectent l'angle &lt; 160° (HB9CV = 120°, Yagi = 70°).</li>
+            <li><strong>Matériau</strong> : aluminium ou cuivre, tous deux adaptés aux ondes EM.</li>
+          </ul>
+          <p>Malgré des performances radio intéressantes pour la Yagi, je retiens la <strong>HB9CV</strong> car elle est la <strong>seule conforme à l'exigence de dimension (EXIG_DIMENSIONS)</strong>, déjà validée dans la partie mécanique.</p>
+          <p>Se référer à la page 8 du <a title="DDC" href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative — FAD action</span>
+          <h2>Connectique SMA : type et solidité</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202025-06-01%20a%CC%80%2012.46.49.png"
+              alt="FAD action : connectique SMA"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>FAD action : connectique SMA (<a href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>).</figcaption>
+          </figure>
+          <p>J'ai comparé plusieurs configurations de connecteurs pour répondre aux exigences du cahier des charges liées au <strong>type (EXIG_TYPE_CONNECTEUR)</strong> et à la <strong>solidité (EXIG_SOLIDITE_CONNECTEUR)</strong> de la connectique.</p>
+          <ul>
+            <li><strong>Type</strong> : toutes les configurations utilisent un <strong>connecteur SMA femelle</strong> compatible avec la clé USB RTL-SDR, comme exigé.</li>
+            <li><strong>Solidité</strong> : seules les solutions où le connecteur est <strong>intégré à la structure de l'antenne</strong> (ex. HB9CV avec support SMA) assurent une connexion stable. Cela évite les contraintes mécaniques dues aux vibrations et aux branchements répétés.</li>
+          </ul>
+          <p>Les configurations avec connecteur suspendu à un fil sont écartées car elles risquent des défaillances mécaniques.</p>
+          <p>J'ai donc retenu la <strong>HB9CV avec connecteur SMA intégré</strong>, qui garantit robustesse, fiabilité RF et conformité aux exigences d'action.</p>
+          <p>Se référer à la page 9 du <a title="DDC" href="https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing">DDC</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <span class="eyebrow">Conclusion</span>
+        <h2>Conclusion préliminaire</h2>
+        <p>Après avoir analysé les aspects mécaniques, d'acquisition d'information et d'action, nous avons retenu la solution de l'antenne HB9CV en aluminium avec un connecteur SMA intégré. Cette antenne satisfait pleinement les contraintes de dimensions (0,3 m x 1 m), de masse (moins de 1,2 kg) et de robustesse, tout en facilitant l'intégration d'une tablette 10 pouces grâce à son équilibre mécanique.</p>
+        <p>Bien que la Yagi se distingue par une meilleure précision directionnelle avec un angle d'ouverture plus étroit (70° contre 120° pour la HB9CV), elle ne respecte pas les contraintes dimensionnelles imposées pour une fréquence de 144 MHz. Par ailleurs, l'utilisation de l'aluminium garantit un bon compromis entre légèreté, conductivité et mémoire de forme, ce qui en fait le matériau optimal pour ce projet. Enfin, la solidité et la stabilité offertes par la fixation directe du connecteur SMA à la structure de l'antenne minimisent les risques de défaillance lors des manipulations fréquentes.</p>
+        <p>En conclusion, l'antenne HB9CV en aluminium est retenue comme solution définitive, répondant à l'ensemble des exigences du projet.</p>
+      </section>
+    </main>
+  </body>
+</html>
