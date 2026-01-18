@@ -34,7 +34,7 @@ Rules:
 - Use `.competences-nav`, `.competences-text`, and `.nav-arrow`.
 - The left arrow links to the local C1/C2 PDF, the right arrow links to the local C4.2 PDF.
 - Visual detail: `.competences-nav` is narrower and left-aligned (`width: 85%`, `max-width: 860px`, `margin: 0 auto 18px 0`).
-- The competence text is a `<ul>` with two bullets (no `&`), left-aligned with padding (`padding-left: 20px`).
+- The competence text is a `<ul>` with the bullet list that matches the page’s competencies (no `&`), left-aligned with padding (`padding-left: 20px`).
 - Add a small vertical gap between bullets: `.competences-text li + li { margin-top: 6px; }`.
 - For C1/C2 pages, keep the same `<ul>` structure but use the C1/C2 statements:
   - "J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)"
@@ -66,6 +66,7 @@ Rules:
 - Let the text wrap under the image naturally when it becomes longer.
   - Do not force a break in the middle of a sentence.
   - If you need a break, start a new paragraph at a natural point.
+- You may rebalance the text flow around each image (light transition tweaks OK), but do not condense or remove content.
 
 ## Action Block Layout
 The action block uses a grid of cards, each one following the same legend-flow pattern:

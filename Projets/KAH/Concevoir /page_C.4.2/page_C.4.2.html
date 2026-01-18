@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kart à Hélice — C.4.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      section h3 {
+        margin: 24px 0 10px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.lift {
+        margin-top: -6px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow" href="../page_C.3:4.1/page_C.3:4.1.html" aria-label="Aller à C3/C4.1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>Je rédige un dossier de fabrication</li>
+            </ul>
+            <a class="nav-arrow is-disabled" href="#" aria-label="Vous êtes sur C4.2" aria-disabled="true" tabindex="-1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Kart à Hélice</h1>
+          <p class="subtitle">SAE Kart à Hélice</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/KAH.jpeg" alt="Prototype du Kart à Hélice" loading="lazy" decoding="async">
+          <figcaption>KAH — vue d'ensemble du prototype.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Dans le cadre de mon projet “Kart à Hélice”, j’ai réalisé un dossier de fabrication (DDF) à partir du dossier de conception détaillée (DDC). Cette étape est cruciale pour transformer les spécifications techniques en un prototype fonctionnel et fiable.</p>
+        <p>Le DDF du projet est consultable ici : <a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">dossier de fabrication</a>. Il s’appuie directement sur le <a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">dossier de conception détaillée</a>.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <h2>Description de l’Activité</h2>
+        <h3>1. Préparation des Composants</h3>
+        <p>La première étape du processus de fabrication a consisté à préparer tous les composants nécessaires en fonction des spécifications du DDC. Cela incluait les résistances, condensateurs, diodes, LED, potentiomètres... J’ai vérifié les caractéristiques de chaque composant pour m’assurer qu’ils répondent aux exigences de performance et de fiabilité du projet (tolérance de marge d'erreur vis-à-vis du CDC).</p>
+        <h3>2. Fabrication des Circuits Imprimés (PCB)</h3>
+        <p>J’ai conçu les circuits imprimés (PCB) nécessaires pour intégrer les composants électroniques en suivant les schémas électriques du DDC. J'ai pour cela utilisé "Proteus", un logiciel permettant de réaliser des schémas électroniques sous forme de "Typon". En effet, pour optimiser l'espace, la carte électronique comporte 2 faces de schéma électrique. Le logiciel m'a permis de définir l'emplacement final de chaque composant et piste (bande de cuivre reliant les composants entre eux). J'ai ainsi obtenu 2 fichiers : Un plan du dessus et un autre du dessous.</p>
+        <h3>3. Assemblage des Composants</h3>
+        <p>Une fois les circuits vérifiés, j’ai commencé l’assemblage des composants. Chaque composant a été soudé sur la carte selon le <strong>schéma d'implantation</strong>. Cette étape a nécessité une attention particulière pour garantir des soudures propres et solides, afin d’assurer la fiabilité des connexions électriques.</p>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Typon — calque du dessus</span>
+          <h2>Typon du dessus imprimé en miroir</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2010.09.43.png.1.png"
+              alt="Typon du dessus imprimé en miroir"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Typon du dessus (miroir) pour la gravure du PCB (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Ensuite, je les ai imprimés sous forme de calque a taille réelle, en ayant pris soin de d'imprimer la couche du dessus en "miroir". Cette étape est nécessaire pour une fabrication cohérente des pistes et trous de chaque face.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Typon — calque du dessous</span>
+          <h2>Typon du dessous</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2010.09.54.png"
+              alt="Typon du dessous du circuit imprimé"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Typon du dessous du PCB (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>J'ai par la suite choisi un circuit imprimé vierge ( plaque composée de deux fines couches de cuivre séparées par un isolant). Cet élément est placé entre les deux calques (d'ou l'effet miroir) afin de venir créer physiquement les piste en cohérence avec les plans à l'aide d'une machine à UV. l'encre composant les calques et représentant les futures pistes protège les le film protecteur des UV.</p>
+          <p>Ainsi, après insolation, les film présent en dehors des pistes d'encre est brûlé. Par la suite, cela permet de ronger chimiquement le cuivre non protégé par le film pour ainsi ne laisser ressortir que les pistes de cuivre souhaitées. L'encre des "Typon" (calques) est alors reportée sous forme de vraies pistes de cuivre de part et d'autre du circuit imprimé.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Plan de perçage</span>
+          <h2>Repérage des trous et diamètres</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2010.10.07.png"
+              alt="Plan de perçage du circuit imprimé"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Plan de perçage avec repères de diamètres (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Les futurs emplacements des trous y sont également marqués prêts pour le perçage. Le perçage comporte différents diamètres de trou à respecter, c'est pourquoi j'ai également imprimé le plan de perçage. La légende de chaque type de trou (diamètre) est référencée dans le <a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">dossier de fabrication</a>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Schéma d’implantation</span>
+          <h2>Implantation des composants</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2010.10.41.png"
+              alt="Schéma d’implantation des composants"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma d’implantation pour l’assemblage (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Le schéma d’implantation définit la position finale de chaque composant sur la carte. Il permet d’assembler rapidement la carte tout en évitant les erreurs de polarité ou d’orientation.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.35s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Circuit assemblé</span>
+          <h2>Vue de dessous du PCB</h2>
+          <figure class="image-frame float-right lift">
+            <img
+              src="image/Afficher%20les%20photos%20re%CC%81centes%202.jpeg"
+              alt="Dessous du PCB terminé"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Vue de dessous du PCB fini, percé et soudé (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Photo du circuit imprimé fini, percé, avec tous les composants soudés par dessous.</p>
+          <p>Une fois le circuit électrique fabriqué, j’ai procédé à son inspection visuelle pour m’assurer qu’il n’y avait pas de défauts, comme des courts-circuits ou des connexions manquantes. Une loupe binoculaire ainsi qu'un multimètre étaient à ma disposition pour cette inspection.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.4s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Circuit assemblé</span>
+          <h2>Vue de dessus du PCB</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202026-01-18%20a%CC%80%2021.26.01.png"
+              alt="Vue de dessus du PCB avec tous les composants"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Vue de dessus du PCB avec tous les composants (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette image présente la vue de dessus avec tous les composants en place.</p>
+          <p>Je plaçais donc les broches du multimètre en mode ohm-mètre sur deux pistes différentes. Si un "Bip" retentissait, cela signifiait un court circuit. A l'inverse, lorsque je le branchais de parte et d'autre d'une même piste, si aucun "Bip" n'était émis, cela signifiait une coupure de piste. Néanmoins, aucun des ces défauts n'a été constaté. J'ai documenté plus en détail chaque étape de fabrication du circuit dans cette fiche de synthèse "<a title="fabriquer une carte électronique" href="https://drive.google.com/file/d/1hI-NlcJPHEW3s7IZpbG0SqH4MLOfeXau/view?usp=share_link">fabriquer une carte électronique</a>".</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.45s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Nomenclature</span>
+          <h2>Référentiel des composants</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/Capture%20d%E2%80%99e%CC%81cran%202024-06-21%20a%CC%80%2010.09.25.png"
+              alt="Tableau de nomenclature des composants"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Nomenclature complète des composants (<a href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Ce document référence tous les composants relatifs à la fabrication de l'émetteur.</p>
+          <p>Le coût total du produit (émetteur+ récepteur compris) est inférieur à 160€ TTC conformément à l'exigence de coût du CDC.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.5s;">
+        <h2>Conclusion</h2>
+        <p>La réalisation du dossier de fabrication (<a title="dossier de fabrication" href="https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing">dossier de fabrication</a>) à partir du dossier de conception détaillée (<a title="dossier de conception" href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">dossier de conception (DDC)</a>) a permis de transformer les spécifications techniques en un prototype prêt pour les phases de test. Tous les documents nécessaires à la fabrication de l'émetteur (typons, plan de perçage, schéma d'implantation et nomenclature) sont référencés dans ce DDF (partie émetteur); J’ai joué un rôle clé dans chaque étape de ce processus, de la préparation des composants à la documentation complète du processus de fabrication.</p>
+      </section>
+    </main>
+  </body>
+</html>
