@@ -11,6 +11,7 @@ Follow the rules below to keep the same visual logic.
 - Do not prefix subtitles with page codes like `C.1 / C.2 —`.
 
 ## Competences Navigation (Hero)
+This applies to the "Compétence CONCEVOIR" pages.
 The C3/C4.1 pages use a framed navigation block with left/right arrows around the competencies text.
 Replicate this structure and styling for new pages:
 
@@ -19,13 +20,10 @@ Replicate this structure and styling for new pages:
   <a class="nav-arrow" href="../page_C.1:C.2/page_C.1:C.2.pdf" aria-label="Aller à C1/C2">
     &larr;
   </a>
-  <p class="competences-text">
-    J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel
-    <br>
-    &amp;
-    <br>
-    Je rédige un dossier de conception
-  </p>
+  <ul class="competences-text">
+    <li>J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel</li>
+    <li>Je rédige un dossier de conception</li>
+  </ul>
   <a class="nav-arrow" href="../page_C.4.2.pdf" aria-label="Aller à C4.2">
     &rarr;
   </a>
@@ -35,6 +33,12 @@ Replicate this structure and styling for new pages:
 Rules:
 - Use `.competences-nav`, `.competences-text`, and `.nav-arrow`.
 - The left arrow links to the local C1/C2 PDF, the right arrow links to the local C4.2 PDF.
+- Visual detail: `.competences-nav` is narrower and left-aligned (`width: 85%`, `max-width: 860px`, `margin: 0 auto 18px 0`).
+- The competence text is a `<ul>` with two bullets (no `&`), left-aligned with padding (`padding-left: 20px`).
+- Add a small vertical gap between bullets: `.competences-text li + li { margin-top: 6px; }`.
+- For C1/C2 pages, keep the same `<ul>` structure but use the C1/C2 statements:
+  - "J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)"
+  - "Je propose une solution technique pour répondre à une fonction"
 
 ## Legend + Image Pattern (Core)
 Use the same pattern everywhere a legend is paired with an image:

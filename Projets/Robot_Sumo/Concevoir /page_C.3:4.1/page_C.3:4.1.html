@@ -96,7 +96,9 @@
         gap: 12px;
         align-items: center;
         padding: 12px 18px;
-        margin: 0 0 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
         border-radius: 18px;
         border: 1px solid var(--line);
         background: var(--soft);
@@ -105,11 +107,16 @@
 
       .competences-text {
         margin: 0;
-        text-align: center;
+        padding-left: 20px;
+        text-align: left;
         font-weight: 600;
         color: var(--muted);
         letter-spacing: 0.01em;
         line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
       }
 
       .competences-nav .nav-arrow {
@@ -295,13 +302,10 @@
             <a class="nav-arrow" href="../page_C.1:C.2/page_C.1:C.2.html" aria-label="Aller à C1/C2">
               &larr;
             </a>
-            <p class="competences-text">
-              J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel
-              <br>
-              &amp;
-              <br>
-              Je rédige un dossier de conception
-            </p>
+            <ul class="competences-text">
+              <li>J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel</li>
+              <li>Je rédige un dossier de conception</li>
+            </ul>
             <a class="nav-arrow" href="../page_C.4.2.pdf" aria-label="Aller à C4.2">
               &rarr;
             </a>
@@ -321,7 +325,8 @@
       </header>
 
       <section style="--delay: 0.05s;">
-        <h2>Introduction</h2>
+        <span class="eyebrow">Introduction</span>
+        <h2>Conception détaillée du Robot Mini-Sumo</h2>
         <p>Après avoir réalisé l’analyse fonctionnelle du système <strong>Robot Mini-Sumo (RMS)</strong>, la phase suivante consistait à passer à la <strong>conception détaillée</strong> et à la réalisation du prototype. J’ai pris en charge les parties <strong>Traitement</strong> et <strong>Énergie</strong>, en traduisant les spécifications du cahier des charges en schémas électroniques, calculs techniques et code informatique pour obtenir un prototype fonctionnel.</p>
         <p>Mon travail a porté sur l’architecture électrique et la fiabilité des mesures, afin d’assurer une alimentation stable, une acquisition de données fiable et une commande moteur réactive.</p>
       </section>

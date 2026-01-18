@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Robot Sumo — C.1 / C.2</title>
+    <title>Robot Sumo - C.1 / C.2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -96,7 +96,9 @@
         gap: 12px;
         align-items: center;
         padding: 12px 18px;
-        margin: 0 0 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
         border-radius: 18px;
         border: 1px solid var(--line);
         background: var(--soft);
@@ -105,11 +107,16 @@
 
       .competences-text {
         margin: 0;
-        text-align: center;
+        padding-left: 20px;
+        text-align: left;
         font-weight: 600;
         color: var(--muted);
         letter-spacing: 0.01em;
         line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
       }
 
       .competences-nav .nav-arrow {
@@ -305,126 +312,95 @@
             <a class="nav-arrow is-disabled" href="#" aria-label="Vous êtes sur C1/C2" aria-disabled="true" tabindex="-1">
               &larr;
             </a>
-            <p class="competences-text">
-              J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)
-              <br>
-              &amp;
-              <br>
-              Je propose une solution technique pour répondre à une fonction
-            </p>
+            <ul class="competences-text">
+              <li>J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)</li>
+              <li>Je propose une solution technique pour répondre à une fonction</li>
+            </ul>
             <a class="nav-arrow" href="../page_C.3:4.1/page_C.3:4.1.html" aria-label="Aller à C3/C4.1">
               &rarr;
             </a>
           </div>
           <h1>Robot Sumo</h1>
-          <p class="subtitle">SAE Robot Mini-Sumo</p>
+          <p class="subtitle">SAE Robot Sumo</p>
         </div>
         <figure class="hero-card">
-          <img
-            src="../../../images/Robot_Sumo.jpeg"
-            alt="Prototype du Robot Mini-Sumo"
-            loading="lazy"
-            decoding="async"
-          >
-          <figcaption>Robot Mini-Sumo — vue d'ensemble du prototype.</figcaption>
+          <img src="../../../images/Robot_Sumo.jpeg" alt="Robot Mini-Sumo" loading="lazy" decoding="async">
+          <figcaption>Robot Mini-Sumo - vue d'ensemble du prototype.</figcaption>
         </figure>
       </header>
 
       <section style="--delay: 0.05s;">
         <span class="eyebrow">Introduction</span>
         <h2>Analyse fonctionnelle du Robot Mini-Sumo</h2>
-        <p>Dans le cadre du projet <strong>Robot Mini-Sumo (RMS)</strong>, j'ai réalisé une <strong>analyse fonctionnelle complète</strong> pour les parties <strong>Traitement</strong> et <strong>Énergie</strong>. Cette analyse a permis d'identifier les besoins spécifiques du système afin de garantir son bon fonctionnement conformément au <a href="https://drive.google.com/file/d/1XhT6rMI2dUtggBxUtkloPJIP-XvWB410/view?usp=sharing">cahier des charges</a>.</p>
-        <h3>Description de l'activité</h3>
-        <p>Pour répondre aux attentes fonctionnelles du projet, j'ai suivi une démarche méthodique en plusieurs étapes :</p>
+        <p>Dans le cadre du projet <strong>Robot Mini-Sumo (RMS)</strong>, j'ai réalisé une analyse fonctionnelle complète pour les parties <strong>traitement</strong> et <strong>énergie</strong>. Cette analyse a permis d'identifier les besoins spécifiques du système afin de garantir son bon fonctionnement conformément au <a href="https://drive.google.com/file/d/1XhT6rMI2dUtggBxUtkloPJIP-XvWB410/view?usp=sharing">cahier des charges</a>.</p>
+        <p>Ces besoins ont ensuite été traduits en fonctions techniques et en diagrammes fonctionnels pour structurer la conception du robot.</p>
         <h3>Identification des besoins utilisateurs</h3>
         <p>Pour le projet RMS, les besoins identifiés étaient :</p>
         <ul>
-          <li><strong>Énergie</strong> : le robot doit être capable de fonctionner en continu pendant <strong>65 minutes</strong> tout en assurant la sécurité de la batterie (coupure sous 6,7 V).</li>
-          <li><strong>Traitement</strong> : le système doit interpréter les signaux des capteurs pour prendre des décisions en temps réel (détection de ligne blanche, obstacles et adversaires).</li>
+          <li><strong>Énergie</strong> : le robot doit fonctionner en continu pendant <strong>65 minutes</strong> tout en assurant la sécurité de la batterie (coupure sous <strong>6,7 V</strong>).</li>
+          <li><strong>Traitement</strong> : le système doit interpréter les signaux des capteurs en temps réel (détection de ligne blanche, obstacles et adversaires).</li>
         </ul>
-        <p>Ces besoins ont été extraits du <strong>cahier des charges</strong> et traduits en fonctions techniques essentielles pour le projet.</p>
         <h3>Élaboration des diagrammes fonctionnels</h3>
         <p>Pour visualiser les interactions entre les composants et les fonctions, j'ai élaboré des <strong>diagrammes fonctionnels électroniques et informatiques</strong>.</p>
       </section>
 
       <section style="--delay: 0.1s;">
         <div class="legend-flow">
-          <span class="eyebrow">Vue d'ensemble</span>
-          <h2>Prototype Robot Mini-Sumo</h2>
+          <span class="eyebrow">Diagramme fonctionnel électronique</span>
+          <h2>Architecture électronique fonctionnelle du système</h2>
           <figure class="image-frame float-right">
             <img
-              src="image/premiere%20image.png"
-              alt="Prototype Robot Mini-Sumo"
+              src="image/Capture%20d%E2%80%99%C3%A9cran%202025-01-07%20%C3%A0%2010.54.22.png"
+              alt="Diagramme fonctionnel électronique du Robot Mini-Sumo"
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Prototype Robot Mini-Sumo (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
+            <figcaption>Diagramme fonctionnel électronique du Robot Mini-Sumo (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
-          <p>Cette vue d'ensemble permet d'illustrer l'implantation des blocs <strong>Énergie</strong> et <strong>Traitement</strong> au coeur du robot, ainsi que leur rôle dans la stabilité énergétique et la prise de décision autonome.</p>
+          <p>Ce diagramme présente l'architecture électronique fonctionnelle et préliminaire du système du <strong>Robot Mini-Sumo</strong>. Il est divisé en plusieurs blocs principaux qui illustrent les étapes de l'acquisition, du traitement des informations et des actions exécutées par le système.</p>
+          <p>J'ai élaboré les blocs <strong>Traitement</strong> et <strong>Énergie</strong>. Le bloc <strong>Énergie</strong> fournit une alimentation stable et adaptée pour garantir la sécurité et l'autonomie du système. Le bloc <strong>Traitement</strong> analyse les informations envoyées par les capteurs du bloc Acquisition d'information afin de piloter le comportement du robot.</p>
+          <p><strong>Bloc Énergie :</strong></p>
+          <ul>
+            <li>Batterie LiPo 7,4 V : alimentation principale du robot.</li>
+            <li>Régulateur MC33269DT-5.0G : stabilisation de la tension à 5 V.</li>
+            <li>Pont diviseur de tension : surveillance de la batterie avec seuil à 6,7 V.</li>
+          </ul>
+          <p><strong>Bloc Traitement :</strong></p>
+          <ul>
+            <li>Arduino Uno : traitement des signaux des capteurs et commande des moteurs.</li>
+            <li>Capteurs à ultrasons : détection d'obstacles à des distances variables.</li>
+            <li>Capteurs de contraste : détection des lignes blanches pour éviter la sortie de l'arène.</li>
+          </ul>
         </div>
       </section>
 
       <section style="--delay: 0.15s;">
         <div class="legend-flow">
-          <span class="eyebrow">Légende explicative — Bloc Énergie</span>
-          <h2>Pont diviseur de tension</h2>
+          <span class="eyebrow">Diagramme fonctionnel informatique</span>
+          <h2>Bloc traitement logiciel</h2>
           <figure class="image-frame float-left">
             <img
-              src="image/Sche%CC%81ma%20Electrique%20Bloc%20Energie%20e%CC%81tage%20pont%20diviseur%20de%20tension.png"
-              alt="Schéma électrique bloc énergie - pont diviseur"
+              src="image/Capture%20d%E2%80%99%C3%A9cran%202025-01-07%20%C3%A0%2011.29.13.png"
+              alt="Diagramme fonctionnel informatique du Robot Mini-Sumo"
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique bloc énergie — pont diviseur de tension (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
+            <figcaption>Diagramme fonctionnel informatique du Robot Mini-Sumo (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
-          <p>Le bloc <strong>Énergie</strong> fournit une alimentation stable et surveille l'état de la batterie. J'ai retenu une <strong>batterie LiPo 7,4 V</strong>, un <strong>régulateur MC33269DT-5.0G</strong> pour assurer une tension de 5 V, et un <strong>pont diviseur</strong> pour mesurer la tension batterie.</p>
-          <p>Le pont diviseur permet de déclencher la coupure des moteurs si la tension descend sous 6,7 V, garantissant la sécurité de la batterie et la conformité au cahier des charges.</p>
-        </div>
-      </section>
-
-      <section style="--delay: 0.2s;">
-        <div class="legend-flow">
-          <span class="eyebrow">Légende explicative — Bloc Traitement</span>
-          <h2>Schéma électrique bloc traitement</h2>
-          <figure class="image-frame float-right">
-            <img
-              src="image/Sche%CC%81ma%20Electrique%20Bloc%20Traitement.png"
-              alt="Schéma électrique bloc traitement"
-              loading="lazy"
-              decoding="async"
-            >
-            <figcaption>Schéma électrique bloc traitement (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
-          </figure>
-          <p>Le bloc <strong>Traitement</strong> analyse les informations issues des capteurs et commande les actionneurs. J'ai dimensionné le système autour d'un <strong>microcontrôleur Arduino</strong>, responsable de :</p>
+          <p>Ce diagramme illustre le <strong>bloc traitement</strong> informatique qui gère les décisions du robot à partir des informations reçues par le bloc Acquisition. Il permet d'activer physiquement les différents éléments du robot (moteur, direction).</p>
+          <p>J'ai élaboré le bloc traitement pour :</p>
           <ul>
-            <li>l'analyse des capteurs de contraste pour éviter les sorties de l'arène ;</li>
-            <li>la détection d'obstacles et d'adversaires via les capteurs ultrasoniques ;</li>
-            <li>la commande des moteurs et l'adaptation des stratégies en temps réel.</li>
+            <li>analyser les données des capteurs en temps réel (contraste, ultrasons, IR) ;</li>
+            <li>décider des actions à entreprendre : avancer, reculer, tourner à gauche/droite ;</li>
+            <li>assurer la surveillance de la batterie pour couper la puissance en cas de tension basse.</li>
           </ul>
         </div>
       </section>
 
-      <section style="--delay: 0.25s;">
-        <div class="legend-flow">
-          <span class="eyebrow">Légende explicative — Régulation</span>
-          <h2>Étage régulateur de tension</h2>
-          <figure class="image-frame float-left">
-            <img
-              src="image/e%CC%81tage%20re%CC%81gulateur%20de%20tension.png"
-              alt="Étage régulateur de tension"
-              loading="lazy"
-              decoding="async"
-            >
-            <figcaption>Étage régulateur de tension (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
-          </figure>
-          <p>Le régulateur assure une alimentation constante des circuits de commande. Cette étape est essentielle pour garantir la fiabilité des mesures analogiques et éviter les perturbations lors des appels de courant des moteurs.</p>
-        </div>
-      </section>
-
-      <section style="--delay: 0.3s;">
+      <section style="--delay: 0.2s;">
         <span class="eyebrow">Conclusion</span>
         <h2>Conclusion préliminaire</h2>
-        <p>L'analyse fonctionnelle du <strong>Robot Mini-Sumo</strong> a permis de définir les fonctions techniques essentielles pour la partie <strong>Énergie</strong> et <strong>Traitement</strong>. Cette étape a assuré la clarté des besoins et a facilité la réalisation du projet en respectant les exigences du cahier des charges.</p>
+        <p>L'analyse fonctionnelle du <strong>Robot Mini-Sumo</strong> a permis de définir les fonctions techniques essentielles pour les blocs <strong>énergie</strong> et <strong>traitement</strong>. Cette étape a assuré la clarté des besoins et a facilité la réalisation du projet en respectant les exigences du cahier des charges.</p>
       </section>
     </main>
   </body>
