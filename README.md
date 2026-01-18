@@ -100,3 +100,21 @@ On small screens, floats are disabled and images go full width:
 ## Current Reference
 The layout is implemented in:
 - `Projets/KAH/Concevoir /page_C.3:4.1/page_C.3:4.1.html`
+
+## Documents Links (Robot Sumo)
+- Robot Sumo DDC: https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing
+- Robot Sumo DDV: https://drive.google.com/file/d/1TVGU2KhjIrB6y-A300iYKvnYUZOYLzVY/view?usp=sharing
+- Robot Sumo DDF: https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing
+
+## Documents Links (KAH)
+- KAH DDC: https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing
+- KAH DDF: https://drive.google.com/file/d/1InSPdnMXHat8NwjYSLZwToff8vtDQvu1/view?usp=sharing
+- KAH DDV: https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing
+
+## Documents Links (Antenne HB9CV)
+- Antenne HB9CV DDC: https://drive.google.com/file/d/1ud53mE_ODI4jwzHIZtEYz851UBHdyh20/view?usp=sharing
+- Antenne HB9CV DDF: https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing
+- Antenne HB9CV DDV: https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing
+
+## Hyperlink Rules (Concevoir / Vérifier)
+- For each project, the "Concevoir" and "Vérifier" collections must include the appropriate hyperlink in every image caption.

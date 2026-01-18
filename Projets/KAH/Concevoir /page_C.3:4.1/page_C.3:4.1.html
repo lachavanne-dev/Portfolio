@@ -364,7 +364,7 @@
         </div>
         <figure class="hero-card">
           <img src="../../../images/KAH.jpeg" alt="Kart à Hélice" loading="lazy" decoding="async">
-          <figcaption>KAH — vue d'ensemble du prototype.</figcaption>
+          <figcaption>KAH — vue d'ensemble du prototype (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
         </figure>
       </header>
 
@@ -391,7 +391,7 @@
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique étage potentiomètre (Bloc Acquisition).</figcaption>
+            <figcaption>Schéma électrique étage potentiomètre (Bloc Acquisition) (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
           <p>Afin de pouvoir commander la vitesse et la direction du Kart, j'ai dimensionné cet étage en branchant à l'alimentation électrique (<strong>VCC</strong>) un potentiomètre linéaire nommé "<strong>RV1</strong>" sur le schéma. La broche "<strong>3</strong>" d'une extrémité est placée sur le potentiel électrique le plus élevé de (+5V) et celle de l'autre extrémité "<strong>1</strong>" est placée sur le potentiel électrique le plus bas (la masse).</p>
           <p>C'est une résistance variable permettant permettant de faire varier la quantité de courant électrique en sortie. Ainsi, la broche "<strong>2</strong>" (de sortie) est branchée à celle du microcontrôleur "<strong>Analog potar2</strong>". C'est une broche analogique. Elle permet au microcontrôleur du bloc "Traitement" d'interpréter les signaux de cet étage du bloc "Action". Je me suis assuré par calcul lors de la rédaction du "<a title="Dossier de conception" href="https://drive.google.com/file/d/1k2RCRigF1a7U5PD_dhQXLK_Uc17DWpvz/view?usp=share_link">DDC</a>" qu'un potentiomètre de résistance électrique maximale d'une valeur de <strong>10kΩ</strong> était adapté en me référant à la précision de l'exigence traitement du <a href="https://docs.google.com/document/d/1wp9HxB1BugEzR-jQBGManNxMac43q-Pw/edit?usp=sharing&amp;ouid=111011439869493040299&amp;rtpof=true&amp;sd=true">Cahier des charges</a>. Afin de réaliser ces calculs, Je me suis appuyé sur ces éléments "<a title="dimensionner un potentiomètre" href="https://drive.google.com/file/d/1td-Ef5qiAO74IlJBTvJBL0XZdCQfvyTS/view?usp=share_link">dimensionner un potentiomètre</a>".</p>
@@ -413,7 +413,7 @@
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique étage bouton poussoir avec le pull up interne du MCU (Bloc Acquisition).</figcaption>
+            <figcaption>Schéma électrique étage bouton poussoir avec le pull up interne du MCU (Bloc Acquisition) (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
           <p>Afin de d'informer le microcontrôleur de l'intention de l'utilisateur de faire retentir le Klaxon du Kart, j'ai sélectionné un bouton poussoir (ici "<strong>K1</strong>") que j'ai branché entre la masse (potentiel électrique le plus bas) et une entrée binaire du microcontrôleur. Cette entrée est reliée à une résistance interne à celui-ci (ici "<strong>R4</strong>") elle-même reliée à l'alimentation électrique (<strong>VCC</strong>). Ainsi, lorsque le bouton n'est pas pressé, le courant se dirige vers le microcontrôleur provoquant un état logique "haut". A l'inverse, lorsque celui-ci est pressé, le courant est tiré au potentiel le plus bas ( la masse) en passant à travers celui-ci. L'état logique associé a cette entrée du microcontrôleur est alors "bas"</p>
           <p>Cela laisse la possibilité de programmer par la suite le microcontrôleur afin d'envoyer le signal "Klaxon" au récepteur du Kart à hélice lorsqu'un état "bas" est détecté.</p>
@@ -431,7 +431,7 @@
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique leds infrarouges.</figcaption>
+            <figcaption>Schéma électrique leds infrarouges (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
           <p>L'objectif du bloc "Action" étant d'envoyer les informations de la télecommande vers le récepteur du Kart, j'ai dimensionné cet étage ainsi.</p>
           <p>J'ai sélectionné deux diodes infrarouges "<strong>D2</strong>" &amp; "<strong>D3</strong>", un transistor "<strong>Q2</strong>" ainsi que deux résistances "<strong>R3</strong>" &amp; "<strong>R4</strong>". en fonction de leurs spécifications techniques. En effet l'exigence de puissance de l'émmetteur du CDC stipule que le courant devant traverser les diodes doit être supérieur à 200 mA</p>
@@ -452,7 +452,7 @@
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique LED verte.</figcaption>
+            <figcaption>Schéma électrique LED verte (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
           <p>Cet étage concerne l’indicateur lumineux (vert) informant de la mise sous tension de la télécommande. Le CDC imposait une certaine luminosité exprimée en Candela. J’ai donc pris soin de placer en amont de la LED une résistance "<strong>R3</strong>" d’une valeur adaptée. En analysant les documents techniques relatifs à la LED verte "<strong>D3</strong>", j’ai pu déduire le courant nécessaire pour atteindre la luminosité exigée par l’exigence “indicateur” de l’émetteur du CDC. J’ai par la suite dimensionné la bonne valeur de résistance pour un tel courant.</p>
           <p>J'ai branché l'ensemble (LED + résistance) entre l'alimentation VCC et la masse afin de laisser un courant passer lors de la mise sous tension.</p>
@@ -472,7 +472,7 @@
           <h2>Extrait code informatique bloc "Acquisition"</h2>
           <figure class="image-frame float-right">
             <img src="image/acquisition.png" alt="Extrait code informatique bloc Acquisition" loading="lazy" decoding="async">
-            <figcaption>Extrait code informatique bloc "Acquisition".</figcaption>
+            <figcaption>Extrait code informatique bloc "Acquisition" (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
           </figure>
           <p>Cette section du programme se consacre à l'acquisition des trames de données envoyées par l'émetteur du kart à hélice.</p>
           <p>j'ai codé cette ligne "<strong>uint8_t adresseNEC</strong>" afin de stocker l'adresse extraite de la trame d'information reçue. L'adresse permet de s'assurer que la trame provient bien de l'émetteur désigné (la bonne télécommande), offrant une couche de vérification pour éviter les interférences avec d'autres dispositifs infrarouges.</p>
@@ -494,7 +494,7 @@
                   loading="lazy"
                   decoding="async"
                 >
-                <figcaption>Fonctions d’Action.</figcaption>
+                <figcaption>Fonctions d’Action (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
               </figure>
               <p>Dans cette section, j’ai configuré les différentes parties du système de contrôle du “Kart à Hélice” en utilisant le microcontrôleur Arduino. La fonction setup() est utilisée pour initialiser les composants nécessaires avant que le programme principal ne commence à s’exécuter.</p>
               <p>Premièrement, j’ai configuré la communication avec la ligne <strong>Serial.begin(9600)</strong>; Cela permet au microcontrôleur de communiquer à une vitesse de transmission de 9600 bits par seconde, afin de recevoir et d'envoyer des données.</p>
@@ -513,7 +513,7 @@
                   loading="lazy"
                   decoding="async"
                 >
-                <figcaption>Contrôle de la LED Bleue.</figcaption>
+                <figcaption>Contrôle de la LED Bleue (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
               </figure>
               <p>J'ai implémenté une fonction pour contrôler l’état de la LED bleue. Cette fonction, appelée actionLedBleue, permet d’allumer ou d’éteindre la LED en fonction de l’état reçu. Si l’état est vrai, la LED s’allume, et si l’état est faux, la LED s’éteint. <em>(L'état associé concerne la validité des informations reçues)</em>.</p>
               <p>Cette fonction utilise la commande <strong>digitalWrite</strong> pour envoyer un signal électrique à la broche de la LED bleue, où <strong>HIGH</strong> signifie que la LED est allumée et <strong>LOW</strong> signifie qu’elle est éteinte. Cela permet d’indiquer visuellement l’état du système et de vérifier que la télécommande fonctionne correctement.</p>
@@ -529,7 +529,7 @@
                   loading="lazy"
                   decoding="async"
                 >
-                <figcaption>Contrôle du Servomoteur.</figcaption>
+                <figcaption>Contrôle du Servomoteur (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
               </figure>
               <p>Pour contrôler la direction des roues du kart, j’ai utilisé un servomoteur. La fonction <strong>actionServomoteur</strong> ajuste l’angle des roues en fonction de la commande reçue de la télécommande. Elle prend un paramètre qui représente l’angle des roues et convertit cette valeur de 0 à 15 en une plage de 0 à 180 degrés, ce qui correspond à l’angle de rotation du servomoteur.</p>
               <p>Cette conversion est réalisée par la fonction map, et l’angle converti est ensuite envoyé au servomoteur via la commande <strong>write</strong>. Cela permet de diriger les roues du kart de manière précise et proportionnelle aux mouvements du joystick de la télécommande.</p>
@@ -545,7 +545,7 @@
                   loading="lazy"
                   decoding="async"
                 >
-                <figcaption>Contrôle du Moteur Brushless.</figcaption>
+                <figcaption>Contrôle du Moteur Brushless (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
               </figure>
               <p>Pour contrôler la vitesse du kart, j’ai utilisé un moteur brushless. La fonction <strong>actionMoteurBrushless</strong> permet de régler la vitesse du moteur en fonction de la commande reçue de la télécommande. Elle prend un paramètre qui représente le niveau de vitesse et le convertit de 0 à 15 en une plage de 0 à 180 degrés.</p>
               <p>Cette conversion est réalisée par la fonction map, et la vitesse convertie est ensuite envoyée au moteur brushless via la commande <strong>write</strong>. Cela permet de contrôler la vitesse du kart de manière fluide et proportionnelle aux commandes de la télécommande, assurant ainsi une expérience de conduite précise.</p>
@@ -561,7 +561,7 @@
                   loading="lazy"
                   decoding="async"
                 >
-                <figcaption>Contrôle du Klaxon.</figcaption>
+                <figcaption>Contrôle du Klaxon (<a href="https://drive.google.com/file/d/1-OY0xHtRsZP_bhj0naxqV0ZXmn8UryHA/view?usp=sharing">DDC</a>).</figcaption>
               </figure>
               <p>Pour ajouter des alertes sonores au système, j’ai utilisé un buzzer. La fonction actionBuzzer active ou désactive le buzzer en fonction de la commande reçue. Si la commande est de l’activer, le buzzer émet un son à 4000 Hz. Si la commande est de le désactiver, le buzzer s’arrête.</p>
               <p>Cette fonction utilise la commande <strong>tone</strong> pour émettre le son et <strong>noTone</strong> pour arrêter le son. Cela permet d’utiliser le buzzer pour des alertes ou des notifications sonores, par exemple pour signaler une action spécifique ou pour confirmer une commande reçue.</p>

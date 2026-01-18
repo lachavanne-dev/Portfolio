@@ -39,6 +39,10 @@ function getDefaultPage(skillKey, project) {
   const skillData = structure[skillKey];
   if (!skillData?.pages?.length) return null;
 
+  if (project && project.id === 'robot' && skillKey === 'concevoir' && skillData.pages[1]) {
+    return skillData.pages[1];
+  }
+
   if (project && defaultPageOverrides.has(project.id) && skillData.pages[1]) {
     return skillData.pages[1];
   }

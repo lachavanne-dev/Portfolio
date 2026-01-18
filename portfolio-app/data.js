@@ -13,7 +13,8 @@ const SKILL_STRUCTURE = {
         file: "page_C.3:4.1.pdf", // Supposé pdf
         fileByProject: {
           antenne: "page_C.3:4.1/page_C.3:4.1.html",
-          kah: "page_C.3:4.1/page_C.3:4.1.html"
+          kah: "page_C.3:4.1/page_C.3:4.1.html",
+          robot: "page_C.3:4.1/page_C.3:4.1.html"
         }
       },
       { code: "C4.2", file: "page_C.4.2.pdf" }        // Supposé pdf
