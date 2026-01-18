@@ -75,7 +75,7 @@ window.portfolioData = {
       reportFile: "page_Antenne HB9CV.pdf",
       title: "Antenne HB9CV",
       tagline: "Radiogoniométrie 144 MHz : simulation, fabrication et mesures",
-      image: "assets/antenne.svg",
+      image: "../Projets/images/Antenne_HB9CV.jpeg",
       context: "SAE S4",
       year: "2025",
       tags: ["RF", "Simulation", "Mesures"]
@@ -86,7 +86,7 @@ window.portfolioData = {
       reportFile: "page_KAH.pdf",
       title: "Kart à Hélice",
       tagline: "Transmission infrarouge, schémas électriques, PCB, tests et corrections",
-      image: window.KAH_ASSETS ? window.KAH_ASSETS.color : "assets/kah_color.png",
+      image: "../Projets/images/KAH.jpeg",
       context: "SAE",
       year: "2024",
       tags: ["Électronique", "C++", "Transmission IR,"]
@@ -97,7 +97,7 @@ window.portfolioData = {
       reportFile: "page_Robot_sumo.pdf",
       title: "Robot Sumo autonome",
       tagline: "Détection adverse, stratégie embarquée, contrôle moteur",
-      image: "assets/robot.svg",
+      image: "../Projets/images/Robot_Sumo.jpeg",
       context: "SAE",
       year: "2024",
       tags: ["Électronique", "C++", "Capteurs"]
