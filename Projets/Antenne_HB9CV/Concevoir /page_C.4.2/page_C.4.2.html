@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — C.4.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.08), rgba(192, 112, 46, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      section h3 {
+        margin: 24px 0 10px;
+        font-size: 1.1rem;
+        color: var(--accent-2);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 16px 18px;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow" href="../page_C.3:4.1/page_C.3:4.1.html" aria-label="Aller à C3/C4.1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>Je rédige un dossier de fabrication</li>
+            </ul>
+            <a class="nav-arrow is-disabled" href="#" aria-label="Vous êtes sur C4.2" aria-disabled="true" tabindex="-1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Antenne HB9CV</h1>
+          <p class="subtitle">SAE de Radio Goniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="../../../images/Antenne_HB9CV.jpeg"
+            alt="Antenne HB9CV"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Radio goniomètre — aperçu du prototype HB9CV.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Dans le cadre du projet <em>Radio Goniomètre</em>, j’ai rédigé un <strong>Dossier de Fabrication (DDF)</strong> à partir du <strong>Dossier de Conception Détaillée (DDC)</strong>. Cette étape a permis de passer d’une conception validée à un ensemble d’instructions concrètes, précises et reproductibles pour produire physiquement l’antenne HB9CV. L’objectif était de garantir une <strong>fabrication fiable, conforme aux exigences du Cahier des Charges</strong>.</p>
+        <h3>Outillage nécessaire</h3>
+        <ul>
+          <li>Perceuse / visseuse + forets adaptés (Ø 3 mm, Ø 4 mm, etc.) : réalisation des perçages de fixation.</li>
+          <li>Tournevis / clés (pour vis M4 ou M3) : serrage de la visserie.</li>
+          <li>Fer à souder + étain : soudage du SMA.</li>
+          <li>Équerre + mètre : contrôle dimensionnel des barres et centrage.</li>
+          <li>Marqueur : repérages d’axes et de côtes.</li>
+        </ul>
+        <p><strong>Lien du <a title="CDC" href="https://drive.google.com/file/d/1A259rmQ04lvbxshtdKF31VHtdtonBwD9/view?usp=sharing">Cahier des charges</a></strong></p>
+        <p><strong>Pour un plus haut niveau de technicité, le numéro de page du dossier de fabrication (<a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>) en lien avec chaque section sera référencé.</strong></p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Nomenclature</span>
+          <h2>Nomenclature des pièces</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.48.27.png"
+              alt="Nomenclature des pièces de l’antenne HB9CV"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Nomenclature complète des pièces (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette nomenclature recense <strong>l’ensemble des pièces nécessaires à la fabrication</strong> de l’antenne HB9CV, conformément au <strong>CDC (réf. CDC 6.1)</strong>. J’ai veillé à inclure :</p>
+          <ul>
+            <li><strong>Les longueurs précises</strong> pour les brins directeurs, réflecteurs et le gamma-match, optimisées pour répondre à <strong>EXIG_FREQUENCE</strong>.</li>
+            <li><strong>Le type de matériau utilisé</strong> pour chaque élément (aluminium, cuivre, etc.) pour respecter <strong>EXIG_RIGIDITE</strong> et <strong>EXIG_CAPTEUR</strong>.</li>
+            <li>Les composants mécaniques (vis, rondelles, patins, équerres) pour assurer la <strong>solidité de l’assemblage</strong> et répondre à <strong>EXIG_MAINTIEN</strong>.</li>
+            <li>Les éléments fonctionnels (connecteur SMA, support tablette) pour garantir la <strong>compatibilité SDR</strong> (<strong>EXIG_TYPE_CONNECTEUR</strong>, <strong>EXIG_ALL_IN_ONE</strong>).</li>
+          </ul>
+          <p>Le <strong>coût total est de 48,64 € HT</strong>, ce qui respecte pleinement l’exigence budgétaire <strong>EXIG_COUT</strong> du cahier des charges (&lt; 50 € HT). Chaque pièce est référencée avec son fournisseur, sa désignation, son coût unitaire et total, garantissant ainsi <strong>la traçabilité</strong> et <strong>la reproductibilité</strong> du produit.</p>
+          <p>Se référer à la page 5 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Forme du Gamma</span>
+          <h2>Forme du gamma-match</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.48.43.png"
+              alt="Forme du gamma-match et cotes L3 L4 L5"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Forme du gamma-match (L3, L4, L5) (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette figure illustre la forme précise du <strong>gamma-match</strong>, élément clé de l’adaptation d’impédance de l’antenne HB9CV, conformément au Dossier de Conception (DDC) et à l’exigence <strong>EXIG_IMPEDANCE</strong> du Cahier des Charges.</p>
+          <p>J’ai découpé un <strong>fil de cuivre</strong> de <strong>551,2 mm</strong>, puis je l’ai plié selon trois segments distincts :</p>
+          <ul>
+            <li><strong>L3 = 261,4 mm</strong> : segment horizontal principal.</li>
+            <li><strong>L4 = 130,2 mm</strong> : coudes verticaux (de chaque côté).</li>
+            <li><strong>L5 = 141,6 mm</strong> : segments horizontaux terminaux parallèles au réflecteur.</li>
+          </ul>
+          <p>Les segments bleus sur le schéma correspondent aux zones de pliage. Cette géométrie a été déterminée suite aux calculs réalisés dans la phase de conception afin d’assurer la bonne adaptation à 50 Ω sur 144 MHz. Le respect strict de ces dimensions est essentiel pour garantir la performance radioélectrique de l’antenne.</p>
+          <p>Se référer à la page 7 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Emplacement des trous et ponçage</span>
+          <h2>Emplacement des trous et préparation des surfaces</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.48.52.png"
+              alt="Emplacement des trous des éléments rayonnants et ponçage"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Emplacement des trous et ponçage (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Sur cette photo, je montre les <strong>trous de fixation</strong> que j’ai percés dans les éléments rayonnants (les bandes métalliques en aluminium) pour y fixer le <strong>gamma-match</strong>. J’ai respecté précisément les distances :</p>
+          <ul>
+            <li><strong>130 mm à gauche du centre de l’élément directeur</strong></li>
+            <li><strong>140,6 mm à droite du centre de l’élément réflecteur</strong></li>
+          </ul>
+          <p>Ces mesures correspondent aux longueurs L4 et L5 définies dans le Dossier de Conception Détaillée (voir Figure 2). Elles garantissent un positionnement conforme à celui utilisé en simulation.</p>
+          <p>J’ai également <strong>poncé la surface</strong> autour de chaque trou, aussi bien sur les brins que sur le boom, afin de <strong>retirer la couche isolante</strong> (vernis ou oxydation) et d’assurer une <strong>bonne conduction électrique</strong> au niveau des connexions vissées. Cette étape est essentielle pour répondre aux exigences du <strong>CDC</strong> liées à la conductivité (<strong>EXIG_CAPTEUR</strong>) et à l’adaptation d’impédance (<strong>EXIG_IMPEDANCE</strong>).</p>
+          <p>Se référer à la page 8 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Espacement des éléments rayonnants</span>
+          <h2>Espacement des éléments rayonnants</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.49.01.png"
+              alt="Espacement des éléments rayonnants de 260 mm"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Espacement des éléments rayonnants de 260 mm (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette photo illustre le montage des deux plaques métalliques sur le boom en aluminium. J’ai utilisé deux patins coulissants M4 × R6 par plaque, insérés dans la rainure centrale du boom. Chaque plaque est fixée perpendiculairement au boom à l’aide de vis M4x08, avec des rondelles M4x20 intercalées pour éviter toute déformation de l’aluminium.</p>
+          <p>Grâce à un mètre ruban positionné sur chaque élément rayonnant, j’ai vérifié que l’écartement entre les deux plaques supportant le réflecteur et le directeur est exactement de <strong>260 mm</strong>, comme défini dans le dossier de conception. Cette précision garantit le bon positionnement des éléments et contribue à la performance électromagnétique de l’antenne, en respectant les exigences <strong>EXIG_DIMENSIONS</strong> et <strong>EXIG_RIGIDITE</strong> du Cahier des Charges.</p>
+          <p>Se référer à la page 9 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Schéma de pliage final du gamma</span>
+          <h2>Schéma du gamma en bleu</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.49.07.png"
+              alt="Schéma du gamma en bleu"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma du gamma en bleu (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Ce schéma représente la géométrie finale du <strong>gamma-match</strong> (en bleu), une fois les deux coudes supplémentaires pliés. Après avoir découpé et formé les segments L3, L4 et L5 (voir Figure 2), j’ai ajouté deux coudes de 90° à chaque extrémité du fil de cuivre. L’objectif de ce pliage est de <strong>surélever le gamma de 1 cm</strong> au-dessus du plan des éléments rayonnants (en noir), assurant ainsi une isolation mécanique et une meilleure adaptation d’impédance.</p>
+          <p>Ce montage précis garantit la <strong>fiabilité de l’accord d’impédance</strong> tout en respectant la géométrie théorique validée lors de la phase de simulation. J’ai suivi ce schéma pour préparer la pièce avant son soudage définitif, conformément aux consignes du dossier de fabrication.</p>
+          <p>Se référer à la page 10 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.35s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Fixation et soudage de la cosse à œillet</span>
+          <h2>Fixation et soudage de la cosse à œillet</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.49.13.png"
+              alt="Fixation et soudage de la cosse à œillet"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Fixation et soudage de la cosse à œillet (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette photo montre une des extrémités du fil de cuivre en forme de <strong>gamma</strong> (appelé <em>gamma-match</em>), qui est un dispositif utilisé pour <strong>adapter l’impédance de l’antenne</strong> à celle de la ligne de transmission (typiquement 50 Ω). Cela permet <strong>d’éviter les pertes d’énergie</strong> dues à une mauvaise adaptation entre l’antenne et le reste du circuit.</p>
+          <p>J’ai fixé ce fil à l’aide d’une <strong>cosse à œillet</strong>, elle-même vissée sur un support métallique avec :</p>
+          <ul>
+            <li>une <strong>vis M4x08</strong>,</li>
+            <li>une <strong>rondelle M4x20</strong>,</li>
+            <li>et un <strong>écrou frein M4</strong>, qui empêche tout desserrage accidentel.</li>
+          </ul>
+          <p>Après fixation mécanique, j’ai <strong>soudé le fil de cuivre sur la cosse</strong>, garantissant ainsi un bon contact électrique.</p>
+          <p>Le fil est ensuite orienté de manière précise selon trois segments :</p>
+          <ul>
+            <li><strong>140,6 mm</strong> parallèle à l’élément réflecteur,</li>
+            <li><strong>130,2 mm</strong> parallèle au boom (barre centrale de l’antenne),</li>
+            <li><strong>261,4 mm</strong> allant vers l’autre extrémité, parallèle à l’autre élément rayonnant.</li>
+          </ul>
+          <p>Ce montage est essentiel pour assurer une <strong>transmission efficace du signal</strong> et une bonne <strong>directivité</strong> de l’antenne dans la bande des 144 MHz.</p>
+          <p>Se référer à la page 11 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.4s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Soudure du connecteur SMA sur support PCB</span>
+          <h2>Soudure du connecteur SMA sur support PCB</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.49.18.png"
+              alt="Soudure du connecteur SMA sur support PCB"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Soudure du connecteur SMA sur support PCB (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette image montre la <strong>soudure du connecteur SMA mâle</strong> (type SMA_M) sur le <strong>support dédié en circuit imprimé (PCB)</strong>.</p>
+          <p>Le connecteur SMA est essentiel car il assure la <strong>liaison électrique entre l’antenne et le récepteur radio (clé SDR)</strong>. C’est lui qui permet <strong>le transfert du signal haute fréquence</strong> avec le moins de perte possible.</p>
+          <p>J’ai soigneusement positionné le connecteur sur les pistes prévues du PCB, puis j’ai <strong>soudé ses trois broches</strong> :</p>
+          <ul>
+            <li>la broche centrale (signal),</li>
+            <li>les deux broches latérales (masse).</li>
+          </ul>
+          <p>Ce type de connecteur est utilisé pour ses <strong>excellentes performances en radiofréquence</strong> (ici à 144 MHz) et pour sa compatibilité avec les équipements standards.</p>
+          <p>La qualité de cette soudure est cruciale pour <strong>garantir la stabilité mécanique et la continuité électrique du signal</strong>, conformément à l’exigence <strong>EXIG_TYPE_CONNECTEUR</strong> du Cahier des Charges.</p>
+          <p>Se référer à la page 12 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.45s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Lien entre masse SMA et gamma</span>
+          <h2>Soudage du lien entre la masse du SMA et le gamma</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.49.22.png"
+              alt="Lien entre masse SMA et gamma"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Lien entre masse SMA et gamma (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Cette photo illustre la <strong>connexion électrique entre le coude avant du gamma</strong> (fil de cuivre) et la <strong>masse du support SMA</strong> via un <strong>câble soudé très court</strong>.</p>
+          <p>Ce câble est essentiel pour garantir une <strong>continuité électrique fiable entre la masse de l’antenne et le connecteur SMA</strong>. La “masse” est le point de référence électrique, indispensable pour que le signal haute fréquence circule correctement dans l’antenne.</p>
+          <p>J’ai volontairement gardé ce câble aussi <strong>court que possible</strong> afin de <strong>réduire les pertes et interférences</strong>, ce qui est critique pour la performance en radiofréquence (RF), notamment à 144 MHz.</p>
+          <p>Cette étape respecte les exigences <strong>EXIG_IMPEDANCE</strong> et <strong>EXIG_SOLIDITE_CONNECTEUR</strong>, car une mauvaise connexion de masse pourrait fausser l’adaptation d’impédance ou rendre le montage instable lors des manipulations.</p>
+          <p>Se référer à la page 13 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.5s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Légende explicative – Fixation de la poignée crosse</span>
+          <h2>Fixation de la poignée crosse au centre de gravité</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/capture_decran_2025-06-01_a_15.49.27.png"
+              alt="Fixation de la poignée crosse au centre de gravité"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Fixation de la poignée crosse au centre de gravité (<a href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>Sur cette image, je montre l’installation de la <strong>poignée crosse</strong>, un élément essentiel pour assurer une bonne prise en main de l’antenne pendant son utilisation.</p>
+          <p>Pour garantir un bon <strong>équilibrage</strong> lors de la manipulation, j’ai commencé par identifier le <strong>centre de gravité</strong> du montage en le soutenant délicatement du bout des doigts. Une fois ce point repéré, j’ai fixé la poignée à environ <strong>2 cm de ce centre</strong> pour obtenir une prise en main stable.</p>
+          <p>La fixation a été réalisée à l’aide de :</p>
+          <ul>
+            <li><strong>2 équerres de fixation</strong> en profilé aluminium 20 mm,</li>
+            <li><strong>4 patins coulissants</strong>, permettant un montage ajustable sur le rail du boom,</li>
+            <li>ainsi que des <strong>vis à métaux M4x08</strong> et <strong>rondelles M4x09</strong> pour assurer un serrage solide et durable.</li>
+          </ul>
+          <p>Cette étape respecte les exigences <strong>EXIG_MAINTIEN</strong> et <strong>EXIG_ERGONOMIE</strong> du cahier des charges, en assurant une bonne stabilité et une manipulation confortable de l’antenne lors de l’orientation manuelle.</p>
+          <p>Se référer à la page 14 du <strong><a title="DDF" href="https://drive.google.com/file/d/1J-omCwFzXVEB1JFCzrX8_e2PiyHe0YtN/view?usp=sharing">DDF</a></strong>.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.55s;">
+        <h2>Conclusion de la fabrication du Radio Goniomètre</h2>
+        <p>Dans ce projet, j’ai documenté et mis en œuvre l’ensemble des étapes nécessaires à la fabrication de l’antenne HB9CV destinée à la radiogoniométrie sur 144 MHz. J’ai personnellement pris en charge la découpe, l’assemblage, le perçage, la soudure ainsi que les contrôles dimensionnels, en suivant les spécifications validées dans le dossier de conception et les exigences du Cahier des Charges.</p>
+        <p>Chaque choix technique a été appliqué de manière rigoureuse pour garantir une fabrication <strong>fiable, reproductible et conforme</strong>, assurant à la fois la <strong>robustesse mécanique</strong>, le <strong>bon équilibre de l’antenne</strong>, et sa <strong>compatibilité électromagnétique</strong>. Ce travail me permet aujourd’hui de proposer une solution <strong>fonctionnelle et optimisée</strong>, prête à être testée sur le terrain.</p>
+      </section>
+    </main>
+  </body>
+</html>
