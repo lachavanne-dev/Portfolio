@@ -58,7 +58,7 @@ const SKILL_STRUCTURE = {
   },
   verifier: {
     label: "Vérifier",
-    folder: "Vérifier",
+    folder: "Verifier",
     pages: [
       {
         code: "V1",
