@@ -58,7 +58,7 @@ const SKILL_STRUCTURE = {
   },
   verifier: {
     label: "Vérifier",
-    folder: "verifier",
+    folder: "Vérifier",
     pages: [
       {
         code: "V1",
@@ -67,7 +67,13 @@ const SKILL_STRUCTURE = {
           kah: "page_V1/page_V1.html"
         }
       },
-      { code: "V2", file: "page_V2.pdf" }
+      {
+        code: "V2",
+        file: "page_V2.pdf",
+        fileByProject: {
+          kah: "page_V2/page_V2.html"
+        }
+      }
     ],
     description: "Protocoles d'essais et validation des performances."
   },
