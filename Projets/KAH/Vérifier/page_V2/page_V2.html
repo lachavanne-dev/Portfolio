@@ -266,6 +266,7 @@
         margin: 0 0 16px 24px;
       }
 
+
       .image-frame img {
         width: 100%;
         display: block;
@@ -361,25 +362,34 @@
 
       <section style="--delay: 0.05s;">
         <h2>Introduction</h2>
-        <p>Au cours des phases de test référencées dans le dossier de vérification "<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>", j'ai identifié deux dysfonctionnements. Le premier se manifestait par l'absence de signal sonore émis par le buzzer (klaxon) malgré un appui sur la commande dédiée (bouton poussoir de la télécommande).</p>
-        <p>Le second dysfonctionnement concernait l'intensité de la LED bleue (indicateur de connexion). En effet, le courant mesuré le traversant était trop élevé. L'intensité lumineuse associée à ce courant dépassait donc la marge de +/- 20 % imposée par le <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">CDC</a>.</p>
-        <p>Afin d'identifier ce dysfonctionnement, j'ai mesuré la tension aux bornes de la LED avec un multimètre réglé en mode voltmètre ainsi que la valeur de la résistance en plaçant le multimètre en mode ohmmètre à ses bornes. J'en ai déduit par calcul un courant trop élevé.</p>
+        <p>Au cours des phases de test référencées dans le dossier de vérification "<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>", j'ai identifié deux dysfonctionnements sur le récepteur du “Kart à Hélice”.</p>
+        <p>Le premier dysfonctionnement concernait l'intensité de la LED bleue (indicateur de connexion) : le courant mesuré la traversant était trop élevé et l'intensité lumineuse associée dépassait donc la marge de +/- 20 % imposée par le <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">CDC</a>.</p>
+        <p>Le second se manifestait par l'absence de signal sonore émis par le buzzer (klaxon) malgré un appui sur la commande dédiée (bouton poussoir de la télécommande).</p>
+        <p>La suite du travail a consisté à documenter précisément ces écarts, à les analyser et à proposer des corrections adaptées en s'appuyant sur des mesures et des calculs.</p>
       </section>
 
       <section style="--delay: 0.1s;">
+        <h2>Dysfonctionnement 1 — Intensité excessive de la LED bleue</h2>
+        <p><strong>Symptôme observé :</strong> la LED bleue brillait trop intensément, dépassant les marges de tolérance spécifiées par le cahier des charges.</p>
+        <p><strong>Analyse :</strong> j'ai attribué ce problème à une erreur dans le choix de la valeur de résistance. En effet, la tension fournie par l'alimentation était conforme au <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">CDC</a>. J'ai donc mesuré la tension aux bornes de cette LED bleue à l'aide d'un multimètre réglé en mode voltmètre ainsi que la valeur de sa résistance à l'aide d'un multimètre réglé en mode ohmmètre.</p>
+        <p>Après calcul d'un courant trop élevé traversant la LED en fonction de ces valeurs, j'en ai déduit que la résistance associée était insuffisante. Cela pourrait entraîner à terme la destruction de la LED bleue.</p>
+      </section>
+
+      <section style="--delay: 0.15s;">
         <div class="legend-flow">
           <span class="eyebrow">Preuves — Indicateur de connexion</span>
           <h2>Tension mesurée aux bornes de la LED bleue</h2>
           <figure class="image-frame float-right">
             <img
-              src="image/kah-verifier-v2-01.png"
+              src="image/Capture d’écran 2024-06-21 à 17.28.37.png.1.jpeg"
               alt="Tension mesurée aux bornes de la LED bleue"
               loading="lazy"
               decoding="async"
             >
             <figcaption>Tension mesurée aux bornes de la LED bleue (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
           </figure>
-          <p>Cette mesure permet de déduire le courant traversant la LED bleue et de vérifier l'écart avec la valeur attendue.</p>
+          <p>Relevé de la tension aux bornes de la LED réalisé au voltmètre.</p>
+          <p>Cette mesure est la première donnée nécessaire pour recalculer le courant réel traversant le composant et vérifier l'écart par rapport au CDC.</p>
         </div>
         <div class="legend-flow">
           <span class="eyebrow">Preuves — Indicateur de connexion</span>
@@ -393,26 +403,20 @@
             >
             <figcaption>Valeur de la résistance associée à la LED bleue (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
           </figure>
-          <p>La résistance mesurée est utilisée pour recalculer le courant et confirmer l'intensité lumineuse de l'indicateur de connexion.</p>
+          <p>Relevé complémentaire de la résistance de limitation à l'ohmmètre.</p>
+          <p>La valeur affichée confirme qu'elle est bien inférieure à la résistance requise théorique, validant ainsi l'origine du surcourant.</p>
         </div>
       </section>
 
-      <section style="--delay: 0.15s;">
-        <h2>Analyse des dysfonctionnements et corrections</h2>
-        <p>Après avoir identifié les dysfonctionnements dans le système du “Kart à Hélice”, la prochaine étape consiste à les décrire en détail. Cette tâche est essentielle pour documenter les problèmes, analyser leurs causes et proposer des solutions adéquates.</p>
-        <p>Pour chaque dysfonctionnement identifié, j’ai soigneusement documenté les symptômes observés :</p>
-        <ul>
-          <li><strong>Buzzer non fonctionnel :</strong> lorsque le bouton poussoir était pressé, le buzzer ne s’activait pas.</li>
-          <li><strong>Intensité excessive de la LED bleue :</strong> la LED bleue brillait trop intensément, dépassant les marges de tolérance spécifiées par le cahier des charges.</li>
-        </ul>
-        <p>Pour chaque symptôme, j’ai analysé les causes possibles :</p>
-        <ul>
-          <li><strong>Buzzer non fonctionnel :</strong> j'ai attribué ce problème à des erreurs logicielles au niveau du code inclus dans le microcontrôleur du kart car aucun dysfonctionnement au niveau électronique (branchement) n'avait été identifié. En effet, après analyse du code, j'ai constaté des erreurs de nommage des variables. Les noms des fonctions utilisées pour le buzzer dans le code n’étaient pas identiques, ce qui empêchait son activation. Après rectification, le buzzer retentissait correctement.</li>
-          <li><strong>Intensité excessive de la LED bleue :</strong> j'ai attribué ce problème à une erreur dans le choix de la valeur de résistance. En effet, la tension fournie par l'alimentation était conforme au <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">CDC</a>. J'ai donc mesuré la tension aux bornes de cette LED bleue à l'aide d'un multimètre réglé en mode voltmètre ainsi que la valeur de sa résistance à l'aide d'un multimètre réglé en mode ohmmètre. Après calcul d'un courant trop élevé traversant la LED en fonction de ces valeurs, j'en ai déduit que la résistance associée était insuffisante. Cela pourrait entraîner à terme la destruction de la LED bleue.</li>
-        </ul>
+      <section style="--delay: 0.2s;">
+        <h2>Dysfonctionnement 2 — Buzzer non fonctionnel</h2>
+        <p>Après avoir identifié les dysfonctionnements dans le système du “Kart à Hélice”, la prochaine étape a consisté à les décrire en détail. Cette tâche est essentielle pour documenter les problèmes, analyser leurs causes et proposer des solutions adéquates.</p>
+        <p><strong>Symptôme observé :</strong> lorsque le bouton poussoir était pressé, le buzzer ne s’activait pas.</p>
+        <p><strong>Analyse :</strong> j'ai attribué ce problème à des erreurs logicielles au niveau du code inclus dans le microcontrôleur du kart car aucun dysfonctionnement au niveau électronique (branchement) n'avait été identifié. En effet, après analyse du code, j'ai constaté des erreurs de nommage des variables. Les noms des fonctions utilisées pour le buzzer dans le code n’étaient pas identiques, ce qui empêchait son activation.</p>
+        <p><strong>Correction :</strong> après rectification, le buzzer retentissait correctement.</p>
       </section>
 
-      <section style="--delay: 0.2s;">
+      <section style="--delay: 0.25s;">
         <h2>Conclusion</h2>
         <p>En tant que responsable de la vérification du bon fonctionnement du Kart à Hélice, cette étape m’a permis de renforcer mes compétences en diagnostic et en résolution de problèmes. J’ai appris l’importance de la précision dans le codage et la conception des circuits, et comment des erreurs apparemment mineures peuvent avoir un impact significatif sur le fonctionnement global du système. Identifier et décrire ces dysfonctionnements m’a aussi montré l’importance de la documentation détaillée pour faciliter les futures interventions et améliorations. Cette expérience a été enrichissante et m’a préparé à anticiper et résoudre efficacement les problèmes dans des projets futurs.</p>
       </section>
