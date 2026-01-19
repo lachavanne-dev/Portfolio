@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kart à Hélice — V.2 Vérifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow[aria-disabled="true"] {
+        opacity: 0.45;
+        border-color: rgba(194, 90, 56, 0.2);
+        color: rgba(194, 90, 56, 0.4);
+        background: #fff2e6;
+        transform: none;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      ul li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      section .legend-flow + .legend-flow {
+        margin-top: 28px;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .action-grid {
+        display: grid;
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .action-item {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .action-item h3 {
+        margin: 0 0 12px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      .action-item .legend-flow .image-frame {
+        width: 54%;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame,
+        .action-item .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow" href="../page_V1/page_V1.html" aria-label="Aller à V1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>J'identifie, je corrige les non-conformités d'un prototype</li>
+            </ul>
+            <span class="nav-arrow" aria-disabled="true" title="Page suivante indisponible">
+              &rarr;
+            </span>
+          </div>
+          <h1>Kart à Hélice</h1>
+          <p class="subtitle">SAE Kart à Hélice</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/KAH.jpeg" alt="Kart à Hélice" loading="lazy" decoding="async">
+          <figcaption>SAE Kart à Hélice — récepteur et télécommande.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Au cours des phases de test référencées dans le dossier de vérification "<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>", j'ai identifié deux dysfonctionnements. Le premier se manifestait par l'absence de signal sonore émis par le buzzer (klaxon) malgré un appui sur la commande dédiée (bouton poussoir de la télécommande).</p>
+        <p>Le second dysfonctionnement concernait l'intensité de la LED bleue (indicateur de connexion). En effet, le courant mesuré le traversant était trop élevé. L'intensité lumineuse associée à ce courant dépassait donc la marge de +/- 20 % imposée par le <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">CDC</a>.</p>
+        <p>Afin d'identifier ce dysfonctionnement, j'ai mesuré la tension aux bornes de la LED avec un multimètre réglé en mode voltmètre ainsi que la valeur de la résistance en plaçant le multimètre en mode ohmmètre à ses bornes. J'en ai déduit par calcul un courant trop élevé.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Preuves — Indicateur de connexion</span>
+          <h2>Tension mesurée aux bornes de la LED bleue</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/kah-verifier-v2-01.png"
+              alt="Tension mesurée aux bornes de la LED bleue"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Tension mesurée aux bornes de la LED bleue (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Cette mesure permet de déduire le courant traversant la LED bleue et de vérifier l'écart avec la valeur attendue.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Preuves — Indicateur de connexion</span>
+          <h2>Valeur de la résistance associée à la LED bleue</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/kah-verifier-v2-02.png"
+              alt="Valeur de la résistance associée à la LED bleue"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Valeur de la résistance associée à la LED bleue (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>La résistance mesurée est utilisée pour recalculer le courant et confirmer l'intensité lumineuse de l'indicateur de connexion.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <h2>Analyse des dysfonctionnements et corrections</h2>
+        <p>Après avoir identifié les dysfonctionnements dans le système du “Kart à Hélice”, la prochaine étape consiste à les décrire en détail. Cette tâche est essentielle pour documenter les problèmes, analyser leurs causes et proposer des solutions adéquates.</p>
+        <p>Pour chaque dysfonctionnement identifié, j’ai soigneusement documenté les symptômes observés :</p>
+        <ul>
+          <li><strong>Buzzer non fonctionnel :</strong> lorsque le bouton poussoir était pressé, le buzzer ne s’activait pas.</li>
+          <li><strong>Intensité excessive de la LED bleue :</strong> la LED bleue brillait trop intensément, dépassant les marges de tolérance spécifiées par le cahier des charges.</li>
+        </ul>
+        <p>Pour chaque symptôme, j’ai analysé les causes possibles :</p>
+        <ul>
+          <li><strong>Buzzer non fonctionnel :</strong> j'ai attribué ce problème à des erreurs logicielles au niveau du code inclus dans le microcontrôleur du kart car aucun dysfonctionnement au niveau électronique (branchement) n'avait été identifié. En effet, après analyse du code, j'ai constaté des erreurs de nommage des variables. Les noms des fonctions utilisées pour le buzzer dans le code n’étaient pas identiques, ce qui empêchait son activation. Après rectification, le buzzer retentissait correctement.</li>
+          <li><strong>Intensité excessive de la LED bleue :</strong> j'ai attribué ce problème à une erreur dans le choix de la valeur de résistance. En effet, la tension fournie par l'alimentation était conforme au <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">CDC</a>. J'ai donc mesuré la tension aux bornes de cette LED bleue à l'aide d'un multimètre réglé en mode voltmètre ainsi que la valeur de sa résistance à l'aide d'un multimètre réglé en mode ohmmètre. Après calcul d'un courant trop élevé traversant la LED en fonction de ces valeurs, j'en ai déduit que la résistance associée était insuffisante. Cela pourrait entraîner à terme la destruction de la LED bleue.</li>
+        </ul>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <h2>Conclusion</h2>
+        <p>En tant que responsable de la vérification du bon fonctionnement du Kart à Hélice, cette étape m’a permis de renforcer mes compétences en diagnostic et en résolution de problèmes. J’ai appris l’importance de la précision dans le codage et la conception des circuits, et comment des erreurs apparemment mineures peuvent avoir un impact significatif sur le fonctionnement global du système. Identifier et décrire ces dysfonctionnements m’a aussi montré l’importance de la documentation détaillée pour faciliter les futures interventions et améliorations. Cette expérience a été enrichissante et m’a préparé à anticiper et résoudre efficacement les problèmes dans des projets futurs.</p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kart à Hélice — V.1 Vérifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow[aria-disabled="true"] {
+        opacity: 0.45;
+        border-color: rgba(194, 90, 56, 0.2);
+        color: rgba(194, 90, 56, 0.4);
+        background: #fff2e6;
+        transform: none;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      ul li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      section .legend-flow + .legend-flow {
+        margin-top: 28px;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .action-grid {
+        display: grid;
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .action-item {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .action-item h3 {
+        margin: 0 0 12px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      .action-item .legend-flow .image-frame {
+        width: 54%;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame,
+        .action-item .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <span class="nav-arrow" aria-disabled="true" title="Page précédente indisponible">
+              &larr;
+            </span>
+            <ul class="competences-text">
+              <li>J'applique, j'élabore, je rédige une procédure d'essais</li>
+            </ul>
+            <a class="nav-arrow" href="../page_V2/page_V2.html" aria-label="Aller à V2">
+              &rarr;
+            </a>
+          </div>
+          <h1>Kart à Hélice</h1>
+          <p class="subtitle">SAE Kart à Hélice</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/KAH.jpeg" alt="Kart à Hélice" loading="lazy" decoding="async">
+          <figcaption>SAE Kart à Hélice — récepteur et télécommande.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Dans le cadre du projet “Kart à Hélice” (KAH), j'ai été chargé de vérifier certaines spécificités techniques de la carte électronique du récepteur du Kart à Hélice afin de s'assurer que les exigences du <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">Cahier des charges (CDC)</a> sont bien respectées. J'ai personnellement appliqué une procédure d'essai afin de vérifier les exigences relatives aux blocs “Acquisition” et “Action” de ce récepteur. Cette tâche est cruciale pour s’assurer que toutes les spécifications techniques et les exigences du cahier des charges sont respectées avant de passer à l’étape suivante du projet.</p>
+        <p>Pour réaliser les tests, j’ai d’abord préparé tout le matériel nécessaire, y compris :</p>
+        <ul>
+          <li>Un multimètre pour mesurer les tensions, courants et valeurs de résistance.</li>
+          <li>Un oscilloscope pour visualiser les signaux électriques.</li>
+          <li>Une alimentation stabilisée pour fournir une tension constante et sécurisée au système.</li>
+          <li>La télécommande (émetteur) et le Kart à Hélice (récepteur).</li>
+        </ul>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Preuves — Acquisition</span>
+          <h2>Schéma de mesure d'acquisition d'information du récepteur</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/kah-verifier-v1-01.png"
+              alt="Schéma de mesure d'acquisition d'information du récepteur"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Schéma de mesure d'acquisition d'information du récepteur (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Le bloc “Acquisition” du <a href="https://drive.google.com/file/d/1EQAq4K1X4Kdx4ly75DrBtf8j-55S-MaQ/view?usp=sharing">Cahier des charges</a> concernant le récepteur du kart à hélice ne comportait qu'une seule exigence selon laquelle il doit pouvoir recevoir les trames d'information envoyées par l'émetteur (la télécommande). J'ai donc vérifié durant cet essai que c'était bien le cas.</p>
+          <p>Cette vérification est essentielle pour assurer la communication efficace entre l'émetteur et le récepteur, condition sine qua non pour le bon fonctionnement du kart télécommandé.</p>
+          <p>J'ai utilisé pour cela une source d'alimentation (générateur) réglée en 5V afin d'alimenter le récepteur en ayant pris soin de télécharger le code informatique dans le microcontrôleur Arduino. J'ai ensuite branché un câble banane afin de pouvoir visualiser le signal reçu en entrée par le récepteur. Après avoir relié les masses entre elles, j'ai positionné la pointe du câble connecté à l'entrée de l'oscilloscope sur la broche “s” de signal sur le récepteur infrarouge lui-même connecté en entrée du récepteur. Puis j'ai généré un signal à l'aide de la télécommande préalablement conçue actionnant une commande quelconque. Le code de son microcontrôleur avait été téléchargé au préalable par d'autres équipiers.</p>
+          <p>Ainsi, j'ai pu visualiser un signal de réception sur l'écran de l'oscilloscope ce qui répond bien aux attentes du CDC en matière de vérification de réception d'information. Le signal émis de manière infrarouge (lumineuse) est donc visualisé sous forme électrique.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Preuve — Signal reçu</span>
+          <h2>Visualisation sur oscilloscope du signal reçu</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/kah-verifier-v1-02.png"
+              alt="Visualisation sur oscilloscope du signal reçu par le récepteur"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Visualisation sur oscilloscope du signal reçu par le récepteur (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>La capture oscilloscope confirme la réception des trames infrarouges envoyées par la télécommande lors de l’essai d’acquisition.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <h2>Contextualisation des objectifs des essais de vérification — Action</h2>
+        <p>L’objectif des essais de vérification pour le récepteur du kart à hélice est de s’assurer que toutes les fonctionnalités critiques répondent aux attentes définies dans le cahier des charges.</p>
+        <p>Le récepteur doit comporter un indicateur lumineux vert d'une certaine intensité pour informer l’utilisateur que le système est sous tension, garantissant ainsi que le kart est prêt à fonctionner. Un autre indicateur lumineux bleu d'une autre intensité doit s’allumer uniquement lorsque le récepteur reçoit correctement une nouvelle commande infrarouge valide. Si les commandes sont absentes, incorrectes ou si l’adresse est fausse, cet indicateur doit rester éteint, confirmant ainsi la fiabilité de la communication entre l’émetteur et le récepteur.</p>
+        <p>En termes de contrôle du mouvement, le récepteur doit générer des signaux pour piloter efficacement les composants du kart. Pour ajuster la vitesse du moteur, un signal PWM doit être produit en fonction des commandes reçues. Ce signal contrôle la puissance du moteur brushless, assurant une réponse précise aux commandes de l’utilisateur. De même, pour diriger les roues du kart, le récepteur doit envoyer un signal PWM pour commander le servomoteur de direction, permettant au kart de tourner selon les instructions données.</p>
+        <p>En ce qui concerne les fonctions additionnelles, le récepteur doit être capable de générer un signal sonore spécifique pour activer le klaxon du kart. Ce signal doit être précis pour garantir que le klaxon fonctionne correctement lorsque l’utilisateur appuie sur le bouton dédié.</p>
+        <p>Ainsi, l’ensemble de ces essais de vérification vise à confirmer que le récepteur du kart à hélice fonctionne parfaitement, en assurant une communication fiable, un contrôle précis des mouvements, et des indications claires pour l’utilisateur.</p>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <span class="eyebrow">Procédure d'essai — Action</span>
+        <h2>Preuves de vérification du bloc Action</h2>
+        <div class="action-grid">
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>LED verte — intensité lumineuse</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-03.png"
+                  alt="Schéma de mesure de l'intensité lumineuse de l'indicateur vert"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Schéma de mesure de l'intensité lumineuse de l'indicateur vert (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Afin de vérifier l'intensité lumineuse de l'indicateur vert, on cherche à mesurer le courant le traversant. Il doit correspondre l'intensité lumineuse exigée par le CDC. Je me suis donc appuyé sur sa fiche technique “<a href="https://drive.google.com/file/d/1iwAnWxzSRHAhkFRxatApMgKb5H05Vx_K/view?usp=share_link">L-9294CGCK.pdf</a>”. Ne pouvant pas mesurer le courant sans abîmer le circuit, je le déduis en mesurant la tension à ses bornes en plaçant les broches + et - du multimètre réglé en mode voltmètre sur les bornes (conformément à ma fiche de synthèse “<a href="https://drive.google.com/file/d/1L0Na3kxoyctJbhzf3gRxbfRosWu2xMN3/view?usp=share_link">comment mesurer un courant dans un circuit électronique ?</a>”). Je mesure également la valeur de sa résistance associée en plaçant ces broches de part et d'autre de la résistance après avoir réglé le multimètre en mode ohmmètre.</p>
+              <p>La carte électronique était préalablement alimentée en 5V à l'aide d'un générateur.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>LED verte — mesure de résistance</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-04.png"
+                  alt="Mesure de la résistance associée à la LED verte"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Mesure de la résistance associée à la LED verte (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>La résistance associée à la LED verte est mesurée à l’ohmmètre pour confirmer la valeur utilisée lors du calcul du courant lumineux.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>LED verte — tension relevée</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-05.png"
+                  alt="Tension relevée aux bornes de la LED verte"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Tension relevée aux bornes de la LED verte (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>La mesure de tension permet de déduire le courant traversant la LED et de vérifier que l’intensité lumineuse exigée est atteinte.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>LED bleue — intensité lumineuse</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-08.png"
+                  alt="Schéma de mesure de l'intensité lumineuse de l'indicateur bleu"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Schéma de mesure de l'intensité lumineuse de l'indicateur bleu de connexion (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Pour la vérification d'intensité de la LED bleue, la logique reste la même. Cependant j'ai dû émettre un signal quelconque à l'aide de la télécommande afin d'allumer cet indicateur de connexion.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>LED bleue — mesure de résistance</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-07.png"
+                  alt="Mesure de la résistance associée à la LED bleue"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Mesure de la résistance associée à la LED bleue (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>La résistance associée à la LED bleue est mesurée à l’ohmmètre afin de valider le montage de l’indicateur de connexion.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>LED bleue — tension relevée</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-06.png"
+                  alt="Tension relevée aux bornes de la LED bleue"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Tension relevée aux bornes de la LED bleue (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>La tension relevée sur la LED bleue confirme que l’indicateur ne s’allume que lorsque le récepteur reçoit une commande valide.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Klaxon — mesure de fréquence</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-09.png"
+                  alt="Schéma de mesure de la fréquence du buzzer"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Schéma de mesure de la fréquence du buzzer (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>J'ai ensuite vérifié la bonne fréquence du buzzer (klaxon) en branchant un oscilloscope aux bornes du buzzer. La masse du câble banane branché à l'entrée 1 de l'oscilloscope était branchée sur la masse du récepteur et la pointe du câble sur la broche positive du buzzer connectée en sortie de la broche 4 du microcontrôleur. Après un appui sur le bouton poussoir de la télécommande, j'ai pu constater sur l'écran de l'oscilloscope un signal de forme carré. J'ai pu analyser sa période (temps pour que le même motif ou impulsion se répète) et en déduire par calcul si la fréquence correspondante était conforme au CDC.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Klaxon — signal carré observé</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-10.png"
+                  alt="Visualisation du signal carré en entrée du buzzer"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Visualisation du signal carré en entrée du buzzer (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>La forme carrée observée valide le comportement attendu du signal sonore utilisé pour le klaxon.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Servomoteur — signal PWM</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-11.png"
+                  alt="Schéma de mesure du signal en entrée du servomoteur"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Schéma de mesure du signal en entrée du servomoteur (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Concernant la vérification du signal en entrée du servomoteur (contrôleur de direction), j'ai procédé de la même manière que pour celle du buzzer. Néanmoins, j'ai pris soin de brancher la pointe du câble de l'oscilloscope sur la broche “s” (signal) du servomoteur connecté au récepteur. J'ai ensuite envoyé au récepteur par l'intermédiaire de l'émetteur des informations de direction en 3 étapes : commande de direction en position la plus à gauche, puis au milieu et enfin la plus à droite. J'ai ainsi pu analyser la bonne cohérence du signal sur l'écran de l'oscilloscope. En effet, lorsque la période (durée de l'impulsion) variait de 1 ms pour la position gauche, 1,5 ms pour la position du milieu (roues droites) à 2 ms pour la position droite, cette régularité répond aux attentes du CDC.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Servomoteur — visualisation oscilloscope</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-servo-01.png"
+                  alt="Oscilloscope servomoteur position gauche"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Position gauche — impulsion proche de 1 ms (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Capture oscilloscope correspondant à la position gauche du servomoteur.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Servomoteur — position milieu</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-servo-02.png"
+                  alt="Oscilloscope servomoteur position milieu"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Position milieu — impulsion proche de 1,5 ms (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Capture oscilloscope correspondant à la position milieu du servomoteur.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Servomoteur — position droite</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-servo-03.png"
+                  alt="Oscilloscope servomoteur position droite"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Position droite — impulsion proche de 2 ms (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Capture oscilloscope correspondant à la position droite du servomoteur.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Moteur brushless — signal PWM</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-motor-schema.png"
+                  alt="Schéma de mesure du signal en entrée du moteur"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Schéma de mesure du signal en entrée du moteur (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Pour vérifier le signal en entrée du moteur connecté au récepteur, la procédure est restée la même en ayant pris soin de brancher la pointe de l'oscilloscope à la broche “s” du moteur. Après 3 variations de la commande de vitesse de la télécommande (position min, position milieu et position max) les résultats sont restés inchangés par rapport au signal du servomoteur.</p>
+              <p>Cela est cohérent d'un point de vue informatique dans le sens où la valeur d'angle du servomoteur et la valeur de puissance du moteur étaient codées toutes deux sur 15 positions. Il est donc normal que les valeurs de période d'impulsion de leur signal soient identiques en fonction de la position des curseurs de commande de la télécommande.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Moteur brushless — visualisation oscilloscope</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-motor-01.png"
+                  alt="Oscilloscope moteur brushless position minimale"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Position minimale — signal carré observé à l'oscilloscope (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Capture oscilloscope correspondant à la position minimale de la commande moteur.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Moteur brushless — position milieu</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/kah-verifier-v1-motor-02.png"
+                  alt="Oscilloscope moteur brushless position milieu"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Position milieu — signal carré observé à l'oscilloscope (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Capture oscilloscope correspondant à la position milieu de la commande moteur.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Moteur brushless — position maximale</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/kah-verifier-v1-motor-03.png"
+                  alt="Oscilloscope moteur brushless position maximale"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Position maximale — signal carré observé à l'oscilloscope (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>).</figcaption>
+              </figure>
+              <p>Capture oscilloscope correspondant à la position maximale de la commande moteur.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <h2>Conclusion Kart à Hélice</h2>
+        <p>La réalisation de cette phase de tests selon cette procédure décrite plus en détail dans le dossier de vérification (<a href="https://drive.google.com/file/d/1GrrllYJ2eAThRubG7Mxs_faBgB_vcUxu/view?usp=sharing">DDV</a>) a permis de vérifier que le système du “Kart à Hélice” fonctionne conformément aux spécifications techniques et aux attentes définies dans le cahier des charges (CDC). Cette étape est essentielle pour garantir la fiabilité et la performance du produit final avant de procéder aux étapes ultérieures de développement et de fabrication.</p>
+      </section>
+    </main>
+  </body>
+</html>
