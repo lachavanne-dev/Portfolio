@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Robot Sumo — C.3 / C.4.1</title>
+    <title>Robot Sumo — C.4.2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -145,6 +145,11 @@
         outline-offset: 2px;
       }
 
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
       .hero h1 {
         margin: 0;
         font-family: "Fraunces", "Georgia", serif;
@@ -200,6 +205,12 @@
         font-size: 1.5rem;
       }
 
+      section h3 {
+        margin: 24px 0 10px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
       p {
         margin: 0 0 16px;
       }
@@ -244,9 +255,16 @@
         margin: 0 0 16px 24px;
       }
 
-      .legend-flow .image-frame.small {
-        width: 30%;
-        margin-right: 20%;
+      .legend-flow .image-frame.lift {
+        margin-top: -6px;
+      }
+
+      .legend-flow .image-frame.lift-strong {
+        margin-top: -56px;
+      }
+
+      .legend-flow .below-image {
+        clear: both;
       }
 
       .image-frame img {
@@ -276,8 +294,7 @@
           grid-template-columns: 1fr;
         }
 
-        .legend-flow .image-frame,
-        .legend-flow .image-frame.small {
+        .legend-flow .image-frame {
           float: none;
           width: 100%;
           margin: 0 0 16px 0;
@@ -299,14 +316,13 @@
       <header class="hero" style="--delay: 0s;">
         <div>
           <div class="competences-nav" aria-label="Navigation des compétences">
-            <a class="nav-arrow" href="../page_C.1:C.2/page_C.1:C.2.html" aria-label="Aller à C1/C2">
+            <a class="nav-arrow" href="../page_C.3:4.1/page_C.3:4.1.html" aria-label="Aller à C3/C4.1">
               &larr;
             </a>
             <ul class="competences-text">
-              <li>J'affine une solution technique en m'appuyant sur un maquettage numérique et/ou matériel</li>
-              <li>Je rédige un dossier de conception</li>
+              <li>Je rédige un dossier de fabrication</li>
             </ul>
-            <a class="nav-arrow" href="../page_C.4.2/page_C.4.2.html" aria-label="Aller à C4.2">
+            <a class="nav-arrow is-disabled" href="#" aria-label="Vous êtes sur C4.2" aria-disabled="true" tabindex="-1">
               &rarr;
             </a>
           </div>
@@ -325,84 +341,99 @@
       </header>
 
       <section style="--delay: 0.05s;">
-        <span class="eyebrow">Introduction</span>
-        <h2>Conception détaillée du Robot Mini-Sumo</h2>
-        <p>Après avoir réalisé l’analyse fonctionnelle du système <strong>Robot Mini-Sumo (RMS)</strong>, la phase suivante consistait à passer à la <strong>conception détaillée</strong> et à la réalisation du prototype. J’ai pris en charge les parties <strong>Traitement</strong> et <strong>Énergie</strong>, en traduisant les spécifications du cahier des charges en schémas électroniques, calculs techniques et code informatique pour obtenir un prototype fonctionnel.</p>
-        <p>Mon travail a porté sur l’architecture électrique et la fiabilité des mesures, afin d’assurer une alimentation stable, une acquisition de données fiable et une commande moteur réactive.</p>
+        <h2>Introduction</h2>
+        <p>Dans le cadre du projet <strong>Robot Mini-Sumo (RMS)</strong>, j’ai réalisé un <strong>Dossier de Fabrication (DDF)</strong> à partir du <strong>Dossier de Conception Détaillée (DDC)</strong>. Cette étape permet de transformer les spécifications techniques définies lors de la conception en une solution prête à être fabriquée et assemblée.</p>
+        <p>Mon travail s’est concentré sur la réalisation des documents de fabrication pour les blocs <strong>Traitement</strong> et <strong>Énergie</strong>, en prenant en charge les typons, le plan de perçage, le schéma d’implantation et la nomenclature des composants.</p>
       </section>
 
       <section style="--delay: 0.1s;">
-        <h2>Conception des schémas électroniques</h2>
-        <p>Sur le logiciel <strong>KiCad</strong>, j’ai conçu les schémas électroniques des blocs <strong>Énergie</strong> et <strong>Traitement</strong>. Ces schémas montrent les connexions électriques entre les composants, ainsi que leur rôle dans le fonctionnement global du robot.</p>
+        <div class="legend-flow">
+          <span class="eyebrow">Typon — calque du dessus</span>
+          <h2>Typon du dessus imprimé en miroir</h2>
+          <figure class="image-frame float-right lift-strong">
+            <img
+              src="image/typon%20top.png"
+              alt="Typon du dessus imprimé en miroir"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Typon du dessus (miroir) pour la gravure du PCB (<a href="https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing">DDF</a>).</figcaption>
+          </figure>
+          <p>J’ai généré les <strong>typons</strong> à partir des schémas électriques. Ils représentent les pistes en cuivre nécessaires pour relier les composants sur une carte double face.</p>
+          <p>Le calque <strong>Top</strong> a été imprimé en <strong>miroir</strong> afin de garantir la cohérence entre les deux faces lors de l’insolation UV.</p>
+        </div>
       </section>
 
       <section style="--delay: 0.15s;">
         <div class="legend-flow">
-          <span class="eyebrow">Légende explicative — Bloc Énergie</span>
-          <figure class="image-frame float-right small">
+          <span class="eyebrow">Typon — calque du dessous</span>
+          <h2>Typon du dessous</h2>
+          <figure class="image-frame float-left lift">
             <img
-              src="image/Schéma%20Electrique%20Bloc%20Energie%20étage%20pont%20diviseur%20de%20tension.png"
-              alt="Schéma électrique Bloc Énergie - pont diviseur"
+              src="image/typon%20bottom.png"
+              alt="Typon du dessous"
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique Bloc Énergie — étage pont diviseur de tension (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
+            <figcaption>Typon du dessous du PCB (<a href="https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing">DDF</a>).</figcaption>
           </figure>
-          <h2>Schéma électrique Bloc Énergie (pont diviseur de tension)</h2>
-          <p>L’objectif du bloc <strong>Énergie</strong> était de stabiliser l’alimentation du robot pour répondre aux exigences d’autonomie et de sécurité. J’ai sélectionné une <strong>batterie LiPo 2S (7,4 V, 1200 mAh)</strong>, un <strong>régulateur linéaire MC33269DT-5.0G</strong> pour fournir 5 V aux composants, et un <strong>pont diviseur de tension</strong> pour surveiller la tension batterie.</p>
-          <p>Pour dimensionner le pont diviseur, j’ai appliqué la formule <strong>V_mesure = V_batt * R2 / (R1 + R2)</strong>. Les valeurs retenues sont <strong>R1 = 10 kΩ</strong> et <strong>R2 = 15 kΩ</strong>, garantissant une mesure fiable et la coupure des moteurs lorsque <strong>V_batt &lt; 6,7 V</strong>.</p>
-          <p>Calculs et justification détaillés dans le <a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>.</p>
+          <p>Le calque <strong>Bottom</strong> complète la topologie des pistes et permet de conserver une densité de routage suffisante tout en respectant l’encombrement de la carte.</p>
+          <p>Les deux calques ont été utilisés pour <strong>l’insolation UV</strong> d’une plaque PCB double face, afin d’obtenir des pistes précises sur chaque face.</p>
         </div>
       </section>
 
       <section style="--delay: 0.2s;">
         <div class="legend-flow">
-          <span class="eyebrow">Légende explicative — Étape régulateur</span>
-          <h2>Étage régulateur de tension</h2>
-          <figure class="image-frame float-left">
+          <span class="eyebrow">Plan de perçage</span>
+          <h2>Repérage des trous et diamètres</h2>
+          <figure class="image-frame float-right lift-strong">
             <img
-              src="image/étage%20régulateur%20de%20tension.png"
-              alt="Étage régulateur de tension"
+              src="image/plan%20de%20perc%CC%A7age.png"
+              alt="Plan de perçage du PCB"
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Étage régulateur de tension — alimentation 5 V stable (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
+            <figcaption>Plan de perçage du PCB (<a href="https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing">DDF</a>).</figcaption>
           </figure>
-          <p>Le régulateur linéaire <strong>MC33269DT-5.0G</strong> abaisse la tension de la batterie pour fournir un <strong>5 V stable</strong> aux circuits du robot. Ce choix assure une alimentation propre du microcontrôleur et des capteurs, limitant les chutes de tension lors des appels de courant des moteurs.</p>
-          <p>Cette étape garantit une référence d’alimentation constante pour les mesures analogiques et la logique de commande.</p>
-          <p>Récapitulatif de l’étage dans le <a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>.</p>
+          <p>J’ai réalisé le <strong>plan de perçage</strong> du circuit imprimé, incluant les différents diamètres de trous pour les composants traversants :</p>
+          <p>•<strong>Régulateur</strong> : Trous de 1 mm.</p>
+          <p>•<strong>Condensateurs</strong> : Trous de 0,8 mm.</p>
         </div>
       </section>
 
       <section style="--delay: 0.25s;">
         <div class="legend-flow">
-          <span class="eyebrow">Légende explicative — Bloc Traitement</span>
-          <figure class="image-frame float-right">
+          <span class="eyebrow">Schéma d’implantation</span>
+          <h2>Positionnement des composants</h2>
+          <figure class="image-frame float-left lift">
             <img
-              src="image/Schéma%20Electrique%20Bloc%20Traitement.png"
-              alt="Schéma électrique Bloc Traitement"
+              src="image/sche%CC%81ma%20d%27implantation.png"
+              alt="Schéma d’implantation des composants"
               loading="lazy"
               decoding="async"
             >
-            <figcaption>Schéma électrique Bloc Traitement — capteurs et commande moteur (<a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>).</figcaption>
+            <figcaption>Schéma d’implantation des composants (<a href="https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing">DDF</a>).</figcaption>
           </figure>
-          <h2>Schéma électrique Bloc Traitement</h2>
-          <p>Le bloc <strong>Traitement</strong> utilise un <strong>microcontrôleur Arduino</strong> pour analyser les données des capteurs et commander les moteurs via un <strong>pont en H</strong>. J’ai dimensionné les composants afin d’assurer une lecture rapide et fiable des informations.</p>
-          <p>Les <strong>capteurs de contraste</strong> détectent les lignes blanches pour éviter la sortie de l’arène, tandis que les <strong>capteurs ultrasoniques</strong> mesurent la distance avec l’adversaire. Les sorties sont reliées aux broches analogiques et numériques du microcontrôleur pour une acquisition complète.</p>
-          <p>Schémas et choix détaillés dans le <a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a>.</p>
+          <p>Le schéma d’implantation indique le positionnement final des composants sur la carte. Il sert de référence au moment du montage pour garantir l’orientation correcte et éviter les inversions.</p>
+          <p><strong>Processus d’assemblage</strong> :</p>
+          <p>1.<strong>Positionnement des composants</strong> selon le <strong>schéma d’implantation</strong>.</p>
+          <p>2.<strong>Soudure des composants</strong> :</p>
+          <p>•Soudures propres pour assurer la fiabilité des connexions.</p>
+          <p>•Utilisation de fil d’étain avec flux pour minimiser les risques de soudure froide.</p>
+          <div class="below-image">
+            <p><strong>Inspection</strong> :</p>
+            <p>L’inspection des pistes et des perçages a été effectuée à l’aide d’une <strong>loupe binoculaire</strong> pour repérer les défauts visuels, et d’un <strong>multimètre</strong> pour tester la continuité et détecter les éventuels courts-circuits.</p>
+          </div>
         </div>
       </section>
 
       <section style="--delay: 0.3s;">
-        <h2>Conception du code informatique</h2>
-        <p>J’ai programmé le bloc <strong>Traitement</strong> pour assurer le bon traitement des données et l’exécution des actions commandées. Le développement s’est fait sur la plateforme <strong>Arduino IDE</strong> en langage <strong>C++</strong>.</p>
-      </section>
-
-      <section style="--delay: 0.35s;">
-        <h2>Conclusion détaillée du Robot Sumo</h2>
-        <p>Pour le <strong>Dossier de Conception Détaillée (DDC)</strong>, j’ai pris en charge les blocs <strong>Traitement</strong> (électronique et informatique) ainsi que <strong>Énergie</strong>. Ces travaux ont permis de développer un schéma de traitement des données fiable pour les capteurs du robot et de mettre en place un système d’alimentation stable grâce au régulateur linéaire et au pont diviseur de tension.</p>
-        <p>Ces étapes ont été essentielles pour assurer la <strong>stabilité énergétique</strong> et la <strong>prise de décision autonome</strong> du robot Mini-Sumo, conformément aux exigences du <strong>Cahier des Charges</strong>.</p>
-        <p>Voir le <a href="https://drive.google.com/file/d/1Ht59t_-his_qYIPGue37_Yxh4enFE83N/view?usp=sharing">DDC</a> complet pour le détail des calculs et schémas.</p>
+        <h2>Conclusion</h2>
+        <p>La réalisation du <strong>Dossier de Fabrication (DDF)</strong> pour les blocs <strong>Traitement</strong> et <strong>Énergie</strong> a permis de concrétiser les spécifications techniques du <strong>Dossier de Conception Détaillée (DDC)</strong>. J’ai joué un rôle central dans :</p>
+        <p>•La conception des <strong>typons</strong> et des <strong>plans de perçage</strong>.</p>
+        <p>•L’assemblage et l’inspection des composants électroniques.</p>
+        <p>•La rédaction de la <strong>nomenclature</strong> pour garantir la traçabilité et la conformité des composants.</p>
+        <p>Ces documents et étapes garantissent la reproductibilité du circuit et la qualité du prototype, conformément aux exigences du <strong>Cahier des Charges</strong>. Voir le <a href="https://drive.google.com/file/d/1ypHlm1YXgo70FTtg3Atai_xOdhEiENQn/view?usp=sharing">DDF</a> complet pour le détail.</p>
       </section>
     </main>
   </body>
