@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — M.2 Maintenir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 108, 140, 0.35);
+        background: #eef2f4;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(31, 108, 140, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.12), rgba(108, 143, 60, 0.1));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul,
+      ol {
+        margin: 0 0 10px;
+        padding-left: 20px;
+      }
+
+      ul li + li,
+      ol li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.1);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .issue-card {
+        padding: 20px 22px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 24px rgba(26, 31, 36, 0.08);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .competences-nav {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow" href="../page_M.1/page_M.1.html" aria-label="Aller à M1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>Je rédige la procédure de maintenance (préventive, corrective, améliorative) d'un système</li>
+            </ul>
+            <a class="nav-arrow is-disabled" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Radiogoniomètre</h1>
+          <p class="subtitle">Compétence MAINTENIR</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/Antenne_HB9CV.jpeg" alt="Antenne HB9CV" loading="lazy" decoding="async">
+          <figcaption>Radiogoniomètre — antenne HB9CV en phase de maintenance.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Édition rapide</span>
+        <h2>Procédure de maintenance corrective et améliorative du radiogoniomètre</h2>
+        <p>Dans le cadre de la mise au point du radiogoniomètre HB9CV, j’ai réalisé des opérations de maintenance corrective et améliorative afin de rétablir la conformité et améliorer la fiabilité du système. J’ai ensuite formalisé ces actions sous forme de procédures techniques structurées, afin de les rendre reproductibles.</p>
+        <p>Les procédures suivantes décrivent pas à pas les interventions que j’ai menées.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <h2>Procédure 1 – Maintenance corrective : ajustement du gamma-match</h2>
+        <div class="issue-card">
+          <h3>Objectif</h3>
+          <p>Corriger l’impédance du système pour atteindre une résonance à 144&nbsp;MHz ± 2&nbsp;MHz.</p>
+          <h3>Pré-requis</h3>
+          <ul>
+            <li>Analyse de l’abaque de Smith et du paramètre S11.</li>
+            <li>Accès au gamma-match déjà soudé et monté.</li>
+          </ul>
+          <h3>Étapes</h3>
+          <ol>
+            <li>Dévisser légèrement la fixation mécanique du gamma sur le boom.</li>
+            <li>Ajuster manuellement la hauteur du gamma de ± 5&nbsp;mm au-dessus du plan des brins rayonnants.</li>
+            <li>S’assurer que l’écart est symétrique de chaque côté pour ne pas perturber la directivité.</li>
+            <li>Revérifier l’impédance avec un analyseur VNA (objectif : S11 &lt; –10&nbsp;dB à 144&nbsp;MHz).</li>
+            <li>Une fois le réglage satisfaisant, resserrer la visserie avec rondelle et écrou frein.</li>
+            <li>Documenter les nouvelles dimensions et les archiver dans la version finale du DDF.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <h2>Procédure 2 – Maintenance améliorative : renforcement de la liaison SMA</h2>
+        <div class="issue-card">
+          <h3>Objectif</h3>
+          <p>Renforcer la stabilité mécanique et la fiabilité électrique du connecteur SMA.</p>
+          <h3>Pré-requis</h3>
+          <ul>
+            <li>Antenne montée avec PCB support SMA accessible.</li>
+            <li>Fer à souder, étain, câble de masse court.</li>
+          </ul>
+          <h3>Étapes</h3>
+          <ol>
+            <li>Vérifier que la cosse SMA est bien vissée sur le support PCB.</li>
+            <li>Souder un câble de masse de 1 à 2&nbsp;cm entre la masse du SMA et le point de contact sur le gamma.</li>
+            <li>Contrôler la qualité de la soudure (absence de ponts, brillance, bonne accroche).</li>
+            <li>Vérifier mécaniquement qu’aucun jeu ne subsiste à la rotation ou manipulation.</li>
+            <li>Optionnel : appliquer un point de colle chaude non conductrice pour bloquer le câble.</li>
+            <li>Effectuer une dernière mesure S11 pour confirmer le bon fonctionnement.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <span class="eyebrow">Conclusion</span>
+        <h2>Conclusion</h2>
+        <p>Ces procédures documentent des opérations concrètes de maintenance que j’ai dû réaliser sur le radiogoniomètre. Elles ont été pensées pour être claires, reproductibles et adaptées à un usage pédagogique ou technique, tout en garantissant la traçabilité et le respect des exigences fonctionnelles.</p>
+      </section>
+    </main>
+  </body>
+</html>

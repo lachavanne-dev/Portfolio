@@ -128,8 +128,14 @@ function openProjectModal(project) {
 
   // Ordre voulu pour l'affichage des compétences dans la modale projet
   const modalSkillOrder = ['concevoir', 'verifier', 'maintenir', 'implanter', 'rapports'];
+  const hiddenSkillsByProject = {
+    kah: new Set(['maintenir', 'implanter']),
+    robot: new Set(['maintenir', 'implanter', 'rapports'])
+  };
+  const hiddenSkills = hiddenSkillsByProject[project.id] ?? new Set();
 
   modalSkillOrder.forEach((skillKey) => {
+    if (hiddenSkills.has(skillKey)) return;
     const skillData = structure[skillKey];
     if (!skillData) return;
     const defaultPage = getDefaultPage(skillKey, project);

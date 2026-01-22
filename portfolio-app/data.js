@@ -49,7 +49,13 @@ const SKILL_STRUCTURE = {
           antenne: "page_M.1/page_M.1.html"
         }
       },
-      { code: "M2", file: "page_M.2.pdf" }
+      {
+        code: "M2",
+        file: "page_M.2.pdf",
+        fileByProject: {
+          antenne: "page_M.2/page_M.2.html"
+        }
+      }
     ],
     description: "Plan de maintien en condition opérationnelle (préventif/correctif)."
   },
