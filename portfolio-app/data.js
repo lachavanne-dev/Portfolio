@@ -13,7 +13,8 @@ const SKILL_STRUCTURE = {
         fileByProject: {
           kah: "page_C.1:C.2/page_C.1:C.2.html",
           antenne: "page_C.1:C.2/page_C.1:C.2.html",
-          robot: "page_C.1:C.2/page_C.1:C.2.html"
+          robot: "page_C.1:C.2/page_C.1:C.2.html",
+          "stage-geii": "page_C.1:C.2/page_C.1:C.2.html"
         }
       },
       {
@@ -37,7 +38,8 @@ const SKILL_STRUCTURE = {
         code: "I.3.1",
         file: "page_1.3.1.pdf",
         fileByProject: {
-          antenne: "page_1.3.1/page_1.3.1.html"
+          antenne: "page_1.3.1/page_1.3.1.html",
+          "stage-geii": "page_1.3.1/page_1.3.1.html"
         }
       },
       {
@@ -90,7 +92,8 @@ const SKILL_STRUCTURE = {
         fileByProject: {
           kah: "page_V1/page_V1.html",
           antenne: "page_V1/page_V1.html",
-          robot: "page_V1/page_V1.html"
+          robot: "page_V1/page_V1.html",
+          "stage-geii": "page_V1/page_V1.html"
         }
       },
       {
