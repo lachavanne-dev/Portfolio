@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — V.1 Vérifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 108, 140, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(31, 108, 140, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow[aria-disabled="true"] {
+        opacity: 0.45;
+        border-color: rgba(31, 108, 140, 0.2);
+        color: rgba(31, 108, 140, 0.4);
+        background: #eef2f4;
+        transform: none;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.08), rgba(192, 112, 46, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul,
+      ol {
+        margin: 0 0 16px 18px;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <span class="nav-arrow" aria-disabled="true" title="Page précédente indisponible">
+              &larr;
+            </span>
+            <ul class="competences-text">
+              <li>J'applique, j'élabore, je rédige une procédure d'essais</li>
+            </ul>
+            <a class="nav-arrow" href="../page_V2/page_V2.html" aria-label="Aller à V2">
+              &rarr;
+            </a>
+          </div>
+          <h1>Antenne HB9CV</h1>
+          <p class="subtitle">SAE Radiogoniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="../../../images/Antenne_HB9CV.jpeg"
+            alt="Antenne HB9CV"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Radio goniomètre — antenne HB9CV dédiée à la radiogoniométrie.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Dans le cadre du projet "Challenge de Radiogoniométrie", j’ai participé à la rédaction et à l’exécution du <strong>Dossier de Vérification (DDV)</strong>. Cette étape essentielle visait à prouver que notre antenne HB9CV et ses sous-ensembles répondaient aux <strong>exigences du cahier des charges (CDC)</strong>.</p>
+        <p>Pour cela, j’ai appliqué plusieurs procédures de test liées aux aspects <strong>mécaniques</strong>, <strong>d’acquisition de signal</strong>, <strong>de connectique</strong> et <strong>de contraintes internes</strong>. Chaque essai est documenté, référencé, et associe des mesures concrètes à une exigence client précise.</p>
+        <p><strong>lien du <a title="CDC" href="https://docs.google.com/document/d/1dYxpYdale1bkAtIvWoX03aTuQ-V4YHf4-1h87_zHmvI/edit?usp=share_link">Cahier des charges&nbsp;</a></strong></p>
+        <p><strong>Pour un plus haut niveau de technicité le numéro de page du dossier de vérification (<a title="DDV" href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a>) en lien avec chaque section sera référencé.</strong></p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Essai mécanique</span>
+          <h2>Essai Mécanique – Vérification des caractéristiques physiques</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="images/essai-mecanique-resultats-attendus.png"
+              alt="Résultats attendus de l'essai mécanique"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Résultats attendus pour l’essai mécanique (<a href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a>).</figcaption>
+          </figure>
+          <p>Afin de m’assurer que l’antenne HB9CV respecte bien les contraintes physiques définies par le cahier des charges (CDC), j’ai mené un <strong>essai mécanique</strong> portant sur les dimensions, la masse, la rigidité et la prise en main du dispositif.</p>
+          <h4><strong>Objectifs de l’essai</strong></h4>
+          <p>Je devais vérifier plusieurs points :</p>
+          <ul>
+            <li>Que la masse totale de l’antenne reste <strong>inférieure à 1400 g</strong>.</li>
+            <li>Que sa <strong>longueur totale</strong> ne dépasse pas <strong>600 mm</strong>.</li>
+            <li>Que les <strong>éléments rayonnants (directeur et réflecteur)</strong> respectent les longueurs attendues.</li>
+            <li>Que l’antenne est <strong>facilement saisissable à une main</strong> grâce à la crosse.</li>
+            <li>Et que le <strong>support de tablette</strong> intégré mesure bien <strong>10 pouces</strong>, comme demandé par l’exigence EXIG_ALL_IN_ONE.</li>
+          </ul>
+          <h4><strong>Moyens utilisés</strong></h4>
+          <ul>
+            <li><strong>Un mètre ruban</strong> pour mesurer les longueurs.</li>
+            <li><strong>Une balance de précision</strong> pour déterminer la masse.</li>
+            <li>Mes propres mains pour valider la <strong>prise en main et la stabilité mécanique</strong> de l’ensemble.</li>
+            <li>Une observation directe après flexion pour vérifier la <strong>mémoire de forme</strong> des éléments rayonnants.</li>
+          </ul>
+          <h4><strong>Procédure</strong></h4>
+          <p>J’ai d’abord <strong>pesé l’antenne complète</strong> assemblée pour vérifier sa masse. J’ai ensuite <strong>mesuré</strong> un à un :</p>
+          <ul>
+            <li>le réflecteur,</li>
+            <li>le directeur,</li>
+            <li>le boom central,</li>
+            <li>la <strong>longueur totale du produit</strong>,</li>
+            <li>les dimensions du <strong>support tablette</strong>.</li>
+          </ul>
+          <p>Puis, pour vérifier la rigidité et la mémoire de forme, j’ai <strong>plié légèrement les éléments rayonnants</strong> et constaté qu’ils revenaient bien à leur position d’origine, sans déformation permanente.</p>
+          <p>Se référer a la page 4 du <a title="DDV" href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Essai 2.2 — Acquisition</span>
+          <h2>Essai 2.2 – Acquisition : Vérification des performances de réception</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="images/essai-acquisition-resultats-attendus.png"
+              alt="Résultats attendus pour la vérification des performances de réception"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Résultats attendus pour l’essai d’acquisition (<a href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a>).</figcaption>
+          </figure>
+          <p>Dans le cadre de ce test, j’ai vérifié que notre antenne HB9CV répond bien aux critères de performance définis dans le cahier des charges, en particulier pour la réception du signal.</p>
+          <h4><strong>Objectifs</strong></h4>
+          <p>L’essai visait à confirmer que :</p>
+          <ul>
+            <li>L’antenne fonctionne autour de <strong>144 MHz</strong> (sa fréquence de résonance).</li>
+            <li>Elle <strong>rejette correctement les signaux hors axe</strong> (bonne directivité).</li>
+            <li>Le <strong>paramètre S11</strong>, qui mesure la qualité d’adaptation entre l’antenne et le câble, est <strong>inférieur à -10 dB</strong> sur la bande [143–145 MHz].</li>
+            <li>Le <strong>rayonnement</strong> de l’antenne est concentré (angle d’ouverture &lt; 160°) et dirigé (rapport avant/arrière &gt; 3 dB).</li>
+          </ul>
+          <h4><strong>Outils utilisés</strong></h4>
+          <p>Pour effectuer cette vérification, j’ai utilisé :</p>
+          <ul>
+            <li>Un <strong>analyseur de réseaux (VNA)</strong> pour mesurer la réponse de l’antenne.</li>
+            <li>Le logiciel <strong>TRVNA</strong> pour obtenir les données techniques au format .s1p.</li>
+            <li>Le logiciel <strong>Qucs Studio</strong> pour analyser l’impédance.</li>
+            <li>Le logiciel <strong>GNU Radio Companion</strong> pour visualiser la forme du rayonnement.</li>
+          </ul>
+          <h4><strong>Méthode</strong></h4>
+          <ol>
+            <li>J’ai d’abord mesuré la résonance de l’antenne avec TRVNA.</li>
+            <li>J’ai analysé l’adaptation d’impédance avec Qucs grâce au paramètre S11.</li>
+            <li>J’ai obtenu le diagramme de rayonnement avec GNU Radio Companion.</li>
+            <li>J’ai mesuré <strong>l’angle d’ouverture</strong> (zone de rayonnement utile) et <strong>le rapport avant/arrière</strong> (différence entre le gain maximal et celui à l’opposé).</li>
+          </ol>
+          <p>Se référer a la page 14 du <a title="DDV" href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Essai 2.3 — Action</span>
+          <h2>Essai 2.3 – Action : Vérification de la connexion au système de réception</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="images/essai-connexion-resultats-attendus.png"
+              alt="Résultats attendus pour la connexion au système de réception"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Résultats attendus pour la connexion au système de réception (<a href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a>).</figcaption>
+          </figure>
+          <p>Cet essai a pour objectif de s’assurer que l’antenne peut être correctement connectée au système de réception radio, tout en garantissant une fixation solide du connecteur.</p>
+          <h4><strong>Objectifs</strong></h4>
+          <p>L’objectif principal était de valider deux points :</p>
+          <ul>
+            <li>Le <strong>connecteur SMA</strong>, utilisé pour transmettre le signal radio, est <strong>solidement fixé à l’antenne</strong> (au boom).</li>
+            <li>Il est <strong>compatible avec la clé USB RTL-SDR</strong>, qui assure l’acquisition du signal sur ordinateur.</li>
+          </ul>
+          <h4><strong>Moyens utilisés</strong></h4>
+          <ul>
+            <li><strong>Antenne HB9CV</strong> terminée avec connecteur SMA.</li>
+            <li><strong>Clé USB RTL-SDR</strong> servant de récepteur RF.</li>
+            <li><strong>Connexion manuelle</strong> avec inspection visuelle et test de maintien mécanique.</li>
+          </ul>
+          <h4><strong>Méthode</strong></h4>
+          <ol>
+            <li>J’ai vérifié manuellement que le connecteur <strong>SMA était fermement soudé et vissé</strong> sur son support fixé au boom.</li>
+            <li>J’ai ensuite relié ce connecteur à l’entrée RF de la <strong>clé USB RTL-SDR</strong>, en m’assurant que la connexion était stable et sans jeu mécanique.</li>
+          </ol>
+          <p>Se référer a la page 19 du <a title="DDV" href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Essai 2.4 — Contraintes internes</span>
+          <h2>Essai 2.4 – Contraintes internes : Vérification du coût et du délai</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="images/essai-contraintes-internes-resultats-attendus.png"
+              alt="Résultats attendus pour la vérification du coût et du délai"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Résultats attendus pour les contraintes internes (<a href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a>).</figcaption>
+          </figure>
+          <p>Cet essai visait à prouver que le développement de l’antenne respectait bien les contraintes internes fixées par le cahier des charges, à savoir <strong>le coût maximum et le temps de développement</strong>.</p>
+          <h4><strong>Objectifs</strong></h4>
+          <ul>
+            <li>Vérifier que <strong>le coût total</strong> du produit ne dépasse pas <strong>50 € HT</strong>.</li>
+            <li>S’assurer que <strong>la conception et la fabrication</strong> ont été réalisées en <strong>moins de 9 semaines</strong>.</li>
+          </ul>
+          <h4><strong>Moyens utilisés</strong></h4>
+          <ul>
+            <li><strong>Nomenclature</strong> détaillant tous les composants et leur prix unitaire.</li>
+            <li><strong>Planning de gestion de projet</strong> retraçant toutes les étapes du développement.</li>
+          </ul>
+          <h4><strong>Méthode</strong></h4>
+          <ol>
+            <li>J’ai calculé le <strong>coût total</strong> de l’antenne à partir de la nomenclature, en additionnant les coûts de chaque pièce utilisée.</li>
+            <li>J’ai consulté le planning du projet pour vérifier que l’ensemble de la conception, de la fabrication et des tests a bien été effectué <strong>dans le temps imparti</strong>.</li>
+          </ol>
+          <p>Se référer a la page 21 du <a title="DDV" href="https://drive.google.com/file/d/1S2dDQd4ONf365pBlKRl5f764UpryZbT1/view?usp=share_link">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <h2>Conclusion de l'application d'une procédure d'essaie de Radiogoniomètre</h2>
+        <p>Dans le cadre du projet Radio Goniomètre, j’ai personnellement contribué à la <strong>mise en place, à l’application et à la rédaction de plusieurs procédures d’essai</strong> visant à valider la conformité du produit vis-à-vis du cahier des charges.</p>
+        <p>Pour cela, j’ai mis en œuvre différents moyens de mesure (mètre, balance, analyseur VNA, logiciels de simulation et d’acquisition), et j’ai suivi une méthodologie rigoureuse permettant de <strong>tester les aspects mécaniques, électromagnétiques, fonctionnels et logistiques</strong> de l’antenne HB9CV.</p>
+        <p>Chaque essai était lié à une exigence client clairement identifiée, et mes résultats ont été soigneusement consignés sous forme de tableaux, schémas ou captures, garantissant une traçabilité complète. L’ensemble des tests a confirmé que le produit final <strong>répond aux attentes techniques et aux contraintes de coût, de délai et de qualité</strong>.</p>
+        <p>Cette activité m’a permis de renforcer mes compétences en <strong>vérification technique</strong>, en <strong>planification des essais</strong>, ainsi qu’en <strong>rédaction claire et structurée des résultats obtenus</strong>.</p>
+      </section>
+    </main>
+  </body>
+</html>

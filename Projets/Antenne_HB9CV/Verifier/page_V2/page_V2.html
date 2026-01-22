@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — V.2 Vérifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 108, 140, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(31, 108, 140, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow[aria-disabled="true"] {
+        opacity: 0.45;
+        border-color: rgba(31, 108, 140, 0.2);
+        color: rgba(31, 108, 140, 0.4);
+        background: #eef2f4;
+        transform: none;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.08), rgba(192, 112, 46, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul,
+      ol {
+        margin: 0 0 16px 18px;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      section .legend-flow + .legend-flow {
+        margin-top: 28px;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .section-divider {
+        height: 1px;
+        border: 0;
+        background: var(--line);
+        margin: 20px 0 28px;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px;
+        }
+
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow" href="../page_V1/page_V1.html" aria-label="Aller à V1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>J’identifie, je corrige les non-conformités d’un prototype</li>
+            </ul>
+            <span class="nav-arrow" aria-disabled="true" title="Page suivante indisponible">
+              &rarr;
+            </span>
+          </div>
+          <h1>Antenne HB9CV</h1>
+          <p class="subtitle">SAE Radiogoniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="../../../images/Antenne_HB9CV.jpeg"
+            alt="Antenne HB9CV"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Radio goniomètre — antenne HB9CV dédiée à la radiogoniométrie.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Introduction</h2>
+        <p>Dans le cadre du projet <em>Radio Goniomètre</em>, j’ai été chargé d’<strong>identifier et corriger les éventuelles non-conformités</strong> du prototype d’antenne HB9CV après sa conception et fabrication. Cette étape s’inscrit dans le processus de vérification et vise à garantir que le produit final respecte toutes les <strong>exigences du Cahier des Charges (CDC)</strong>.</p>
+        <p>Pour cela, j’ai analysé les résultats d’essais mécaniques et électromagnétiques issus du Dossier de Vérification (DDV), repéré plusieurs écarts par rapport aux performances attendues, puis mis en œuvre des <strong>solutions concrètes</strong> pour rétablir la conformité. Ces actions ont été menées en m’appuyant à la fois sur des outils de simulation, des mesures physiques et des ajustements mécaniques ou électroniques.</p>
+        <p><strong>lien du <a title="CDC" href="https://drive.google.com/file/d/1A259rmQ04lvbxshtdKF31VHtdtonBwD9/view?usp=sharing">Cahier des charges&nbsp;</a></strong></p>
+        <p><strong>Pour un plus haut niveau de technicité le numéro de page du dossier de vérification (<a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>) en lien avec chaque section sera référencé.</strong></p>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Essai Acquisition</span>
+          <h2>Récupération de la caractérisation de l’antenne à 144 MHz</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/caracterisation-antenne-144mhz.png"
+              alt="Récupération de la caractérisation de l’antenne à 144 MHz"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Caractérisation de l’antenne à 144 MHz (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Dans le cadre de l’essai « Acquisition », l’objectif était de vérifier que l’antenne résonne bien à <strong>144 MHz ± 2 MHz</strong>, comme spécifié dans le cahier des charges. Cette capture d’écran montre l’abaque de Smith obtenu avec le logiciel <strong>TRVNA</strong>, utilisé pour représenter l’impédance de l’antenne à différentes fréquences.</p>
+          <p>Le point mesuré ici correspond à <strong>144 MHz</strong>, avec une impédance de <strong>38.1 Ω à 3.13°</strong>, ce qui se rapproche suffisamment de la valeur cible de <strong>50 Ω</strong>, permettant un bon transfert de puissance. Le paramètre <strong>S11 = 0.138</strong> (équivalent à <strong>-16.2 dB</strong>) confirme que <strong>moins de 10 %</strong> de l’énergie est réfléchie, ce qui respecte largement la contrainte d’un <strong>S11 inférieur à -10 dB entre 143 et 145 MHz</strong>.</p>
+          <p>Cette mesure démontre donc que l’antenne est bien accordée à la bonne fréquence et valide l’exigence <strong>EXIG_FREQUENCE</strong> ainsi qu’<strong>EXIG_IMPEDANCE</strong>.</p>
+          <p>Se référer a la page 15 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Simulation</span>
+          <h2>Paramètre S11 trouvé par simulation avant fabrication de l’antenne</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/s11-simulation-avant-fabrication.png"
+              alt="Paramètre S11 trouvé par simulation avant fabrication de l’antenne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Paramètre S11 trouvé par simulation avant fabrication de l’antenne (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Avant la fabrication physique de l’antenne, une simulation a été réalisée sous le logiciel <strong>Qucs Studio</strong> afin de vérifier si la structure conçue répondait bien à l’exigence <strong>EXIG_IMPEDANCE</strong>. Le graphique représente le <strong>paramètre S11</strong>, qui évalue la quantité d’énergie réfléchie par l’antenne au lieu d’être transmise.</p>
+          <p>On observe ici que :</p>
+          <ul>
+            <li>À <strong>143 MHz</strong>, <strong>S11 = -17.6 dB</strong></li>
+            <li>À <strong>145 MHz</strong>, <strong>S11 = -24.7 dB</strong></li>
+          </ul>
+          <p>Ces valeurs sont bien inférieures à la limite fixée de <strong>-10 dB</strong>, ce qui indique une bonne adaptation d’impédance sur toute la plage [143 ; 145 MHz]. Cela signifie que l’antenne perd très peu d’énergie par réflexion, ce qui est essentiel pour garantir une réception efficace.</p>
+          <p>Cette simulation a donc permis de valider virtuellement le comportement de l’antenne avant son assemblage, tout en confirmant la future conformité avec les exigences du cahier des charges.</p>
+          <p>Se référer a la page 15 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Mesure réelle</span>
+          <h2>Paramètre S11 inférieur à 10 dB après caractérisation de l’antenne</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/s11-apres-caracterisation.png"
+              alt="Paramètre S11 inférieur à 10 dB après caractérisation de l’antenne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Paramètre S11 après caractérisation (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Cette courbe a été obtenue à l’issue d’un test réel sur l’antenne fabriquée, à l’aide d’un analyseur de réseaux (VNA). Elle permet de valider expérimentalement la performance d’adaptation d’impédance de l’antenne, critère central de l’exigence <strong>EXIG_IMPEDANCE</strong>.</p>
+          <p>Le <strong>paramètre S11</strong>, exprimé en dB, indique ici la quantité d’onde réfléchie par l’antenne :</p>
+          <ul>
+            <li>À <strong>143 MHz</strong>, S11 = <strong>–12 dB</strong></li>
+            <li>À <strong>144 MHz</strong>, S11 = <strong>–17.1 dB</strong></li>
+            <li>À <strong>145 MHz</strong>, S11 = <strong>–11.9 dB</strong></li>
+          </ul>
+          <p>Ces résultats respectent largement le critère fixé dans le cahier des charges : un <strong>S11 inférieur à –10 dB sur toute la plage [143 MHz ; 145 MHz]</strong>. Cela signifie que l’antenne fonctionne efficacement sur la bande prévue, avec très peu de pertes par réflexion. La résonance optimale est confirmée à <strong>144 MHz</strong>, comme attendu.</p>
+          <p>Ce test valide donc la bonne fabrication de l’antenne et confirme la cohérence entre la simulation et le prototype réalisé.</p>
+          <p>Se référer a la page 16 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Directivité</span>
+          <h2>Angle d’ouverture de 52°</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/angle-ouverture-52.png"
+              alt="Angle d’ouverture de 52°"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Angle d’ouverture de 52° (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Cette figure représente le <strong>diagramme de rayonnement</strong> de l’antenne, obtenu grâce à une analyse de la directivité via le logiciel GNU Radio Companion. Ce diagramme polaire illustre la manière dont l’antenne émet ou capte un signal en fonction de la direction.</p>
+          <p>L’<strong>angle d’ouverture</strong> correspond à la largeur du faisceau principal, mesurée entre les deux directions où le signal est atténué de 3 dB par rapport au maximum. Ici, l’angle mesuré est de <strong>52°</strong>, ce qui signifie que le signal est concentré dans une direction étroite.</p>
+          <p>Cela valide <strong>l’exigence d’angle d’ouverture</strong> du cahier des charges (EXIG_OUVERTURE), qui impose un angle inférieur à 160°. Un angle aussi réduit confirme également le <strong>caractère très directionnel</strong> de l’antenne, essentiel en radiogoniométrie pour localiser précisément une source d’émission.</p>
+          <p>Se référer a la page 17 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.35s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Directivité</span>
+          <h2>Rapport avant/arrière de l’antenne</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/gain-avant-arriere.png"
+              alt="Mesure du gain avant et du gain arrière"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Mesure du gain avant et du gain arrière (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Ce diagramme polaire représente la mesure du <strong>gain de rayonnement de l’antenne</strong> dans toutes les directions. Deux valeurs clés ont été extraites :</p>
+          <ul>
+            <li>Le <strong>gain avant</strong> (dans la direction principale de rayonnement) est de <strong>-2,5 dB</strong>.</li>
+            <li>Le <strong>gain arrière</strong> (dans la direction opposée) est de <strong>-43 dB</strong>.</li>
+          </ul>
+          <p>Le <strong>rapport avant/arrière</strong> est obtenu en comparant ces deux gains :</p>
+          <p>-2,4 / -43 = 0,0558</p>
+          <p>Cela correspond à une différence de <strong>plus de 40 dB</strong>, soit un <strong>rapport largement supérieur à l’exigence minimale de 3 dB</strong> imposée par le cahier des charges (EXIG_GAIN).</p>
+          <p>Ce résultat prouve que l’antenne est <strong>très directive</strong>, avec une excellente capacité à capter un signal en avant tout en minimisant les interférences venant de l’arrière, ce qui est essentiel pour une application en radiogoniométrie.</p>
+          <p>Se référer a la page 18 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.4s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Essai Action</span>
+          <h2>Vérification de la connectique SMA</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/antenne-rtl-sdr.png"
+              alt="Antenne reliée sur le connecteur RF de la clé USB RTL SDR"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Antenne reliée sur le connecteur RF de la clé USB RTL SDR (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Dans le cadre de cet essai, je devais m’assurer que l’antenne pouvait être solidement connectée à un système de réception. Deux critères principaux étaient visés, conformément au cahier des charges :</p>
+          <ol>
+            <li><strong>Le connecteur SMA devait être correctement fixé à l’antenne</strong> (solidité mécanique).</li>
+            <li><strong>Ce connecteur SMA devait pouvoir se relier sans difficulté au connecteur RF d’une clé USB RTL-SDR</strong>, utilisée comme récepteur radio.</li>
+          </ol>
+          <p>Pour cela, j’ai vérifié mécaniquement que le connecteur SMA ne présentait aucun jeu une fois vissé au support PCB. Ensuite, j’ai testé l’interconnexion entre l’antenne et la clé RTL-SDR. Cette liaison doit permettre de transmettre les signaux captés vers le logiciel de traitement installé sur une tablette.</p>
+          <p>Les deux vérifications se sont avérées <strong>conformes</strong> :</p>
+          <ul>
+            <li>Le connecteur est bien solidaire de la structure, comme le montre la deuxième photo (plaque PCB vissée et soudée).</li>
+            <li>La connexion entre l’antenne et le récepteur USB RTL-SDR est fonctionnelle, comme illustré dans la première image.</li>
+          </ul>
+          <p>Ce test validait les exigences <strong>EXIG_TYPE_CONNECTEUR</strong> et <strong>EXIG_SOLIDITE_CONNECTEUR</strong>. Ces critères sont essentiels pour garantir la fiabilité de la transmission du signal capté par l’antenne, notamment lors d’un usage mobile ou en compétition.</p>
+          <p>Se référer a la page 20 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Essai Action</span>
+          <h3>Connecteur SMA solidaire à l'antenne</h3>
+          <figure class="image-frame float-left">
+            <img
+              src="image/connecteur-sma-solidaire.png"
+              alt="Connecteur SMA solidaire à l'antenne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Fixation du connecteur SMA sur le support PCB, sans jeu mécanique (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section style="--delay: 0.42s;">
+        <span class="eyebrow">Essais mécaniques</span>
+        <h2>Conformité mécanique du prototype</h2>
+        <p>Cette série d’essais mécaniques vérifie la masse, les dimensions principales et la tenue en flexion du prototype. La <strong>masse totale de l’antenne</strong> a été mesurée à <strong>1400 g</strong>, ce qui respecte la limite fixée.</p>
+        <p>L’ensemble des mesures effectuées confirme que le prototype est <strong>conforme aux exigences mécaniques du Cahier des Charges</strong>.</p>
+        <hr class="section-divider">
+        <div class="legend-flow">
+          <h3>Mesure du réflecteur</h3>
+          <figure class="image-frame float-right">
+            <img
+              src="image/mesure-reflecteur.png"
+              alt="Mesure du réflecteur"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Mesure du réflecteur (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>La <strong>longueur du réflecteur</strong> a été mesurée à <strong>1095 mm</strong>, confirmant la conformité de la cote principale.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Preuve dimensionnelle</span>
+          <h3>Mesure du directeur</h3>
+          <figure class="image-frame float-left">
+            <img
+              src="image/mesure-directeur.png"
+              alt="Mesure du directeur"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Mesure du directeur (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Le <strong>directeur</strong> a été mesuré à <strong>958.3 mm</strong>.</p>
+          <p>Cette mesure confirme la longueur du directeur et garantit le respect des tolérances dimensionnelles prévues.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Preuve dimensionnelle</span>
+          <h3>Mesure du boom</h3>
+          <figure class="image-frame float-right">
+            <img
+              src="image/mesure-boom.png"
+              alt="Mesure du boom"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Mesure du boom (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Le <strong>boom</strong> a été mesuré à <strong>250 mm</strong>.</p>
+          <p>Toutes ces dimensions respectent les tolérances prévues dans le DDC.</p>
+          <p>Le contrôle du boom valide l’entraxe entre les éléments et l’encombrement mécanique de l’antenne.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Preuve dimensionnelle</span>
+          <h3>Mesure longueur totale de l’antenne</h3>
+          <figure class="image-frame float-left">
+            <img
+              src="image/mesure-longueur-totale.png"
+              alt="Mesure longueur totale de l’antenne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Mesure longueur totale de l’antenne (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>La <strong>longueur totale de l’antenne</strong> reste inférieure à 600 mm, ce qui garantit sa portabilité.</p>
+          <p>Cette vérification garantit la portabilité et l’intégration conforme aux contraintes d’encombrement.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Preuve dimensionnelle</span>
+          <h3>Mesure longueur dimensions support tablette</h3>
+          <figure class="image-frame float-right">
+            <img
+              src="image/mesure-support-tablette.png"
+              alt="Mesure longueur dimensions support tablette"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Mesure longueur dimensions support tablette (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Le <strong>support tablette</strong>, mesuré à <strong>10’’</strong>, respecte parfaitement le format exigé.</p>
+          <p>Le support tablette est contrôlé pour assurer la compatibilité avec le format exigé.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Essai de flexion</span>
+          <h3>Flexion d’un élément rayonnant</h3>
+          <figure class="image-frame float-left">
+            <img
+              src="image/flexion-element-rayonnant.png"
+              alt="Flexion d’un élément rayonnant"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Flexion d’un élément rayonnant (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Lors des essais de flexion, les <strong>éléments rayonnants ont bien repris leur forme initiale</strong>, démontrant leur mémoire de forme, conformément à l’exigence de rigidité souple.</p>
+          <p>La flexion imposée vérifie la souplesse contrôlée des éléments rayonnants.</p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Essai de flexion</span>
+          <h3>Reformation d’un élément rayonnant à mémoire de forme après une flexion</h3>
+          <figure class="image-frame float-right">
+            <img
+              src="image/reformation-element-rayonnant.png"
+              alt="Reformation d’un élément rayonnant à mémoire de forme après une flexion"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Reformation d’un élément rayonnant à mémoire de forme après une flexion (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Enfin, la <strong>prise en main à une main</strong> sur la <strong>crosse positionnée à ±2 cm du centre de gravité</strong> a été validée manuellement.</p>
+          <p>Le retour à la forme initiale valide la mémoire de forme et la tenue mécanique après contrainte.</p>
+          <p>Tous ces points confirment la conformité mécanique de l’antenne HB9CV au CDC. Aucun défaut ni problème n’a été relevé durant cet essai.</p>
+          <p>Se référer a la page 5 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.45s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Contraintes internes</span>
+          <h2>Essai Contraintes internes – Vérification du coût et des délais</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/nomenclature-cout.png"
+              alt="Nomenclature définissant le coût total de l’antenne"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Nomenclature définissant le coût total de l’antenne (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>L’objectif de cet essai était de m’assurer que notre antenne respecte deux contraintes internes majeures définies par le client dans le cahier des charges :</p>
+          <ol>
+            <li><strong>Un coût total inférieur à 50 € hors taxes</strong>.</li>
+            <li><strong>Un délai de fabrication et conception ne dépassant pas 9 semaines</strong>.</li>
+          </ol>
+          <p>Pour cela, j’ai élaboré une <strong>nomenclature complète</strong> listant tous les composants utilisés dans l’antenne (voir image ci-dessus). En additionnant les prix unitaires hors taxe, j’ai obtenu un <strong>coût total de 48,64 €</strong>, soit en dessous de la limite autorisée.</p>
+          <p>Par ailleurs, en consultant notre <strong>planning de gestion de projet</strong>, j’ai constaté que l’ensemble du processus (conception, fabrication, vérification) a été réalisé en <strong>7 semaines</strong>, respectant ainsi la contrainte temporelle.</p>
+          <p>Ces deux résultats montrent que les exigences <strong>EXIG_COUT</strong> et <strong>EXIG_DELAI</strong> ont été pleinement respectées. Aucun ajustement n’a été nécessaire au cours du projet.</p>
+          <p>Se référer a la page 21 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+        <div class="legend-flow">
+          <span class="eyebrow">Contraintes internes</span>
+          <h3>Planning de gestion de projet – Respect du délai de 9 semaines</h3>
+          <figure class="image-frame float-left">
+            <img
+              src="image/planning-projet-7-semaines.png"
+              alt="Planning de gestion projet présentant les 7 semaines utilisées"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Planning de gestion projet présentant les 7 semaines utilisées (<a href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a>).</figcaption>
+          </figure>
+          <p>Le graphique ci-dessus représente le <strong>planning prévisionnel</strong> du projet de radiogoniomètre. J’ai utilisé ce planning pour vérifier que la durée totale de la conception, de la fabrication et de la phase de tests ne dépasse pas la limite imposée de <strong>9 semaines</strong>.</p>
+          <p>En analysant les différentes tâches planifiées (en vert, jaune, rouge et violet), on observe que l’ensemble du projet, <strong>de la création des équipes à la remise du Dossier de Vérification</strong>, a été réalisé en <strong>7 semaines effectives</strong> de travail, en excluant les périodes de congés (vacances scolaires visibles en gris au centre du diagramme).</p>
+          <p>Ce respect du calendrier confirme que l’exigence client liée au <strong>délai maximal</strong> a bien été satisfaite, en cohérence avec le résultat de la nomenclature montrant un coût maîtrisé.</p>
+          <p>Ainsi, <strong>les deux exigences EXIG_COUT et EXIG_DELAI sont vérifiées</strong> à travers cette planification structurée et rigoureusement suivie.</p>
+          <p>Se référer a la page 22 du <a title="DDV" href="https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing">DDV</a></p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.5s;">
+        <h2>Conclusion de l'identification de problèmes du Radiogoniomètre</h2>
+        <p>Dans le cadre du projet de radiogoniomètre, j’ai été amené à vérifier la conformité de l’antenne HB9CV à travers plusieurs essais techniques rigoureux. Cette démarche m’a permis d’<strong>identifier, documenter et interpréter les écarts éventuels entre les exigences du cahier des charges et les performances réelles du prototype</strong>.</p>
+        <p>Heureusement, <strong>aucune non-conformité majeure n’a été relevée</strong> au cours des essais mécaniques, fonctionnels ou techniques : les résultats obtenus ont systématiquement confirmé le respect des spécifications en termes de dimensions, de fréquence de résonance, d’impédance, de directivité, de robustesse mécanique, de compatibilité d’interface et de respect des contraintes de coût et de délai.</p>
+        <p>Néanmoins, j’ai acquis au cours de cette phase une <strong>méthodologie rigoureuse de contrôle</strong> qui m’a permis de comprendre <strong>comment détecter les écarts</strong>, mais aussi <strong>quelles mesures correctives envisager</strong> si nécessaire. L’ensemble de cette expérience m’a permis de développer mes capacités à <strong>valider un prototype, en croisant des outils d’analyse (mesures, logiciels de simulation, observation physique)</strong>, tout en <strong>assurant une traçabilité claire</strong> des vérifications.</p>
+      </section>
+    </main>
+  </body>
+</html>

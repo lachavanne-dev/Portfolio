@@ -64,14 +64,16 @@ const SKILL_STRUCTURE = {
         code: "V1",
         file: "page_V1.pdf",
         fileByProject: {
-          kah: "page_V1/page_V1.html"
+          kah: "page_V1/page_V1.html",
+          antenne: "page_V1/page_V1.html"
         }
       },
       {
         code: "V2",
         file: "page_V2.pdf",
         fileByProject: {
-          kah: "page_V2/page_V2.html"
+          kah: "page_V2/page_V2.html",
+          antenne: "page_V2/page_V2.html"
         }
       }
     ],
