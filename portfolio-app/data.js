@@ -73,7 +73,8 @@ const SKILL_STRUCTURE = {
         file: "page_V2.pdf",
         fileByProject: {
           kah: "page_V2/page_V2.html",
-          antenne: "page_V2/page_V2.html"
+          antenne: "page_V2/page_V2.html",
+          robot: "page_V2/page_V2.html"
         }
       }
     ],

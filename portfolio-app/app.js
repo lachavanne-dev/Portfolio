@@ -39,6 +39,10 @@ function getDefaultPage(skillKey, project) {
   const skillData = structure[skillKey];
   if (!skillData?.pages?.length) return null;
 
+  if (skillKey === 'verifier' && project?.id === 'robot' && skillData.pages[1]) {
+    return skillData.pages[1];
+  }
+
   if (skillKey === 'concevoir' || skillKey === 'verifier') {
     return skillData.pages[0];
   }
