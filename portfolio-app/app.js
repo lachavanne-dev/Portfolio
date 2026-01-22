@@ -7,6 +7,10 @@ const modalBody = document.querySelector('[data-modal-body]');
 const closeModalBtn = document.querySelector('[data-close-modal]');
 const navbar = document.querySelector('[data-navbar]');
 
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 // Maps pour accès rapide
 const projectMap = Object.fromEntries(projects.map((p) => [p.id, p]));
 const defaultPageOverrides = new Set(['kah', 'antenne']);
@@ -243,27 +247,30 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(
 
 // 1. Faire fonctionner les boutons (Click)
 const scrollButtons = document.querySelectorAll('[data-scroll-target]');
+const sections = document.querySelectorAll('section[id]');
+const navButtons = document.querySelectorAll('[data-nav]');
+
+function scrollToTarget(targetId, behavior = 'smooth') {
+  const targetSection = document.querySelector(targetId);
+  if (!targetSection) return;
+
+  navButtons.forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+  }
+
+  targetSection.scrollIntoView({ behavior });
+}
 
 scrollButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const targetId = btn.dataset.scrollTarget;
-    const targetSection = document.querySelector(targetId);
-
-    if (targetSection) {
-      // On désactive temporairement l'observateur pour éviter le conflit
-      // lors du scroll rapide, et on force l'activation du bouton cliqué
-      navButtons.forEach(b => b.classList.remove('active'));
-      if (btn.hasAttribute('data-nav')) btn.classList.add('active');
-
-      targetSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToTarget(targetId, 'smooth');
   });
 });
 
 // 2. Surligner le bouton actif quand on scrolle (Observer)
-const sections = document.querySelectorAll('section[id]');
-const navButtons = document.querySelectorAll('[data-nav]');
-
 // Options ajustées pour corriger le bug de l'accueil
 const observerOptions = {
   root: null,
@@ -290,3 +297,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 sections.forEach(section => observer.observe(section));
+
+window.addEventListener('load', () => {
+  scrollToTarget('#hero', 'auto');
+});
