@@ -87,12 +87,13 @@
         border: 1px solid var(--line);
         background: var(--panel);
         box-shadow: var(--shadow);
-        animation: rise 0.9s ease forwards;
+        animation: none;
       }
 
       .competences-nav {
         display: grid;
         grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
         gap: 12px;
         align-items: center;
         padding: 12px 18px;
@@ -113,10 +114,33 @@
         color: var(--muted);
         letter-spacing: 0.01em;
         line-height: 1.4;
+      
+        grid-column: 2;
+        grid-row: 2;
       }
+
 
       .competences-text li + li {
         margin-top: 6px;
+      }
+
+
+      .competences-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.06);
+        background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+        color: var(--accent-2);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 6px;
       }
 
       .competences-nav .nav-arrow {
@@ -132,12 +156,29 @@
         font-weight: 700;
         text-decoration: none;
         transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        grid-row: 1 / span 2;
       }
+
+      .competences-nav .nav-arrow.nav-arrow-left {
+        left: 24px;
+        grid-column: 1;
+      }
+
+      .competences-nav .nav-arrow.nav-arrow-right {
+        right: 24px;
+        grid-column: 3;
+      }
+
 
       .competences-nav .nav-arrow:hover {
         background: #ffffff;
         border-color: var(--accent);
-        transform: translateY(-1px);
+        transform: translateY(calc(-50% - 1px));
       }
 
       .competences-nav .nav-arrow:focus-visible {
@@ -298,6 +339,19 @@
         .hero {
           grid-template-columns: 1fr;
         }
+        .competences-nav .nav-arrow {
+          width: 36px;
+          height: 36px;
+        }
+
+        .competences-nav .nav-arrow.nav-arrow-left {
+          left: 12px;
+        }
+
+        .competences-nav .nav-arrow.nav-arrow-right {
+          right: 12px;
+        }
+
 
         .competences-nav {
           width: 100%;
@@ -319,13 +373,14 @@
       <header class="hero" style="--delay: 0s;">
         <div>
           <div class="competences-nav" aria-label="Navigation des compétences">
-            <a class="nav-arrow" href="../page_V1/page_V1.html" aria-label="Aller à V1">
+            <a class="nav-arrow nav-arrow-left" href="../page_V1/page_V1.html" aria-label="Aller à V1">
               &larr;
             </a>
+            <span class="competences-label">Compétence Vérifier</span>
             <ul class="competences-text">
               <li>J’identifie, je corrige les non-conformités d’un prototype</li>
             </ul>
-            <a class="nav-arrow is-disabled" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
+            <a class="nav-arrow is-disabled nav-arrow-right" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
               &rarr;
             </a>
           </div>
