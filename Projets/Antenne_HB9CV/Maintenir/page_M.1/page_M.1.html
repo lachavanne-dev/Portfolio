@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antenne HB9CV — M.1 Maintenir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 108, 140, 0.35);
+        background: #eef2f4;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(31, 108, 140, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.12), rgba(108, 143, 60, 0.1));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+
+      h4 {
+        margin: 18px 0 8px;
+        font-size: 1rem;
+        color: var(--accent-2);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 10px;
+        padding-left: 20px;
+      }
+
+      ul li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.1);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .issue-card {
+        padding: 20px 22px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 24px rgba(26, 31, 36, 0.08);
+      }
+
+      .split-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .media-card {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 24px rgba(26, 31, 36, 0.08);
+      }
+
+      .media-card img {
+        width: 100%;
+        display: block;
+        border-radius: 14px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 10px 20px rgba(26, 31, 36, 0.12);
+        background: #ffffff;
+      }
+
+      .media-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .competences-nav {
+          width: 100%;
+        }
+
+        .split-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow is-disabled" href="#" aria-label="Page précédente indisponible" aria-disabled="true" tabindex="-1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>J'applique une opération de maintenance (préventive, corrective, améliorative) à un système</li>
+            </ul>
+            <a class="nav-arrow is-disabled" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Antenne HB9CV</h1>
+          <p class="subtitle">SAE Radiogoniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/Antenne_HB9CV.jpeg" alt="Antenne HB9CV" loading="lazy" decoding="async">
+          <figcaption>Radiogoniomètre — antenne HB9CV en phase de tests.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Édition rapide</span>
+        <h2>Introduction</h2>
+        <p>Dans le cadre du projet radiogoniomètre, j’ai été amené à identifier des non-conformités et à y remédier. Ces actions relèvent d’une <strong>maintenance corrective</strong>, car elles visent à corriger des écarts de performance constatés après la fabrication.</p>
+        <p>Par ailleurs, j’ai également apporté <strong>des ajustements visant à améliorer la stabilité et la fiabilité</strong> de certaines liaisons mécaniques et électriques, ce qui s’inscrit dans une démarche de <strong>maintenance améliorative</strong>.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <h2>Maintenance corrective : réajustement des dimensions du gamma-match</h2>
+        <div class="issue-card">
+          <h3>Problème constaté</h3>
+          <p>Après la première fabrication du gamma, les mesures d’impédance n’étaient pas parfaitement alignées avec la fréquence cible de 144&nbsp;MHz.</p>
+          <h3>Action réalisée</h3>
+          <p>J’ai procédé à une <strong>légère correction géométrique</strong> du gamma-match (ajustement de la forme et de l’élévation), afin d’améliorer l’adaptation d’impédance.</p>
+          <h3>Résultat</h3>
+          <p>Le paramètre S11 est passé à –17,1&nbsp;dB à 144&nbsp;MHz, validant la conformité au cahier des charges.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <h2>Maintenance améliorative : renforcement de la liaison SMA</h2>
+        <div class="split-grid">
+          <article class="issue-card">
+            <h3>Problème anticipé</h3>
+            <p>Lors des premiers tests, la connexion entre le connecteur SMA et le PCB restait mécaniquement fiable, mais j’ai jugé utile de la renforcer pour éviter toute usure en usage prolongé.</p>
+            <h3>Action réalisée</h3>
+            <p>Ajout d’un <strong>câble de masse très court</strong> entre le gamma et la masse du SMA, ainsi qu’un <strong>resserrage précis des éléments vissés avec écrou frein</strong>, pour garantir une liaison stable.</p>
+            <h3>Résultat</h3>
+            <p>Une amélioration de la robustesse mécanique et de la continuité électrique, en particulier en situation mobile.</p>
+          </article>
+          <figure class="media-card">
+            <img
+              src="image /Capture d’écran 2025-06-02 à 00.15.26.png"
+              alt="Soudage du lien entre la masse du SMA et le gamma"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Soudage du lien entre la masse du SMA et le gamma.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <span class="eyebrow">Édition rapide</span>
+        <h2>Conclusion de maintenance Radiogoniomètre</h2>
+        <p>Les actions menées dans ce projet m’ont permis de <strong>pratiquer une forme de maintenance concrète sur un système réel</strong>, en m’appuyant sur l’analyse de performances mesurées, puis en mettant en œuvre des <strong>modifications techniques ciblées</strong>. Cette approche m’a appris à <strong>détecter une dérive fonctionnelle, à diagnostiquer son origine</strong>, et à y répondre par des <strong>interventions précises</strong>, tout en assurant la traçabilité de ces opérations.</p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Robot Sumo — V.2 Vérifier</title>
+    <title>Robot — V.1 Vérifier</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -225,12 +225,14 @@
         margin-bottom: 0;
       }
 
-      ul {
+      ul,
+      ol {
         margin: 0 0 10px;
         padding-left: 20px;
       }
 
-      ul li + li {
+      ul li + li,
+      ol li + li {
         margin-top: 6px;
       }
 
@@ -268,25 +270,6 @@
         color: var(--muted);
       }
 
-      .action-grid {
-        display: grid;
-        gap: 22px;
-        margin-top: 18px;
-      }
-
-      .action-item {
-        padding: 18px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.65);
-        border: 1px solid rgba(27, 26, 23, 0.08);
-      }
-
-      .action-item h3 {
-        margin: 0 0 12px;
-        font-size: 1.1rem;
-        color: var(--accent);
-      }
-
       @keyframes rise {
         to {
           opacity: 1;
@@ -319,17 +302,17 @@
       <header class="hero" style="--delay: 0s;">
         <div>
           <div class="competences-nav" aria-label="Navigation des compétences">
-            <a class="nav-arrow" href="../page_V1/page_V1.html" aria-label="Aller à V1">
+            <a class="nav-arrow is-disabled" href="#" aria-label="Page précédente indisponible" aria-disabled="true" tabindex="-1">
               &larr;
             </a>
             <ul class="competences-text">
-              <li>J’identifie, je corrige les non-conformités d’un prototype</li>
+              <li>J'applique, j'élabore, je rédige une procédure d'essais</li>
             </ul>
-            <a class="nav-arrow is-disabled" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
+            <a class="nav-arrow" href="../page_V2/page_V2.html" aria-label="Aller à V2">
               &rarr;
             </a>
           </div>
-          <h1>Robot Sumo</h1>
+          <h1>Robot</h1>
           <p class="subtitle">SAE Robot Sumo</p>
         </div>
         <figure class="hero-card">
@@ -341,78 +324,98 @@
       <section style="--delay: 0.05s;">
         <span class="eyebrow">Édition rapide</span>
         <h2>Introduction</h2>
-        <p>Dans le cadre du projet Robot Mini-Sumo (RMS), j’ai été chargé d’identifier les dysfonctionnements affectant les blocs Énergie et Action du robot. Cette étape est essentielle pour garantir que le système répond aux exigences techniques du Cahier des Charges (CDC) avant sa mise en compétition.</p>
-        <p>Lors des phases de tests et de vérification du Robot Mini-Sumo (RMS), j’ai identifié deux dysfonctionnements majeurs dans les blocs Action et Énergie du système. Une description détaillée de ces problèmes permet non seulement d’en analyser les causes, mais aussi de proposer des solutions adaptées pour garantir la conformité du produit avec les exigences du Cahier des Charges (CDC).</p>
+        <p>Dans le cadre du projet Robot Mini-Sumo (RMS), j’ai appliqué des procédures d’essai afin de vérifier la conformité des blocs Action et Énergie du système. Ces essais sont essentiels pour garantir que le robot répond aux exigences du Cahier des Charges (CDC) avant sa mise en compétition.</p>
       </section>
 
       <section style="--delay: 0.1s;">
-        <h2>Description des dysfonctionnements</h2>
+        <h2>Matériel utilisé</h2>
+        <p>Pour réaliser les essais, j’ai préparé les outils suivants :</p>
+        <ul>
+          <li>Multimètre : mesure des tensions et résistances.</li>
+          <li>Oscilloscope : visualisation des signaux électriques.</li>
+          <li>Générateur d’alimentation : fourniture d’une tension stabilisée (7,4 V).</li>
+          <li>Robot Mini-Sumo et ses moteurs/servomoteurs connectés.</li>
+        </ul>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <h2>Procédure d’essai du bloc Énergie</h2>
+        <p><strong>Objectif :</strong> vérifier que le régulateur linéaire abaisse correctement la tension de 7,4 V (batterie) à 5 V pour alimenter les composants du robot et que la sécurité batterie s’active sous 6,7 V.</p>
+        <h3>Étapes de l’essai</h3>
+        <ol>
+          <li>Alimentation : le robot est alimenté par une source de tension variable réglée à 7,4 V.</li>
+          <li>Mesure de la tension régulée : multimètre placé aux bornes de sortie du régulateur (MC33269DT-5.0G).</li>
+          <li>Vérification du seuil de sécurité batterie : abaissement progressif de la tension jusqu’à 6,7 V pour observer la coupure des moteurs.</li>
+        </ol>
+        <h3>Résultats obtenus</h3>
+        <ul>
+          <li>Tension régulée mesurée : 5,0 V → Conforme.</li>
+          <li>Seuil de coupure batterie : activation constatée à 6,7 V → Conforme.</li>
+        </ul>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <h2>Procédure d’essai du bloc Action</h2>
+        <p><strong>Objectif :</strong> vérifier la commande des moteurs et servomoteurs grâce aux signaux PWM générés par le microcontrôleur, en respectant les spécifications du CDC.</p>
         <div class="issue-grid">
           <article class="issue-card">
-            <h3>Dysfonctionnement identifié dans le bloc Énergie</h3>
-            <p class="card-subtitle">Tension batterie trop faible (Bloc Énergie)</p>
-            <h4>Symptômes observés</h4>
+            <h3>Vérification des moteurs</h3>
+            <h4>Connexion</h4>
             <ul>
-              <li>La coupure de sécurité batterie ne s’activait pas lorsque la tension passait sous 6,7 V, ce qui aurait pu entraîner une décharge excessive et endommager la batterie.</li>
-              <li>Lors des tests d’autonomie, le robot s’arrêtait prématurément alors que la batterie était censée encore fournir de l’énergie.</li>
+              <li>Oscilloscope branché sur les sorties du pont en H alimentant les moteurs.</li>
             </ul>
-            <h4>Méthode d’identification</h4>
+            <h4>Commande des mouvements</h4>
             <ul>
-              <li>Test de seuil de coupure : j’ai utilisé une alimentation variable pour simuler la batterie et abaissé progressivement la tension d’entrée.</li>
-              <li>J’ai surveillé le fonctionnement des moteurs et vérifié la tension de sortie à l’aide d’un multimètre.</li>
-              <li>Mesure de la tension batterie : la tension est tombée rapidement en dessous du seuil critique de 6,7 V requis pour alimenter correctement le circuit.</li>
-              <li>Analyse du circuit de surveillance : la tension à 6,7 V n’était pas correctement détectée et l’arrêt de la partie puissance ne se déclenchait pas.</li>
+              <li>Avancer : PWM identiques sur les deux moteurs.</li>
+              <li>Reculer : PWM inversés.</li>
+              <li>Tourner à droite : moteur gauche actif, moteur droit arrêté.</li>
+              <li>Tourner à gauche : moteur droit actif, moteur gauche arrêté.</li>
             </ul>
-            <h4>Cause du problème / déduction</h4>
+            <h4>Analyse des signaux PWM</h4>
             <ul>
-              <li>Une erreur dans la configuration du pont diviseur de tension (résistances R1 et R2) a faussé la détection du seuil.</li>
-              <li>Le circuit de détection de tension batterie n’était pas configuré correctement pour déclencher l’arrêt de la partie puissance lorsque la tension descendait sous 6,7 V.</li>
-              <li>L’erreur provenait d’une mauvaise calibration du seuil de coupure dans le code du microcontrôleur.</li>
+              <li>Vérification de la fréquence, amplitude et cohérence des signaux sur l’oscilloscope.</li>
+            </ul>
+            <h4>Résultats obtenus</h4>
+            <ul>
+              <li>Amplitude du signal PWM : 5 V → Conforme.</li>
+              <li>Fréquence des signaux PWM : stable à 1 kHz → Conforme.</li>
+              <li>Cohérence des commandes : moteurs réactifs aux variations de signal → Conforme.</li>
             </ul>
           </article>
           <article class="issue-card">
-            <h3>Dysfonctionnement identifié dans le bloc Action</h3>
-            <p class="card-subtitle">Signal PWM incorrect pour les moteurs (Bloc Action)</p>
-            <h4>Symptômes observés</h4>
+            <h3>Vérification des servomoteurs</h3>
+            <h4>Connexion</h4>
             <ul>
-              <li>Les moteurs ne réagissaient pas correctement aux signaux PWM envoyés par le microcontrôleur.</li>
-              <li>Lors des tests de déplacement, cela se manifestait par un mouvement irrégulier, voire une absence de réponse.</li>
+              <li>Oscilloscope relié à la broche de signal du servomoteur.</li>
             </ul>
-            <h4>Méthode d’identification</h4>
+            <h4>Commande des directions</h4>
             <ul>
-              <li>Analyse des signaux : j’ai connecté un oscilloscope aux sorties du pont en H pour vérifier les signaux PWM générés.</li>
-              <li>Les impulsions PWM présentaient des amplitudes irrégulières, une amplitude réduite (inférieure à 5 V) et des variations de fréquence anormales.</li>
+              <li>Position gauche → 1 ms.</li>
+              <li>Position milieu → 1,5 ms.</li>
+              <li>Position droite → 2 ms.</li>
             </ul>
-            <h4>Cause du problème / déduction</h4>
+            <h4>Analyse des signaux</h4>
             <ul>
-              <li>Une soudure défectueuse sur une des broches du pont en H entraînait un mauvais contact et perturbait les signaux.</li>
-              <li>Le problème provenait d’une piste endommagée sur le circuit imprimé, empêchant une transmission correcte du signal PWM depuis le microcontrôleur vers le pont en H.</li>
+              <li>Visualisation des signaux carrés pour vérifier la durée des impulsions.</li>
+            </ul>
+            <h4>Résultats obtenus</h4>
+            <ul>
+              <li>Durée des impulsions PWM : 1 ms (gauche), 1,5 ms (milieu), 2 ms (droite) → Conforme.</li>
+              <li>Réponse du servomoteur : mouvements précis et cohérents → Conforme.</li>
             </ul>
           </article>
         </div>
       </section>
 
-      <section style="--delay: 0.15s;">
-        <h2>Correction des dysfonctionnements</h2>
-        <div class="action-grid">
-          <article class="action-item">
-            <h3>Bloc Énergie</h3>
-            <ul>
-              <li>J’ai recalculé les valeurs des résistances du pont diviseur de tension pour assurer une détection précise du seuil de 6,7 V.</li>
-              <li>Le problème a été résolu après remplacement des résistances.</li>
-              <li>J’ai recalibré le seuil de coupure en ajustant le pont diviseur de tension et le code associé pour s’assurer qu’à 6,7 V, la coupure de l’alimentation des moteurs est bien effective.</li>
-              <li>Après correction, le robot s’arrête automatiquement lorsque la batterie atteint ce seuil, préservant ainsi sa durée de vie et respectant l’exigence d’autonomie.</li>
-            </ul>
-          </article>
-          <article class="action-item">
-            <h3>Bloc Action</h3>
-            <ul>
-              <li>J’ai refait les soudures défectueuses sur le pont en H.</li>
-              <li>J’ai réparé la piste défectueuse en utilisant un fil de réparation pour rétablir la connexion électrique.</li>
-              <li>Les signaux PWM sont désormais stables et conformes aux attentes du CDC, avec une amplitude de 5 V et une fréquence stable, permettant aux moteurs de répondre correctement.</li>
-            </ul>
-          </article>
-        </div>
+      <section style="--delay: 0.25s;">
+        <span class="eyebrow">Édition rapide</span>
+        <h2>Conclusion</h2>
+        <p>Les essais des blocs Énergie et Action du Robot Mini-Sumo ont permis de valider la conformité du système avec les exigences du Cahier des Charges (CDC) :</p>
+        <ul>
+          <li>Bloc Énergie : tension régulée à 5 V et coupure automatique à 6,7 V → Conforme.</li>
+          <li>Bloc Action : signaux PWM cohérents pour les moteurs et les servomoteurs → Conforme.</li>
+        </ul>
+        <p>Ces résultats garantissent que le robot répond aux attentes en termes de fiabilité électrique et de précision des mouvements, assurant ainsi un fonctionnement optimal en compétition.</p>
       </section>
     </main>
   </body>

@@ -39,11 +39,11 @@ function getDefaultPage(skillKey, project) {
   const skillData = structure[skillKey];
   if (!skillData?.pages?.length) return null;
 
-  if (skillKey === 'verifier' && project?.id === 'robot' && skillData.pages[1]) {
-    return skillData.pages[1];
+  if (skillKey === 'concevoir' || skillKey === 'verifier') {
+    return skillData.pages[0];
   }
 
-  if (skillKey === 'concevoir' || skillKey === 'verifier') {
+  if (skillKey === 'maintenir') {
     return skillData.pages[0];
   }
 
@@ -126,8 +126,12 @@ function openProjectModal(project) {
   const list = document.createElement('div');
   list.className = 'modal-list';
 
-  // On parcourt toutes les compétences
-  Object.entries(structure).forEach(([skillKey, skillData]) => {
+  // Ordre voulu pour l'affichage des compétences dans la modale projet
+  const modalSkillOrder = ['concevoir', 'verifier', 'maintenir', 'implanter', 'rapports'];
+
+  modalSkillOrder.forEach((skillKey) => {
+    const skillData = structure[skillKey];
+    if (!skillData) return;
     const defaultPage = getDefaultPage(skillKey, project);
     if (!defaultPage) return;
 

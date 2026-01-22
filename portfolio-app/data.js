@@ -42,7 +42,13 @@ const SKILL_STRUCTURE = {
     label: "Maintenir",
     folder: "Maintenir",
     pages: [
-      { code: "M1", file: "page_M.1.pdf" },
+      {
+        code: "M1",
+        file: "page_M.1.pdf",
+        fileByProject: {
+          antenne: "page_M.1/page_M.1.html"
+        }
+      },
       { code: "M2", file: "page_M.2.pdf" }
     ],
     description: "Plan de maintien en condition opérationnelle (préventif/correctif)."
@@ -65,7 +71,8 @@ const SKILL_STRUCTURE = {
         file: "page_V1.pdf",
         fileByProject: {
           kah: "page_V1/page_V1.html",
-          antenne: "page_V1/page_V1.html"
+          antenne: "page_V1/page_V1.html",
+          robot: "page_V1/page_V1.html"
         }
       },
       {
@@ -129,10 +136,9 @@ window.portfolioData = {
   ],
   skillsInfo: [
     { id: "concevoir", name: "Concevoir", summary: "Cahier des charges et conception." },
-    { id: "implanter", name: "Implanter", summary: "Réalisation et déploiement." },
-    { id: "maintenir", name: "Maintenir", summary: "Maintenance et cycle de vie." },
-    { id: "manager", name: "Manager", summary: "Gestion de projet." },
     { id: "verifier", name: "Vérifier", summary: "Tests et validation." },
+    { id: "maintenir", name: "Maintenir", summary: "Maintenance et cycle de vie." },
+    { id: "implanter", name: "Implanter", summary: "Réalisation et déploiement." },
     { id: "rapports", name: "Rapports SAE", summary: "Documentation." }
   ]
 };
