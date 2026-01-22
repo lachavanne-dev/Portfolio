@@ -198,6 +198,23 @@ body {
   padding-top: 2rem;
 }
 
+.project-separator {
+  grid-column: 1 / -1;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.project-separator__title {
+  margin: 0.45rem 0 0;
+  font-size: 1.35rem;
+}
+
+.project-separator__desc {
+  margin: 0.4rem 0 0;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
 .card {
   background: var(--surface-color);
   border-radius: var(--card-radius);
@@ -220,6 +237,17 @@ body {
   height: 220px;
   width: 100%;
   object-fit: cover;
+}
+
+.card-image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(194, 90, 56, 0.18), rgba(29, 107, 104, 0.18));
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 .card-content {

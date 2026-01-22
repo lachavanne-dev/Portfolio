@@ -157,6 +157,18 @@ window.portfolioData = {
       context: "SAE",
       year: "2024",
       tags: ["Électronique", "C++", "Capteurs"]
+    },
+    {
+      id: "stage-geii",
+      folderRoot: "../Projets/Stage_BUT_GEII",
+      reportFile: "page_Stage_BUT_GEII.pdf",
+      title: "Asservissement nanométrique",
+      tagline: "Self-mixing, traitement du signal, tests et calibration",
+      image: "../Projets/images/Stage_LOMA.jpeg",
+      context: "STAGE BUT GEII",
+      year: "2025",
+      category: "professional",
+      tags: ["Instrumentation", "Signal", "Asservissement"]
     }
   ],
   skillsInfo: [

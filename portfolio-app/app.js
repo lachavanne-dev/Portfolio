@@ -67,19 +67,42 @@ function getDefaultPage(skillKey, project) {
 }
 
 // --- 1. GÉNÉRATION GRID PROJETS ---
+let professionalSeparatorInserted = false;
+const createProfessionalSeparator = () => {
+  const separator = document.createElement('div');
+  separator.className = 'project-separator';
+  separator.innerHTML = `
+    <h3 class="project-separator__title">Expériences professionnelles</h3>
+    <p class="project-separator__desc">Projet réalisé en contexte d'entreprise.</p>
+  `;
+  return separator;
+};
+
 projects.forEach((project) => {
+  if (!professionalSeparatorInserted && project.category === 'professional') {
+    if (projectGrid) projectGrid.appendChild(createProfessionalSeparator());
+    professionalSeparatorInserted = true;
+  }
+
   const card = document.createElement('article');
   card.className = 'card project-card';
 
   let imageContainerHtml = '';
-  if (project.depthImage && window.ParallaxImage) {
+  const hasImage = typeof project.image === 'string' && project.image.trim() !== '';
+  if (hasImage && project.depthImage && window.ParallaxImage) {
     imageContainerHtml = `
       <div class="card-image parallax-container" id="parallax-${project.id}" style="position: relative; overflow: hidden;">
         <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
     `;
-  } else {
+  } else if (hasImage) {
     imageContainerHtml = `<img src="${project.image}" alt="${project.title}" class="card-image" />`;
+  } else {
+    imageContainerHtml = `
+      <div class="card-image card-image--placeholder" role="img" aria-label="Image a venir">
+        Image a venir
+      </div>
+    `;
   }
 
   card.innerHTML = `
