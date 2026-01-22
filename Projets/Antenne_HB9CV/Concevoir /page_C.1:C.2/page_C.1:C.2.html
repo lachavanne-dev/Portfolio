@@ -443,7 +443,7 @@
   <header class="navbar" data-navbar="">
     <button class="logo" type="button" data-scroll-target="#hero">Paul Lachavanne</button>
     <nav class="nav-links" aria-label="Navigation principale">
-      <button type="button" data-scroll-target="#hero" data-nav="" class="active">Accueil</button>
+      <button type="button" data-scroll-target="#hero" data-nav="">Accueil</button>
       <button type="button" data-scroll-target="#projects" data-nav="" class="">Projets</button>
       <button type="button" data-scroll-target="#skills" data-nav="">Compétences</button>
     </nav>
@@ -608,13 +608,28 @@
       </section>
     </main>
   
-    <script>
+      <script>
     const navButtons = document.querySelectorAll('[data-scroll-target]');
+    const navLinks = document.querySelectorAll('[data-nav]');
+
+    function setActive(targetId) {
+      navLinks.forEach((btn) => btn.classList.remove('active'));
+      const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+    }
+
+    if (window.location.pathname.includes('/Projets/')) {
+      setActive('#skills');
+    }
+
     navButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const targetId = btn.dataset.scrollTarget;
         const target = document.querySelector(targetId);
         if (target) {
+          setActive(targetId);
           target.scrollIntoView({ behavior: 'smooth' });
           return;
         }

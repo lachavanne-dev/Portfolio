@@ -270,34 +270,39 @@ scrollButtons.forEach(btn => {
   });
 });
 
-// 2. Surligner le bouton actif quand on scrolle (Observer)
-// Options ajustées pour corriger le bug de l'accueil
-const observerOptions = {
-  root: null,
-  // "margin-top: -80px" dit à l'observateur d'ignorer la zone sous la barre de nav
-  // threshold: 0.2 signifie "dès que 20% de la section est visible, active-la"
-  rootMargin: '-80px 0px 0px 0px',
-  threshold: 0.2
-};
+// 2. Surligner le bouton actif quand on scrolle
+const navOffset = 80;
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    // On ne change la classe que si la section ENTRE dans l'écran
-    if (entry.isIntersecting) {
-      // On retire la classe active de tous les boutons
-      navButtons.forEach(btn => btn.classList.remove('active'));
+function updateActiveSection() {
+  if (!sections.length) return;
+  let activeSection = sections[0];
 
-      // On l'ajoute au bouton correspondant à la section visible
-      const activeBtn = document.querySelector(`[data-scroll-target="#${entry.target.id}"][data-nav]`);
-      if (activeBtn) {
-        activeBtn.classList.add('active');
-      }
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top - navOffset <= 0 && rect.bottom - navOffset > 0) {
+      activeSection = section;
     }
   });
-}, observerOptions);
 
-sections.forEach(section => observer.observe(section));
+  navButtons.forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.querySelector(`[data-scroll-target="#${activeSection.id}"][data-nav]`);
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+  }
+}
+
+let isTicking = false;
+window.addEventListener('scroll', () => {
+  if (isTicking) return;
+  isTicking = true;
+  window.requestAnimationFrame(() => {
+    updateActiveSection();
+    isTicking = false;
+  });
+}, { passive: true });
 
 window.addEventListener('load', () => {
-  scrollToTarget('#hero', 'auto');
+  const targetId = window.location.hash || '#hero';
+  scrollToTarget(targetId, 'auto');
+  updateActiveSection();
 });
