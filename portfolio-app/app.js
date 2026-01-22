@@ -25,6 +25,10 @@ function getFileUrl(project, skillKey, pageDef) {
     filename = pageDef.fileByProject[project.id];
   }
 
+  if (filename.startsWith('http://') || filename.startsWith('https://')) {
+    return filename;
+  }
+
   // Construction du chemin : RacineProjet / DossierCompétence / Fichier
   // Ajout de .pdf si non présent (adaptable selon tes vrais fichiers)
   if (!filename.endsWith('.pdf') && !filename.endsWith('.pages') && !filename.endsWith('.html')) {
@@ -39,19 +43,23 @@ function getDefaultPage(skillKey, project) {
   const skillData = structure[skillKey];
   if (!skillData?.pages?.length) return null;
 
+  let page = skillData.pages[0];
+
   if (skillKey === 'concevoir' || skillKey === 'verifier') {
-    return skillData.pages[0];
+    page = skillData.pages[0];
+  } else if (skillKey === 'maintenir') {
+    page = skillData.pages[0];
+  } else if (skillKey === 'implanter') {
+    page = skillData.pages[0];
+  } else if (project && defaultPageOverrides.has(project.id) && skillData.pages[1]) {
+    page = skillData.pages[1];
   }
 
-  if (skillKey === 'maintenir') {
-    return skillData.pages[0];
+  if (project && page?.fileByProject && !page.fileByProject[project.id]) {
+    return null;
   }
 
-  if (project && defaultPageOverrides.has(project.id) && skillData.pages[1]) {
-    return skillData.pages[1];
-  }
-
-  return skillData.pages[0];
+  return page;
 }
 
 // --- 1. GÉNÉRATION GRID PROJETS ---

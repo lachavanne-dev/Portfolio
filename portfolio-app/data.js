@@ -33,8 +33,20 @@ const SKILL_STRUCTURE = {
     label: "Implanter",
     folder: "Implanter",
     pages: [
-      { code: "I.3.1", file: "page_1.3.1.pdf" },
-      { code: "I.3.2", file: "page_1.3.2.pdf" }
+      {
+        code: "I.3.1",
+        file: "page_1.3.1.pdf",
+        fileByProject: {
+          antenne: "page_1.3.1/page_1.3.1.html"
+        }
+      },
+      {
+        code: "I.3.2",
+        file: "page_1.3.2.pdf",
+        fileByProject: {
+          antenne: "page_1.3.2/page_1.3.2.html"
+        }
+      }
     ],
     description: "Industrialisation, dossier de fabrication et câblage."
   },
@@ -97,7 +109,14 @@ const SKILL_STRUCTURE = {
     label: "Rapports SAE",
     folder: "Rapports_SAE",
     pages: [
-      { code: "Rapport", file: "dynamic" } // Sera remplacé par le fichier spécifique du projet
+      {
+        code: "Rapport",
+        file: "dynamic",
+        fileByProject: {
+          antenne: "https://drive.google.com/file/d/1-AddneWWg2XKkzxwceeQVFbNgrUY3wCf/view?usp=sharing",
+          kah: "https://drive.google.com/file/d/1jgv-VyILdzVyaOZriIrshre-1jDqz2r_/view?usp=sharing"
+        }
+      } // Sera remplacé par le fichier spécifique du projet
     ],
     description: "Dossier technique complet et rendu final."
   }

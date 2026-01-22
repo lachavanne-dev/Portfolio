@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Radiogoniomètre — I.3.1 Implanter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: rise 0.9s ease forwards;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 108, 140, 0.35);
+        background: #eef2f4;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(31, 108, 140, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.12), rgba(108, 143, 60, 0.1));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+
+      h4 {
+        margin: 18px 0 8px;
+        font-size: 1rem;
+        color: var(--accent-2);
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 10px;
+        padding-left: 20px;
+      }
+
+      ul li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.1);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .issue-card {
+        padding: 20px 22px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 24px rgba(26, 31, 36, 0.08);
+      }
+
+      .split-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .media-card {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 24px rgba(26, 31, 36, 0.08);
+      }
+
+      .media-card img {
+        width: 100%;
+        display: block;
+        border-radius: 14px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 10px 20px rgba(26, 31, 36, 0.12);
+        background: #ffffff;
+      }
+
+      .media-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .media-card.small-media {
+        max-width: 520px;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .competences-nav {
+          width: 100%;
+        }
+
+        .split-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow is-disabled" href="#" aria-label="Page précédente indisponible" aria-disabled="true" tabindex="-1">
+              &larr;
+            </a>
+            <ul class="competences-text">
+              <li>J'exécute la fabrication, l'installation, la mise en service d' un système</li>
+            </ul>
+            <a class="nav-arrow" href="../page_1.3.2/page_1.3.2.html" aria-label="Aller à I.3.2">
+              &rarr;
+            </a>
+          </div>
+          <h1>Radiogoniomètre</h1>
+          <p class="subtitle">SAE Radio Goniomètre</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/Antenne_HB9CV.jpeg" alt="Antenne HB9CV" loading="lazy" decoding="async">
+          <figcaption>Radio Goniomètre</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Édition rapide</span>
+        <h2>SAE Radio Goniomètre</h2>
+        <h3>Introduction</h3>
+        <p>Dans le cadre du projet Radio Goniomètre, j’ai assuré le passage de la conception à la réalisation concrète du système. À partir du Dossier de Conception Détaillée (DDC), j’ai mis en œuvre les instructions de fabrication contenues dans le Dossier de Fabrication (DDF), en veillant à respecter les contraintes mécaniques, électriques et fonctionnelles fixées par le Cahier des Charges.</p>
+        <p>Cette phase a nécessité l’utilisation d’outils adaptés à l’usinage, à l’assemblage et à la soudure des composants de l’antenne.</p>
+        <h4>Outils utilisés :</h4>
+        <ul>
+          <li><strong>Perceuse / visseuse</strong> avec forets de Ø 3 mm et Ø 4 mm pour les perçages de fixation.</li>
+          <li><strong>Tournevis / clés</strong> pour le montage de la visserie (M3, M4).</li>
+          <li><strong>Fer à souder et étain</strong> pour les connexions RF (notamment le connecteur SMA).</li>
+          <li><strong>Équerre et mètre</strong> pour les contrôles dimensionnels et le positionnement des éléments.</li>
+          <li><strong>Marqueur</strong> pour les repères de centrage et d’alignement.</li>
+        </ul>
+        <p>Le respect des étapes de fabrication documentées a permis une mise en œuvre rigoureuse et reproductible du système.</p>
+        <p><strong>lien du <a title="CDC" href="https://docs.google.com/document/d/1dYxpYdale1bkAtIvWoX03aTuQ-V4YHf4-1h87_zHmvI/edit?usp=share_link">Cahier des charges&nbsp;</a></strong></p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <h2>Préparation des points de fixation et traitement des surfaces de contact</h2>
+        <div class="split-grid">
+          <article class="issue-card">
+            <p>Dans cette étape, j’ai réalisé le perçage des éléments rayonnants en aluminium (réflecteur et directeur) afin d’y fixer le gamma-match. Les perçages ont été effectués à des emplacements précis :</p>
+            <ul>
+              <li><strong>130 mm</strong> à gauche du centre pour l’élément directeur,</li>
+              <li><strong>140,6 mm</strong> à droite du centre pour l’élément réflecteur.</li>
+            </ul>
+            <p>Ces cotes assurent un montage fidèle à celui modélisé et validé en simulation.</p>
+            <p>Avant l’assemblage, j’ai soigneusement <strong>poncé les zones de contact</strong> (autour des perçages, sur les brins et le boom) afin de supprimer toute couche isolante ou oxydée. Cette opération est indispensable pour garantir une <strong>bonne conductivité électrique</strong> entre les pièces, condition nécessaire au respect des exigences d’adaptation d’impédance et de qualité de signal (EXIG_IMPEDANCE, EXIG_CAPTEUR).</p>
+            <p>Se référer à la page 8 du <strong><a title="DDF" href="https://drive.google.com/file/d/1SEVcctng_8hfjMyZ2kcbp0JeMsaeZDw_/view?usp=sharing">DDF</a></strong></p>
+          </article>
+          <figure class="media-card">
+            <img
+              src="image/Capture%20d’écran%202026-01-22%20à%2020.47.07.png"
+              alt="Emplacement des trous des éléments rayonnants et ponçage"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Emplacement des trous des éléments rayonnants et ponçage</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <h2>Espacement des éléments rayonnants de 260 mm</h2>
+        <div class="split-grid">
+          <figure class="media-card small-media">
+            <img
+              src="image/Capture%20d’écran%202026-01-22%20à%2020.47.22.png"
+              alt="Espacement des éléments rayonnants de 260 mm"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Contrôle de l'espacement de 260 mm entre les éléments rayonnants.</figcaption>
+          </figure>
+          <article class="issue-card">
+            <p>Cette vue permet de vérifier rapidement la distance entre le réflecteur et le directeur, point clé pour conserver la directivité de l’antenne et la cohérence du montage.</p>
+          </article>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <h2>Montage des supports rayonnants et vérification de l’espacement</h2>
+        <article class="issue-card">
+          <p>Cette étape documente l’installation des deux plaques métalliques fixant les éléments rayonnants (réflecteur et directeur) sur le <strong>boom central en aluminium</strong>.</p>
+          <p>Pour chaque plaque, j’ai utilisé <strong>deux patins coulissants M4 × R6</strong>, insérés dans la rainure du boom, assurant un maintien solide et ajustable. La fixation s’est faite par <strong>vis M4x08</strong> accompagnées de <strong>rondelles M4x20</strong>, utilisées pour répartir l’effort et éviter toute déformation du matériau.</p>
+          <p>À l’aide d’un mètre ruban, j’ai contrôlé l’<strong>écartement exact de 260 mm</strong> entre les deux plaques, comme spécifié dans le Dossier de Conception Détaillée. Le respect de cette distance garantit un <strong>positionnement optimal des éléments rayonnants</strong>, indispensable à la directivité de l’antenne et à sa robustesse mécanique, conformément aux exigences <strong>EXIG_DIMENSIONS</strong> et <strong>EXIG_RIGIDITE</strong>.</p>
+          <p>Se référer à la page 9 du <strong><a title="DDF" href="https://drive.google.com/file/d/1SEVcctng_8hfjMyZ2kcbp0JeMsaeZDw_/view?usp=sharing">DDF</a></strong></p>
+        </article>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <h2>Fixation du gamma-match à l’aide d’une cosse à œillet</h2>
+        <div class="split-grid">
+          <article class="issue-card">
+            <p>Le <strong>gamma-match</strong> est un <strong>élément crucial pour l’adaptation d’impédance</strong> entre l’antenne HB9CV et le récepteur SDR (généralement 50 ohms). Il permet de limiter les pertes de signal dues à une mauvaise correspondance d’impédance.</p>
+            <p>Sur cette image, je présente la <strong>fixation d’une extrémité du fil de cuivre</strong> (formé selon la géométrie calculée) à l’aide d’une <strong>cosse à œillet vissée</strong> mécaniquement sur un support métallique. L’assemblage utilise :</p>
+            <ul>
+              <li>une <strong>vis M4x08</strong> pour le serrage,</li>
+              <li>une <strong>rondelle M4x20</strong> pour la répartition des efforts,</li>
+              <li>un <strong>écrou frein M4</strong>, garantissant la tenue mécanique dans le temps.</li>
+            </ul>
+            <p>Une <strong>soudure manuelle</strong> a ensuite été réalisée pour assurer une <strong>continuité électrique fiable</strong> entre le fil et la cosse.</p>
+            <p>Le gamma-match est ensuite mis en forme selon trois segments précis, respectant les longueurs optimisées lors de la conception :</p>
+            <ul>
+              <li>140,6 mm // à l’élément réflecteur,</li>
+              <li>130,2 mm // au boom,</li>
+              <li>261,4 mm // à l’autre brin rayonnant.</li>
+            </ul>
+            <p>Ce positionnement rigoureux est essentiel pour garantir le bon <strong>rayonnement directionnel de l’antenne à 144 MHz</strong>, tel qu’exigé dans le Cahier des Charges.</p>
+            <p>Se référer à la page 11 du <strong><a title="DDF" href="https://drive.google.com/file/d/1SEVcctng_8hfjMyZ2kcbp0JeMsaeZDw_/view?usp=sharing">DDF</a></strong></p>
+          </article>
+          <figure class="media-card">
+            <img
+              src="image/Capture%20d’écran%202026-01-22%20à%2020.47.32.png"
+              alt="Fixation et soudage de la cosse à oeillet"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Fixation et soudage de la cosse à oeillet</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section style="--delay: 0.3s;">
+        <h2>Installation du connecteur SMA sur le circuit imprimé</h2>
+        <div class="split-grid">
+          <figure class="media-card">
+            <img
+              src="image/Capture%20d’écran%202026-01-22%20à%2020.47.41.png"
+              alt="fixation du support SMA sur le support PCB"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>fixation du support SMA sur le support PCB</figcaption>
+          </figure>
+          <article class="issue-card">
+            <p>Cette étape montre la <strong>fixation et la soudure du connecteur SMA mâle (SMA_M)</strong> sur le <strong>support PCB</strong> dédié, assurant l’interface entre l’antenne HB9CV et le récepteur SDR.</p>
+            <p>Le SMA constitue un <strong>élément critique pour la transmission du signal radiofréquence</strong> : il doit garantir un contact électrique fiable tout en minimisant les pertes. J’ai soigneusement aligné le connecteur sur les <strong>pistes conductrices du PCB</strong>, puis j’ai soudé les trois broches de connexion :</p>
+            <ul>
+              <li><strong>la broche centrale</strong>, qui transporte le signal haute fréquence,</li>
+              <li><strong>les deux broches latérales</strong>, assurant la mise à la masse.</li>
+            </ul>
+            <p>Ce type de connecteur est <strong>particulièrement adapté aux fréquences VHF</strong> comme les 144 MHz, en raison de ses excellentes performances en faible perte et de sa <strong>compatibilité avec les équipements de mesure ou d’écoute courants</strong>.</p>
+            <p>La qualité de cette opération est essentielle pour répondre à l’exigence <strong>EXIG_TYPE_CONNECTEUR</strong> du Cahier des Charges.</p>
+            <p>Se référer à la page 12 du <strong><a title="DDF" href="https://drive.google.com/file/d/1SEVcctng_8hfjMyZ2kcbp0JeMsaeZDw_/view?usp=sharing">DDF</a></strong></p>
+          </article>
+        </div>
+      </section>
+
+      <section style="--delay: 0.35s;">
+        <h2>Connexion de masse entre le gamma-match et le support SMA</h2>
+        <div class="split-grid">
+          <figure class="media-card">
+            <img
+              src="image/Capture%20d’écran%202026-01-22%20à%2020.47.53.png"
+              alt="Soudage du lien entre la masse du SMA et le gamma"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Soudage du lien entre la masse du SMA et le gamma</figcaption>
+          </figure>
+          <article class="issue-card">
+            <p>Sur cette image, je montre la <strong>liaison électrique entre l’extrémité avant du gamma-match</strong> (fil de cuivre) et la <strong>masse du connecteur SMA</strong>, réalisée à l’aide d’un <strong>câble soudé très court</strong>.</p>
+            <p>Ce <strong>pont de masse</strong> est indispensable pour assurer une <strong>référence électrique stable</strong> entre l’antenne et la chaîne de réception radio. Il garantit que le <strong>signal haute fréquence</strong> circule correctement sans perturbation.</p>
+            <p>La longueur de ce câble a été <strong>minimisée volontairement</strong> afin de :</p>
+            <ul>
+              <li><strong>réduire les pertes RF</strong>,</li>
+              <li><strong>limiter les parasites</strong> susceptibles d’altérer le signal,</li>
+              <li>et <strong>améliorer la robustesse électromagnétique</strong> de l’ensemble.</li>
+            </ul>
+            <p>Cette opération est critique pour répondre aux exigences <strong>EXIG_IMPEDANCE</strong> (adaptation correcte à 50 Ω) et <strong>EXIG_SOLIDITE_CONNECTEUR</strong> (résistance mécanique et stabilité du lien).</p>
+            <p>Ce montage assure un fonctionnement fiable dans la bande VHF visée, notamment autour de <strong>144 MHz</strong>, comme prévu dans le Cahier des Charges.</p>
+            <p>Se référer à la page 13 du <strong><a title="DDF" href="https://drive.google.com/file/d/1SEVcctng_8hfjMyZ2kcbp0JeMsaeZDw_/view?usp=sharing">DDF</a></strong></p>
+          </article>
+        </div>
+      </section>
+
+      <section style="--delay: 0.4s;">
+        <h2>Positionnement et fixation ergonomique de la poignée de maintien</h2>
+        <div class="split-grid">
+          <article class="issue-card">
+            <p>Cette photo illustre le montage de la <strong>poignée crosse</strong>, pensée pour assurer une <strong>prise en main confortable et équilibrée</strong> de l’antenne lors de son utilisation sur le terrain.</p>
+            <p>Pour garantir une bonne <strong>répartition du poids</strong>, j’ai d’abord identifié le <strong>centre de gravité</strong> de l’ensemble en le maintenant du bout des doigts. La poignée a ensuite été <strong>fixée à environ 2 cm de ce point</strong>, ce qui permet une manipulation <strong>stable et naturelle</strong>, même à une seule main.</p>
+            <p>Le montage s’appuie sur des composants modulables :</p>
+            <ul>
+              <li><strong>2 équerres en aluminium</strong> (profilé 20 mm),</li>
+              <li><strong>4 patins coulissants</strong>, intégrés à la rainure du boom pour un ajustement précis,</li>
+              <li><strong>visserie M4</strong> (vis, rondelles, écrous frein) assurant un serrage mécanique fiable.</li>
+            </ul>
+            <p>Cette intégration respecte les critères <strong>EXIG_MAINTIEN</strong> (fixation robuste) et <strong>EXIG_ERGONOMIE</strong> (manipulation confortable), définis dans le Cahier des Charges.</p>
+            <p>Se référer à la page 14 du <strong><a title="DDF" href="https://drive.google.com/file/d/1SEVcctng_8hfjMyZ2kcbp0JeMsaeZDw_/view?usp=sharing">DDF</a></strong></p>
+          </article>
+          <figure class="media-card">
+            <img
+              src="image/Capture%20d’écran%202026-01-22%20à%2020.48.02.png"
+              alt="Fixation de la crosse au centre de gravité"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Fixation de la crosse au centre de gravité</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section style="--delay: 0.45s;">
+        <h2>Conclusion de la fabrication du Radio Goniomètre</h2>
+        <p>Dans ce projet, j’ai documenté et mis en œuvre l’ensemble des étapes nécessaires à la fabrication de l’antenne HB9CV destinée à la radiogoniométrie sur 144 MHz. J’ai personnellement pris en charge la découpe, l’assemblage, le perçage, la soudure ainsi que les contrôles dimensionnels, en suivant les spécifications validées dans le dossier de conception et les exigences du Cahier des Charges.</p>
+        <p>Chaque choix technique a été appliqué de manière rigoureuse pour garantir une fabrication <strong>fiable, reproductible et conforme</strong>, assurant à la fois la <strong>robustesse mécanique</strong>, le <strong>bon équilibre de l’antenne</strong>, et sa <strong>compatibilité électromagnétique</strong>. Ce travail me permet aujourd’hui de proposer une solution <strong>fonctionnelle et optimisée</strong>, prête à être testée sur le terrain.</p>
+      </section>
+    </main>
+  </body>
+</html>
