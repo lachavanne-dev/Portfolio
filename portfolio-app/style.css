@@ -120,7 +120,7 @@ body {
 }
 
 .container {
-  padding: calc(var(--nav-height) + 40px) 5% 80px;
+  padding: calc(var(--nav-height) + 16px) 5% 80px;
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
@@ -130,7 +130,7 @@ body {
 
 .hero {
   text-align: center;
-  padding: 80px 0 24px;
+  padding: 36px 0 16px;
   animation: fadeIn 0.8s ease-out;
 }
 

@@ -190,6 +190,10 @@ function openProjectModal(project) {
     if (!defaultPage) return;
 
     const url = getFileUrl(project, skillKey, defaultPage);
+    const displayLabel = skillKey === 'rapports'
+      ? (project.id === 'stage-geii' ? 'Rapport STAGE' : 'Rapports SAE')
+      : skillData.label;
+
     const row = document.createElement('a');
     row.className = 'skill-list-row skill-list-row--cta';
     row.href = url;
@@ -199,7 +203,7 @@ function openProjectModal(project) {
     // Structure HTML : Gauche (Infos) + Droite (Zone d'action interactive)
     row.innerHTML = `
       <div class="skill-info-col">
-        <strong class="skill-name">${skillData.label}</strong>
+        <strong class="skill-name">${displayLabel}</strong>
       </div>
     `;
 
@@ -316,7 +320,13 @@ function scrollToTarget(targetId, behavior = 'smooth') {
   const activeButtons = document.querySelectorAll(`[data-scroll-target="${targetId}"][data-nav]`);
   activeButtons.forEach((btn) => btn.classList.add('active'));
 
-  targetSection.scrollIntoView({ behavior });
+  const targetOffset = targetId === '#hero' ? 40 : 0;
+  if (targetOffset) {
+    const y = targetSection.getBoundingClientRect().top + window.scrollY - targetOffset;
+    window.scrollTo({ top: y, behavior });
+  } else {
+    targetSection.scrollIntoView({ behavior });
+  }
 }
 
 scrollButtons.forEach((btn) => {
