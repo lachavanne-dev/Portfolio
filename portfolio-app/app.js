@@ -305,7 +305,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(
 
 // 1. Faire fonctionner les boutons (Click)
 const scrollButtons = document.querySelectorAll('[data-scroll-target]');
-const sections = document.querySelectorAll('section[id]');
+const sections = document.querySelectorAll('section[id], [data-section]');
 const navButtons = document.querySelectorAll('[data-nav]');
 
 function scrollToTarget(targetId, behavior = 'smooth') {
@@ -313,17 +313,19 @@ function scrollToTarget(targetId, behavior = 'smooth') {
   if (!targetSection) return;
 
   navButtons.forEach(btn => btn.classList.remove('active'));
-  const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
-  if (activeBtn) {
-    activeBtn.classList.add('active');
-  }
+  const activeButtons = document.querySelectorAll(`[data-scroll-target="${targetId}"][data-nav]`);
+  activeButtons.forEach((btn) => btn.classList.add('active'));
 
   targetSection.scrollIntoView({ behavior });
 }
 
-scrollButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
+scrollButtons.forEach((btn) => {
+  btn.addEventListener('click', (event) => {
     const targetId = btn.dataset.scrollTarget;
+    if (!targetId) return;
+    const targetSection = document.querySelector(targetId);
+    if (!targetSection) return;
+    event.preventDefault();
     scrollToTarget(targetId, 'smooth');
   });
 });
@@ -343,10 +345,8 @@ function updateActiveSection() {
   });
 
   navButtons.forEach(btn => btn.classList.remove('active'));
-  const activeBtn = document.querySelector(`[data-scroll-target="#${activeSection.id}"][data-nav]`);
-  if (activeBtn) {
-    activeBtn.classList.add('active');
-  }
+  const activeButtons = document.querySelectorAll(`[data-scroll-target="#${activeSection.id}"][data-nav]`);
+  activeButtons.forEach((btn) => btn.classList.add('active'));
 }
 
 let isTicking = false;
