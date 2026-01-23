@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stage BUT GEII - Verifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 12%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 78% 86%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: none;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+        color: var(--accent-2);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        grid-row: 1 / span 2;
+      }
+
+      .competences-nav .nav-arrow.nav-arrow-left {
+        left: 24px;
+        grid-column: 1;
+      }
+
+      .competences-nav .nav-arrow.nav-arrow-right {
+        right: 24px;
+        grid-column: 3;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(calc(-50% - 1px));
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+        transform: translateY(-50%);
+      }
+
+      h1 {
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: clamp(2rem, 3.8vw, 3rem);
+        margin: 0;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .lead {
+        margin: 0.6rem 0 0;
+        color: var(--muted);
+        max-width: 560px;
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 16px 20px;
+        padding: 0;
+      }
+
+      ul li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame .image-placeholder {
+        width: 100%;
+        min-height: 280px;
+        border-radius: 16px;
+        border: 1px dashed rgba(27, 26, 23, 0.2);
+        background: linear-gradient(135deg, rgba(27, 26, 23, 0.06), rgba(27, 26, 23, 0.02));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 24px;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .action-grid {
+        display: grid;
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .action-item {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .action-item h3 {
+        margin: 0 0 12px;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      .action-item .legend-flow .image-frame {
+        width: 54%;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 32px;
+        }
+
+        .competences-nav .nav-arrow {
+          width: 36px;
+          height: 36px;
+        }
+
+        .competences-nav .nav-arrow.nav-arrow-left {
+          left: 12px;
+        }
+
+        .competences-nav .nav-arrow.nav-arrow-right {
+          right: 12px;
+        }
+
+        .legend-flow .image-frame,
+        .action-item .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      :root {
+        --nav-height: 64px;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 10px 4%;
+        min-height: var(--nav-height);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .logo {
+        border: none;
+        background: none;
+        padding: 0;
+        font: inherit;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        cursor: pointer;
+        color: var(--ink);
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links button {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.3rem 0;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .nav-links button:hover,
+      .nav-links button.active {
+        color: var(--ink);
+      }
+
+      .nav-links button.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 999px;
+      }
+
+      @media (max-width: 720px) {
+        .navbar {
+          align-items: flex-start;
+          padding: 12px 6%;
+        }
+
+        .logo {
+          letter-spacing: 0.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar" data-navbar="">
+      <button class="logo" type="button" data-scroll-target="#hero">Paul Lachavanne</button>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <button type="button" data-scroll-target="#hero" data-nav="">Accueil</button>
+        <button type="button" data-scroll-target="#projects" data-nav="">Projets</button>
+        <button type="button" data-scroll-target="#skills" data-nav="">Compétences</button>
+      </nav>
+    </header>
+
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow is-disabled nav-arrow-left" href="#" aria-label="Page précédente indisponible" aria-disabled="true" tabindex="-1">
+              &larr;
+            </a>
+            <span class="competences-label">Compétence Vérifier</span>
+            <ul class="competences-text">
+              <li>J'applique, j'élabore, je rédige une procédure d'essais</li>
+            </ul>
+            <a class="nav-arrow is-disabled nav-arrow-right" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Asservissement nanométrique</h1>
+          <p class="subtitle">Stage LOMA / 2025</p>
+          <p class="lead">Self-mixing, traitement du signal, tests et calibration.</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/Stage_LOMA.jpeg" alt="Stage LOMA" loading="lazy" decoding="async">
+          <figcaption>Validation expérimentale du banc de mesure.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Stratégie d'essais</span>
+        <h2>Vérifier que la mesure est fiable</h2>
+        <p>La vérification a porté sur trois points : la qualité du signal, la précision de la mesure de déplacement, et la stabilité de l'asservissement.</p>
+        <ul>
+          <li>Calibration des chaînes d'acquisition et suppression des offsets.</li>
+          <li>Contrôle des composantes en quadrature et de la cohérence de phase.</li>
+          <li>Essais de stabilisation et observation des dérives corrigées.</li>
+        </ul>
+        <h3>Critères de validation</h3>
+        <p>
+        Les essais ont été considérés comme validants lorsque la mesure présentait une évolution continue, sans discontinuité de phase, et lorsque le déplacement reconstruit restait cohérent avec l’excitation appliquée. La stabilité sur des durées longues constituait également un critère déterminant.
+        </p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Étape 1</span>
+          <h2>Calibration de la chaîne de mesure</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/01-calibration-red-pitaya.png"
+              alt="Calibration de la Red Pitaya"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Calibration des entrées/sorties pour fiabiliser les mesures (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>Avant de mesurer, j'ai vérifié les offsets et les gains des convertisseurs analogiques. Cette étape évite les erreurs systématiques et rend la mesure plus stable.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.18s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Signaux bruts</span>
+          <h2>Self-mixing en régime linéaire (0.5 Vpp)</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/linearite_amplitude.png"
+              alt="Signal brut en régime linéaire à 0.5 Vpp"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Signal brut self-mixing avec une excitation faible (0.5 Vpp, 20 Hz) (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>À faible amplitude, le signal reste proportionnel au déplacement. C'est le régime linéaire, facile à interpréter, mais limité en dynamique.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.19s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Limites</span>
+          <h2>Non-linéarité et franges (5 Vpp)</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/non_linerarite_amplitude.png"
+              alt="Signal brut en régime non linéaire à 5 Vpp"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Signal brut self-mixing en régime non linéaire (5 Vpp, 20 Hz) (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>Au-delà de +/- lambda/4, le signal devient non linéaire et les franges apparaissent. Le sens du mouvement devient ambigu et le signal est plus sensible au bruit.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Étape 2</span>
+          <h2>Validation des signaux en quadrature</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/02-composantes-quadrature-ellipse.png"
+              alt="Composantes en quadrature et ellipse"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Contrôle visuel des composantes et de l'ellipse de Lissajous (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>Les deux composantes du signal doivent former une ellipse propre et stable. C'est un indicateur simple pour valider que la phase est exploitable.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.22s;">
+        <span class="eyebrow">Tests clés</span>
+        <h2>Essais de validation</h2>
+        <div class="action-grid">
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Deplacement reconstruit</h3>
+              <figure class="image-frame float-right">
+                <img
+                  src="image/03-deplacement-reconstruit.png"
+                  alt="Courbe de déplacement reconstruit"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Comparaison entre excitation et déplacement calculé (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+              </figure>
+              <p>En excitant doucement le piézo, la courbe reconstruite doit suivre le mouvement. Cela montre que la conversion en déplacement est cohérente.</p>
+            </div>
+          </article>
+          <article class="action-item">
+            <div class="legend-flow">
+              <h3>Stabilisation par PI</h3>
+              <figure class="image-frame float-left">
+                <img
+                  src="image/04-correction-pi-derives.png"
+                  alt="Correction de dérive par asservissement"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <figcaption>Correction automatique des dérives lentes (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+              </figure>
+              <p>L'essai met en évidence la capacité du correcteur PI à maintenir la position quand la température change lentement.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section style="--delay: 0.27s;">
+        <span class="eyebrow">Bilan</span>
+        <h2>Résultats et limites</h2>
+        <p>Les essais montrent que la mesure reste stable et que les dérives lentes peuvent être corrigées. Le système atteint une précision de l'ordre du nanomètre sur des séquences longues.</p>
+        <p>La limite principale reste la sensibilité aux conditions optiques (alignement, réinjection). Cela guidera les améliorations futures.</p>
+        <p>
+        Ces résultats confirment que le principe de mesure est exploitable pour une stabilisation active, mais ils mettent également en évidence l’importance des conditions optiques. Ces observations ont servi de base pour définir les axes d’amélioration du système.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const navButtons = document.querySelectorAll('[data-scroll-target]');
+      const navLinks = document.querySelectorAll('[data-nav]');
+
+      function setActive(targetId) {
+        navLinks.forEach((btn) => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
+        if (activeBtn) {
+          activeBtn.classList.add('active');
+        }
+      }
+
+      if (window.location.pathname.includes('/Projets/')) {
+        setActive('#skills');
+      }
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.dataset.scrollTarget;
+          const target = document.querySelector(targetId);
+          if (target) {
+            setActive(targetId);
+            target.scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          const href = window.location.href;
+          const base = href.includes('/Projets/') ? href.split('/Projets/')[0] : href.replace(/\/[^/]*$/, '');
+          window.location.href = `${base}/portfolio-app/index.html${targetId}`;
+        });
+      });
+    </script>
+  </body>
+</html>

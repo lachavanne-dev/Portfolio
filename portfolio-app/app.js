@@ -135,16 +135,29 @@ skillsInfo.forEach((skill) => {
   const card = document.createElement('article');
   card.className = 'card skill-card';
 
+  const tooltipId = `skill-tooltip-${skill.id}`;
+
   card.innerHTML = `
     <div class="skill-content">
       <h3 class="card-title">${skill.name}</h3>
       <p class="card-desc">${skill.summary}</p>
     </div>
+    <div class="skill-tooltip" role="tooltip" id="${tooltipId}">
+      <p class="skill-tooltip__text">${skillDef.description}</p>
+    </div>
   `;
 
   const defaultPage = getDefaultPage(skill.id, null);
   if (defaultPage) {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-describedby', tooltipId);
     card.addEventListener('click', () => openProjectSelectorModal(skill.id));
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openProjectSelectorModal(skill.id);
+      }
+    });
   }
 
   if (competenceGrid) competenceGrid.appendChild(card);
@@ -156,7 +169,7 @@ function openProjectModal(project) {
   modalBody.innerHTML = '';
   modalBody.appendChild(createEyebrow(project.context));
   modalBody.appendChild(createTitle(project.title));
-  modalBody.appendChild(createSubtitle("Cliquez sur une compétence pour ouvrir la page d'entrée."));
+  modalBody.appendChild(createSubtitle("Cliquez sur une competence pour ouvrir la page d'entree."));
 
   const list = document.createElement('div');
   list.className = 'modal-list';
@@ -178,7 +191,7 @@ function openProjectModal(project) {
 
     const url = getFileUrl(project, skillKey, defaultPage);
     const row = document.createElement('a');
-    row.className = 'skill-list-row';
+    row.className = 'skill-list-row skill-list-row--cta';
     row.href = url;
     row.target = '_blank';
     row.rel = 'noopener';
@@ -187,14 +200,36 @@ function openProjectModal(project) {
     row.innerHTML = `
       <div class="skill-info-col">
         <strong class="skill-name">${skillData.label}</strong>
-        <p class="skill-description">${skillData.description}</p>
       </div>
     `;
 
     list.appendChild(row);
   });
 
-  modalBody.appendChild(list);
+  const useIntroLayout = Boolean(project.introSummary || project.introDetails || project.introTitle);
+  if (useIntroLayout) {
+    const layout = document.createElement('div');
+    layout.className = 'modal-project-layout';
+
+    const intro = document.createElement('div');
+    intro.className = 'modal-project-intro';
+    const introTitle = project.introTitle ? `<h3>${project.introTitle}</h3>` : '';
+    const introSummary = project.introSummary ? `<p>${project.introSummary}</p>` : '';
+    const introDetails = Array.isArray(project.introDetails)
+      ? project.introDetails.map((text) => `<p>${text}</p>`).join('')
+      : '';
+    intro.innerHTML = `${introTitle}${introSummary}${introDetails}`;
+
+    const skillsCol = document.createElement('div');
+    skillsCol.className = 'modal-project-skills';
+    skillsCol.appendChild(list);
+
+    layout.appendChild(intro);
+    layout.appendChild(skillsCol);
+    modalBody.appendChild(layout);
+  } else {
+    modalBody.appendChild(list);
+  }
   showModal();
 }
 

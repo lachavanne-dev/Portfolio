@@ -127,6 +127,9 @@ The layout is implemented in:
 - Antenne HB9CV DDV: https://drive.google.com/file/d/1lgyWNToOKkY4Yvt6VIEu9IRdVgYDqD81/view?usp=sharing
 - Antenne HB9CV Rapport SAE: https://drive.google.com/file/d/1-AddneWWg2XKkzxwceeQVFbNgrUY3wCf/view?usp=sharing
 
+## Documents Links (Stage BUT GEII)
+- Stage BUT GEII Rapport: https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing
+
 ## Hyperlink Rules (Concevoir / Vérifier)
 - For each project, the "Concevoir" and "Vérifier" collections must include the appropriate hyperlink in every image caption.
 - Exception: the first (hero) project image does not include a link.

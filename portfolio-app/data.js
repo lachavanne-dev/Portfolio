@@ -28,7 +28,7 @@ const SKILL_STRUCTURE = {
       },
       { code: "C4.2", file: "page_C.4.2.pdf" }        // Supposé pdf
     ],
-    description: "Analyse des besoins, architecture fonctionnelle et justification des choix."
+    description: "Analyser un besoin ou un cahier des charges afin de définir une solution technique cohérente. Cette compétence consiste à concevoir une architecture et à justifier les choix retenus."
   },
   implanter: {
     label: "Implanter",
@@ -50,7 +50,7 @@ const SKILL_STRUCTURE = {
         }
       }
     ],
-    description: "Industrialisation, dossier de fabrication et câblage."
+    description: "Passer d’une solution conçue à un système réel et opérationnel. Elle couvre l’intégration matérielle et logicielle ainsi que la mise en service."
   },
   maintenir: {
     label: "Maintenir",
@@ -71,7 +71,7 @@ const SKILL_STRUCTURE = {
         }
       }
     ],
-    description: "Plan de maintien en condition opérationnelle (préventif/correctif)."
+    description: "Garantir le bon fonctionnement d’un système dans le temps. Cela implique le diagnostic des défauts et la mise en place d’actions correctives ou préventives."
   },
   manager: {
     label: "Manager",
@@ -106,10 +106,10 @@ const SKILL_STRUCTURE = {
         }
       }
     ],
-    description: "Protocoles d'essais et validation des performances."
+    description: "Mettre en place des essais pour s’assurer que le système fonctionne comme attendu. Elle repose sur la mesure, l’analyse des résultats et la validation des performances."
   },
   rapports: {
-    label: "Rapports SAE",
+    label: "Rapports SAE/STAGE",
     folder: "Rapports_SAE",
     pages: [
       {
@@ -117,7 +117,8 @@ const SKILL_STRUCTURE = {
         file: "dynamic",
         fileByProject: {
           antenne: "https://drive.google.com/file/d/1-AddneWWg2XKkzxwceeQVFbNgrUY3wCf/view?usp=sharing",
-          kah: "https://drive.google.com/file/d/1jgv-VyILdzVyaOZriIrshre-1jDqz2r_/view?usp=sharing"
+          kah: "https://drive.google.com/file/d/1jgv-VyILdzVyaOZriIrshre-1jDqz2r_/view?usp=sharing",
+          "stage-geii": "https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing"
         }
       } // Sera remplacé par le fichier spécifique du projet
     ],
@@ -135,9 +136,16 @@ window.portfolioData = {
       title: "Antenne HB9CV",
       tagline: "Radiogoniométrie 144 MHz : simulation, fabrication et mesures",
       image: "../Projets/images/Antenne_HB9CV.jpeg",
-      context: "SAE S4",
+      context: "SAE",
       year: "2025",
-      tags: ["RF", "Simulation", "Mesures"]
+      tags: ["RF", "Simulation", "Mesures"],
+      introTitle: "Contexte du projet",
+      introSummary: "Projet de SAE consistant à concevoir une antenne directionnelle permettant de localiser la provenance d’un signal radio, dans un contexte réel de radiogoniométrie.",
+      introDetails: [
+        "Le cahier des charges imposait des contraintes concrètes : poids et encombrement réduits, budget limité, utilisation sur le terrain et compatibilité avec une tablette de réception.",
+        "Mon travail a couvert le choix de l’architecture de l’antenne, la simulation de son comportement avant fabrication, le réglage pour limiter les pertes de signal entre l’antenne et le récepteur, puis la fabrication et les tests.",
+        "L’objectif final était d’obtenir une antenne simple, robuste et réellement exploitable en conditions réelles."
+      ]
     },
     {
       id: "kah",
@@ -148,7 +156,13 @@ window.portfolioData = {
       image: "../Projets/images/KAH.jpeg",
       context: "SAE",
       year: "2024",
-      tags: ["Électronique", "C++", "Transmission IR,"]
+      tags: ["Électronique", "C++", "Transmission IR"],
+      introTitle: "Contexte du projet",
+      introSummary: "Kart a helice telecommande, avec transmission infrarouge et controle embarque.",
+      introDetails: [
+        "Conception electronique, programmation C++ et mise au point des commandes.",
+        "Objectif : un systeme fiable et reactif pour piloter direction et vitesse."
+      ]
     },
     {
       id: "robot",
@@ -159,19 +173,32 @@ window.portfolioData = {
       image: "../Projets/images/Robot_Sumo.jpeg",
       context: "SAE",
       year: "2024",
-      tags: ["Électronique", "C++", "Capteurs"]
+      tags: ["Électronique", "C++", "Capteurs"],
+      introTitle: "Contexte du projet",
+      introSummary: "Robot autonome de type sumo : detecter l'adversaire et optimiser la strategie.",
+      introDetails: [
+        "Integration de capteurs, algorithmes de decision et controle moteur.",
+        "Objectif : un robot stable, rapide et capable de gagner des confrontations."
+      ]
     },
     {
       id: "stage-geii",
-      folderRoot: "../Projets/Stage_BUT_GEII",
+      folderRoot: "../Projets/Stage_LOMA",
       reportFile: "page_Stage_BUT_GEII.pdf",
       title: "Asservissement nanométrique",
       tagline: "Self-mixing, traitement du signal, tests et calibration",
       image: "../Projets/images/Stage_LOMA.jpeg",
-      context: "STAGE BUT GEII",
+      context: "STAGE CNRS - LOMA",
       year: "2025",
       category: "professional",
-      tags: ["Instrumentation", "Signal", "Asservissement"]
+      tags: ["Python", "Signal", "Lasers"],
+      hideSkillDescriptions: true,
+      introTitle: "Contexte du stage",
+      introSummary: "Ce stage porte sur le développement d’un système de mesure de déplacement nanométrique par effet self-mixing, destiné à la stabilisation active d’un microscope optique.",
+      introDetails: [
+        "L’objectif principal est de valider expérimentalement un prototype sur un seul axe, en amont d’un futur système multi-axes basé sur trois lasers.",
+        "Le dispositif repose sur une diode laser, un miroir piézoélectrique et une plateforme Red Pitaya, associés à un traitement du signal en temps réel sous Python et à une boucle d’asservissement PI."
+      ]
     }
   ],
   skillsInfo: [
@@ -179,6 +206,6 @@ window.portfolioData = {
     { id: "verifier", name: "Vérifier", summary: "Tests et validation." },
     { id: "maintenir", name: "Maintenir", summary: "Maintenance et cycle de vie." },
     { id: "implanter", name: "Implanter", summary: "Réalisation et déploiement." },
-    { id: "rapports", name: "Rapports SAE", summary: "Documentation." }
+    { id: "rapports", name: "Rapports SAE/STAGE", summary: "Documentation." }
   ]
 };

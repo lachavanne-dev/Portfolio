@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stage BUT GEII - Concevoir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 12%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 78% 86%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        animation: none;
+      }
+
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      .competences-text li + li {
+        margin-top: 6px;
+      }
+
+      .competences-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+        color: var(--accent-2);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 6px;
+      }
+
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        grid-row: 1 / span 2;
+      }
+
+      .competences-nav .nav-arrow.nav-arrow-left {
+        left: 24px;
+        grid-column: 1;
+      }
+
+      .competences-nav .nav-arrow.nav-arrow-right {
+        right: 24px;
+        grid-column: 3;
+      }
+
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(calc(-50% - 1px));
+      }
+
+      .competences-nav .nav-arrow:focus-visible {
+        outline: 2px solid rgba(29, 107, 104, 0.5);
+        outline-offset: 2px;
+      }
+
+      .competences-nav .nav-arrow.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+        transform: translateY(-50%);
+      }
+
+      h1 {
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: clamp(2rem, 3.8vw, 3rem);
+        margin: 0;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .lead {
+        margin: 0.6rem 0 0;
+        color: var(--muted);
+        max-width: 560px;
+      }
+
+      .hero-card {
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+      }
+
+      .hero-card img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .hero-card figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: 1.5rem;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0 0 16px 20px;
+        padding: 0;
+      }
+
+      ul li + li {
+        margin-top: 6px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      .legend-flow::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+
+      .legend-flow .image-frame.float-right {
+        float: right;
+        margin: 0 0 16px 24px;
+      }
+
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+
+      .image-frame .image-placeholder {
+        width: 100%;
+        min-height: 280px;
+        border-radius: 16px;
+        border: 1px dashed rgba(27, 26, 23, 0.2);
+        background: linear-gradient(135deg, rgba(27, 26, 23, 0.06), rgba(27, 26, 23, 0.02));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 24px;
+      }
+
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 32px;
+        }
+
+        .competences-nav .nav-arrow {
+          width: 36px;
+          height: 36px;
+        }
+
+        .competences-nav .nav-arrow.nav-arrow-left {
+          left: 12px;
+        }
+
+        .competences-nav .nav-arrow.nav-arrow-right {
+          right: 12px;
+        }
+
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      :root {
+        --nav-height: 64px;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 10px 4%;
+        min-height: var(--nav-height);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .logo {
+        border: none;
+        background: none;
+        padding: 0;
+        font: inherit;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        cursor: pointer;
+        color: var(--ink);
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links button {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.3rem 0;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .nav-links button:hover,
+      .nav-links button.active {
+        color: var(--ink);
+      }
+
+      .nav-links button.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 999px;
+      }
+
+      @media (max-width: 720px) {
+        .navbar {
+          align-items: flex-start;
+          padding: 12px 6%;
+        }
+
+        .logo {
+          letter-spacing: 0.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar" data-navbar="">
+      <button class="logo" type="button" data-scroll-target="#hero">Paul Lachavanne</button>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <button type="button" data-scroll-target="#hero" data-nav="">Accueil</button>
+        <button type="button" data-scroll-target="#projects" data-nav="">Projets</button>
+        <button type="button" data-scroll-target="#skills" data-nav="">Compétences</button>
+      </nav>
+    </header>
+
+    <main>
+      <header class="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow is-disabled nav-arrow-left" href="#" aria-label="Vous êtes sur C1/C2" aria-disabled="true" tabindex="-1">
+              &larr;
+            </a>
+            <span class="competences-label">Compétence Concevoir</span>
+            <ul class="competences-text">
+              <li>J'identifie les fonctions demandées à la lecture du cahier des charges (architecture fonctionnelle - sans solution technique)</li>
+              <li>Je propose une solution technique pour répondre à une fonction</li>
+            </ul>
+            <a class="nav-arrow is-disabled nav-arrow-right" href="#" aria-label="Page suivante indisponible" aria-disabled="true" tabindex="-1">
+              &rarr;
+            </a>
+          </div>
+          <h1>Asservissement nanométrique</h1>
+          <p class="subtitle">Stage LOMA / 2025</p>
+          <p class="lead">Self-mixing, traitement du signal, tests et calibration.</p>
+        </div>
+        <figure class="hero-card">
+          <img src="../../../images/Stage_LOMA.jpeg" alt="Stage LOMA" loading="lazy" decoding="async">
+          <figcaption>Stage en instrumentation optique et asservissement.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Contexte</span>
+        <h2>Pourquoi un asservissement nanométrique ?</h2>
+        <p>Au LOMA, l'objectif était de stabiliser la position d'un microscope en compensant les dérives lentes dues à la température. Pour cela, le laboratoire explore une solution compacte basée sur l'effet self-mixing.</p>
+        <p>Mon stage a consisté à définir une solution technique simple et réaliste pour valider le principe sur un seul axe, avant un futur système à trois lasers.</p>
+        <h3>Contraintes et arbitrages</h3>
+        <p>
+        La phase de conception a nécessité plusieurs arbitrages techniques. La solution devait rester suffisamment simple pour être comprise et validée rapidement, tout en offrant des performances compatibles avec une stabilisation nanométrique.
+        Le choix s’est porté sur une architecture compacte, limitant le nombre de composants et privilégiant des outils existants et maîtrisés, afin de concentrer l’effort sur la validation du principe plutôt que sur la complexité matérielle.
+        </p>
+        <ul>
+          <li>Résolution visée : de l'ordre du nanomètre.</li>
+          <li>Mesure continue, avec information du sens du mouvement.</li>
+          <li>Intégration possible sur un banc expérimental existant.</li>
+        </ul>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Choix d'architecture</span>
+          <h2>Schéma global du banc de mesure</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/01-schema-global-du-banc-de-mesure.png"
+              alt="Schéma global du banc de mesure"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Vue d'ensemble du montage (laser, photodiode, piézo, Red Pitaya) (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>Le système retenu s'appuie sur une diode laser, un miroir piézoélectrique et une carte Red Pitaya. La lumière réfléchie revient dans la cavité laser et produit un signal électrique exploitable.</p>
+          <p>Ce choix d'architecture reste volontairement compact : peu de composants, une électronique de mesure embarquée, et un PC pour piloter les essais.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Choix méthodologique</span>
+          <h2>Mesure par phase en quadrature</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="image/02-ellipse-de-lissajous-en-quadrature.png"
+              alt="Ellipse de Lissajous en quadrature"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Lecture de phase via l'ellipse en quadrature (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>Plutôt que de mesurer seulement l'amplitude du signal, la solution retenue exploite la phase. Une petite modulation du laser permet d'obtenir deux composantes en quadrature.</p>
+          <p>
+          Cette approche a été retenue car elle lève les limites des méthodes basées uniquement sur l’amplitude, notamment l’ambiguïté du sens du déplacement et la faible dynamique. Le recours à la phase en quadrature constitue ainsi un compromis pertinent entre précision, robustesse et simplicité de mise en œuvre.
+          </p>
+          <p>Cette méthode donne un déplacement continu, une grande dynamique et le sens du mouvement, tout en restant compréhensible pour une démonstration devant un public non expert.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Choix logiciel</span>
+          <h2>Un pilotage temps réel en Python</h2>
+          <figure class="image-frame float-right">
+            <img
+              src="image/03-interface-de-suivi-et-de-pilotage.png"
+              alt="Interface de suivi et de pilotage"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Interface de suivi temps réel et commandes simples (<a href="https://drive.google.com/file/d/1jkNfST7_6v9dAMs87kIJfZfsCFZGfctS/view?usp=sharing">rapport de stage</a>).</figcaption>
+          </figure>
+          <p>Le traitement du signal et l'affichage ont été développés en Python, avec une interface graphique légère. L'outil PyRPL a servi de base pour piloter la Red Pitaya.</p>
+          <p>Ce choix permet d'ajuster les paramètres en direct, de visualiser le mouvement, et de préparer l'asservissement sans redémarrer l'expérience.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <span class="eyebrow">Synthèse</span>
+        <h2>Ce que la conception a permis</h2>
+        <p>Le travail de conception a abouti à un démonstrateur simple, reproductible et facile à expliquer. Il constitue une base claire pour un futur montage multi-axes.</p>
+        <p>La solution proposée apporte une lecture stable du déplacement, une interface utilisable en laboratoire, et un cadre technique cohérent pour l'asservissement.</p>
+      </section>
+    </main>
+
+    <script>
+      const navButtons = document.querySelectorAll('[data-scroll-target]');
+      const navLinks = document.querySelectorAll('[data-nav]');
+
+      function setActive(targetId) {
+        navLinks.forEach((btn) => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
+        if (activeBtn) {
+          activeBtn.classList.add('active');
+        }
+      }
+
+      if (window.location.pathname.includes('/Projets/')) {
+        setActive('#skills');
+      }
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.dataset.scrollTarget;
+          const target = document.querySelector(targetId);
+          if (target) {
+            setActive(targetId);
+            target.scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          const href = window.location.href;
+          const base = href.includes('/Projets/') ? href.split('/Projets/')[0] : href.replace(/\/[^/]*$/, '');
+          window.location.href = `${base}/portfolio-app/index.html${targetId}`;
+        });
+      });
+    </script>
+  </body>
+</html>
