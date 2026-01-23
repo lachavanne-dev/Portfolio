@@ -205,7 +205,6 @@ window.portfolioData = {
     { id: "concevoir", name: "Concevoir", summary: "Cahier des charges et conception." },
     { id: "verifier", name: "Vérifier", summary: "Tests et validation." },
     { id: "maintenir", name: "Maintenir", summary: "Maintenance et cycle de vie." },
-    { id: "implanter", name: "Implanter", summary: "Réalisation et déploiement." },
-    { id: "rapports", name: "Rapports SAE/STAGE", summary: "Documentation." }
+    { id: "implanter", name: "Implanter", summary: "Réalisation et déploiement." }
   ]
 };
