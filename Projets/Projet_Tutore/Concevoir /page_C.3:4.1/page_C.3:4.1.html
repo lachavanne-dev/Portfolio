@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Radiodétection de météores — C.3 / C.4.1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1b1a17;
+        --muted: #5a554e;
+        --accent: #c25a38;
+        --accent-2: #1d6b68;
+        --accent-3: #e0a458;
+        --line: rgba(27, 26, 23, 0.12);
+        --panel: #fffdf7;
+        --soft: #f6efe4;
+        --shadow: 0 20px 45px rgba(27, 26, 23, 0.12);
+        --nav-height: 64px;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #f8efe3 0%, #fefcf9 40%, #eef4f2 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(194, 90, 56, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 15%, rgba(29, 107, 104, 0.18), transparent 50%),
+          radial-gradient(circle at 80% 85%, rgba(224, 164, 88, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(27, 26, 23, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 26, 23, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 10px 4%;
+        min-height: var(--nav-height);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+      .logo {
+        border: none;
+        background: none;
+        padding: 0;
+        font: inherit;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        cursor: pointer;
+        color: var(--ink);
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .nav-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+      .nav-links button {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.3rem 0;
+        cursor: pointer;
+        position: relative;
+      }
+      .nav-links button:hover,
+      .nav-links button.active { color: var(--ink); }
+      .nav-links button.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 999px;
+      }
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+      a { color: var(--accent-2); text-decoration: none; font-weight: 600; }
+      a:hover { text-decoration: underline; }
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+      .competences-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+        color: var(--accent-2);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 6px;
+      }
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+        grid-column: 2;
+        grid-row: 2;
+      }
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(194, 90, 56, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        grid-row: 1 / span 2;
+      }
+      .competences-nav .nav-arrow.nav-arrow-left { left: 24px; grid-column: 1; }
+      .competences-nav .nav-arrow.nav-arrow-right { right: 24px; grid-column: 3; }
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(calc(-50% - 1px));
+      }
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+      .hero-card,
+      section {
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+      .hero-card {
+        padding: 16px;
+        border-radius: 20px;
+        background: linear-gradient(150deg, rgba(194, 90, 56, 0.08), rgba(29, 107, 104, 0.08));
+      }
+      .hero-card img,
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(27, 26, 23, 0.08);
+        box-shadow: 0 12px 26px rgba(27, 26, 23, 0.15);
+        background: #ffffff;
+      }
+      .hero-card figcaption,
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(27, 26, 23, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+      section h3 { margin: 24px 0 10px; font-size: 1.1rem; color: var(--accent); }
+      p { margin: 0 0 16px; }
+      p:last-child { margin-bottom: 0; }
+      ul { margin: 0 0 16px 20px; padding: 0; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(29, 107, 104, 0.1);
+        color: var(--accent-2);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+      .legend-flow::after { content: ""; display: block; clear: both; }
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+      @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 860px) {
+        .hero { grid-template-columns: 1fr; }
+        .competences-nav .nav-arrow { width: 36px; height: 36px; }
+        .competences-nav .nav-arrow.nav-arrow-left { left: 12px; }
+        .competences-nav .nav-arrow.nav-arrow-right { right: 12px; }
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px 0;
+        }
+      }
+      @media (max-width: 720px) {
+        .navbar { align-items: flex-start; padding: 12px 6%; }
+        .logo { letter-spacing: 0.2em; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero { animation: none; opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar" data-navbar data-nav-base="../../../../portfolio-app/">
+      <button class="logo" type="button" data-scroll-target="#hero">Paul Lachavanne</button>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <button type="button" data-scroll-target="#hero" data-nav>Accueil</button>
+        <button type="button" data-scroll-target="#projects" data-nav>Projets</button>
+      <button type="button" data-scroll-target="#skills" data-nav>Compétences</button>
+      </nav>
+    </header>
+
+    <main>
+      <header class="hero" id="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow nav-arrow-left" href="../page_C.1:C.2/page_C.1:C.2.html" aria-label="Retour à C1/C2">&larr;</a>
+            <span class="competences-label">Compétence Concevoir</span>
+            <ul class="competences-text">
+              <li>Je détaille l'architecture de circulation des données et les interfaces entre les blocs.</li>
+              <li>Je choisis une solution logicielle qui reste lisible, rejouable et utile pour l'analyse scientifique.</li>
+            </ul>
+            <a class="nav-arrow nav-arrow-right" href="../page_C.4.2/page_C.4.2.html" aria-label="Aller à C4.2">&rarr;</a>
+          </div>
+          <h1>Radiodétection de météores</h1>
+          <p class="subtitle">Projet tutoré radar GRAVES</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="../../images/slide-07.png"
+            alt="Application temps réel du projet"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Affichage temps réel du spectre et de la waterfall pour exploiter directement les trames issues du récepteur.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <span class="eyebrow">Flux logiciel</span>
+        <h2>Structurer le passage des trames jusqu'à l'interface d'analyse</h2>
+        <p>Une fois l'architecture globale retenue, la conception s'est concentrée sur le <strong>flux exact des données</strong>. L'IC-705 fournit l'information spectrale, <strong>wfview</strong> la transporte via <strong>TCP</strong>, puis l'application Python décode chaque trame pour reconstruire un spectre exploitable.</p>
+        <p>L'objectif n'était pas seulement d'afficher une courbe, mais de garantir une chaîne stable entre acquisition, affichage et enregistrement. Cette exigence de continuité a guidé toute la structuration du logiciel.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Interface temps réel</span>
+          <h2>Concevoir une visualisation utile à l'opérateur et à l'analyse</h2>
+          <figure class="image-frame">
+            <img
+              src="../../images/slide-07.png"
+              alt="Spectre et waterfall en temps réel"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Le logiciel affiche simultanément le spectre et la waterfall sur une fenêtre de 475 points.</figcaption>
+          </figure>
+          <p>Avec mes coéquipiers, nous avons défini une interface temps réel centrée sur deux vues complémentaires : le <strong>spectre instantané</strong> pour repérer les niveaux et la <strong>waterfall</strong> pour suivre l'évolution temporelle d'un événement. Ce double affichage facilite la détection visuelle d'une signature Doppler et la vérification du bon fonctionnement de la chaîne.</p>
+          <h3>Points de conception retenus</h3>
+          <ul>
+            <li>Fenêtre d'observation resserrée autour de 143,050 MHz pour se concentrer sur la zone d'intérêt.</li>
+            <li>Affichage synchrone pour que le diagnostic opérateur corresponde au contenu enregistré.</li>
+            <li>Séparation claire entre la logique de réception, la logique d'affichage et la logique de sauvegarde.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Trace et relecture</span>
+          <h2>Concevoir un format d'enregistrement vraiment exploitable</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="../../images/slide-09.png"
+              alt="Lecteur de relecture CSV"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Le lecteur CSV rejoue une capture et permet de placer des marqueurs pour l'analyse.</figcaption>
+          </figure>
+          <p>Le choix du <strong>CSV horodaté</strong> a été central car il permet de conserver les 475 points spectraux de chaque trame avec les métadonnées nécessaires. Cette décision facilite l'archivage, l'export, la comparaison et la relecture hors ligne.</p>
+          <p>La conception du lecteur associé à ce format a également fait partie du travail : si l'on veut mesurer un événement après coup, il faut que la capture soit <strong>navigable</strong>, que les instants soient identifiables et que l'opérateur puisse extraire une waterfall sur toute la durée utile.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <h2>Synthèse</h2>
+        <p>Cette sous-partie m'a permis de passer d'une architecture globale à une conception détaillée du flux logiciel. Le projet tutoré reprend ici la même logique de présentation que les SAE : besoin, choix d'architecture, justification technique puis ouverture vers l'étape suivante, centrée sur les mécanismes de capture et de déclenchement.</p>
+      </section>
+    </main>
+
+    <script src="../../../../portfolio-app/shared-nav.js"></script>
+    <script>
+      const navButtons = document.querySelectorAll('[data-scroll-target]');
+      const navLinks = document.querySelectorAll('[data-nav]');
+      function setActive(targetId) {
+        navLinks.forEach((btn) => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+      if (window.location.pathname.includes('/Projets/')) setActive('#skills');
+      navButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.dataset.scrollTarget;
+          const target = document.querySelector(targetId);
+          if (target) {
+            setActive(targetId);
+            target.scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          const href = window.location.href;
+          const base = href.includes('/Projets/') ? href.split('/Projets/')[0] : href.replace(/\/[^/]*$/, '');
+          window.location.href = `${base}/portfolio-app/index.html${targetId}`;
+        });
+      });
+    </script>
+  </body>
+</html>

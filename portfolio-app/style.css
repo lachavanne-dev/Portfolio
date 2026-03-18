@@ -29,6 +29,37 @@ body {
   min-height: 100vh;
 }
 
+.about-page {
+  --about-surface: #fffaf4;
+  --about-surface-alt: #f8f1e8;
+  --about-accent: #b85d3b;
+  --about-border: rgba(184, 93, 59, 0.14);
+  --about-border-strong: rgba(184, 93, 59, 0.22);
+  background: linear-gradient(160deg, #f6ede1 0%, #fcf8f2 52%, #f7f1e8 100%);
+}
+
+.about-page .background-orb {
+  background: radial-gradient(circle, rgba(184, 93, 59, 0.18), transparent 72%);
+}
+
+.about-page .eyebrow {
+  color: var(--about-accent);
+}
+
+.about-page .section-desc,
+.about-page .card-eyebrow,
+.about-page .about-list,
+.about-page .about-lead,
+.about-page .card-desc,
+.about-page .formation-school {
+  color: #5d5a54;
+}
+
+.about-page .card {
+  background: var(--about-surface);
+  border-color: var(--about-border);
+}
+
 #root {
   min-height: 100vh;
 }
@@ -357,6 +388,118 @@ body {
   cursor: default;
 }
 
+.about-card--hero {
+  margin-top: 2rem;
+  background:
+    linear-gradient(135deg, rgba(194, 90, 56, 0.12), rgba(29, 107, 104, 0.08)),
+    var(--surface-color);
+}
+
+.about-page .about-card--hero {
+  background:
+    linear-gradient(180deg, #fffaf4 0%, #f7efe5 100%);
+  border-color: var(--about-border-strong);
+}
+
+.formation-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.formation-kicker,
+.formation-complement,
+.formation-school,
+.about-lead {
+  margin: 0;
+}
+
+.formation-kicker {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+.about-page .formation-kicker {
+  color: var(--about-accent);
+}
+
+.formation-headline h3 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.formation-complement {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.about-page .formation-headline h3 {
+  color: #1f2523;
+}
+
+.about-page .formation-complement {
+  color: var(--about-accent);
+}
+
+.formation-school {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.about-lead {
+  max-width: 760px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.formation-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.formation-pillar {
+  min-height: 100%;
+}
+
+.formation-pillar--accent {
+  background: var(--surface-pop);
+  border-color: rgba(29, 107, 104, 0.24);
+}
+
+.about-page .formation-pillar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 241, 232, 0.92)),
+    var(--about-surface);
+  border-color: var(--about-border);
+}
+
+.about-page .formation-pillar:nth-child(1) {
+  border-color: var(--about-border);
+}
+
+.about-page .formation-pillar:nth-child(2) {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(244, 234, 220, 0.96)),
+    var(--about-surface-alt);
+  border-color: var(--about-border-strong);
+}
+
+.about-page .formation-pillar:nth-child(3) {
+  border-color: var(--about-border);
+}
+
+.about-page .formation-pillar .card-title {
+  color: #1f2523;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
@@ -384,6 +527,18 @@ body {
   background: var(--surface-pop);
 }
 
+.about-page .about-card--aside {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 244, 0.94), rgba(246, 239, 229, 0.96));
+  border-color: var(--about-border);
+}
+
+.about-page .about-card:not(.about-card--hero):not(.about-card--aside):not(.formation-pillar) {
+  background:
+    linear-gradient(180deg, rgba(255, 251, 244, 0.94), rgba(247, 241, 233, 0.94));
+  border-color: var(--about-border);
+}
+
 .about-card:hover {
   transform: none;
   box-shadow: none;
@@ -391,6 +546,10 @@ body {
 }
 
 @media (max-width: 900px) {
+  .formation-pillars {
+    grid-template-columns: 1fr;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
   }
@@ -460,6 +619,18 @@ body {
   background: rgba(194, 90, 56, 0.15);
   color: var(--primary-color);
   font-weight: 600;
+}
+
+.about-page .tag {
+  background: linear-gradient(180deg, rgba(184, 93, 59, 0.14), rgba(184, 93, 59, 0.08));
+  color: var(--about-accent);
+  border: 1px solid rgba(184, 93, 59, 0.12);
+}
+
+.about-page .tag:nth-child(even) {
+  background: linear-gradient(180deg, rgba(184, 93, 59, 0.14), rgba(184, 93, 59, 0.08));
+  color: var(--about-accent);
+  border-color: rgba(184, 93, 59, 0.12);
 }
 
 .skill-card__header {

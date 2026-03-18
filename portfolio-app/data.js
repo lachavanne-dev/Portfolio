@@ -14,7 +14,8 @@ const SKILL_STRUCTURE = {
           kah: "page_C.1:C.2/page_C.1:C.2.html",
           antenne: "page_C.1:C.2/page_C.1:C.2.html",
           robot: "page_C.1:C.2/page_C.1:C.2.html",
-          "stage-geii": "page_C.1:C.2/page_C.1:C.2.html"
+          "stage-geii": "page_C.1:C.2/page_C.1:C.2.html",
+          "ptut-meteores": "page_C.1:C.2/page_C.1:C.2.html"
         }
       },
       {
@@ -23,10 +24,17 @@ const SKILL_STRUCTURE = {
         fileByProject: {
           antenne: "page_C.3:4.1/page_C.3:4.1.html",
           kah: "page_C.3:4.1/page_C.3:4.1.html",
-          robot: "page_C.3:4.1/page_C.3:4.1.html"
+          robot: "page_C.3:4.1/page_C.3:4.1.html",
+          "ptut-meteores": "page_C.3:4.1/page_C.3:4.1.html"
         }
       },
-      { code: "C4.2", file: "page_C.4.2.pdf" }        // Supposé pdf
+      {
+        code: "C4.2",
+        file: "page_C.4.2.pdf",
+        fileByProject: {
+          "ptut-meteores": "page_C.4.2/page_C.4.2.html"
+        }
+      }        // Supposé pdf
     ],
     description: "Analyser un besoin ou un cahier des charges afin de définir une solution technique cohérente. Cette compétence consiste à concevoir une architecture et à justifier les choix retenus."
   },
@@ -93,7 +101,8 @@ const SKILL_STRUCTURE = {
           kah: "page_V1/page_V1.html",
           antenne: "page_V1/page_V1.html",
           robot: "page_V1/page_V1.html",
-          "stage-geii": "page_V1/page_V1.html"
+          "stage-geii": "page_V1/page_V1.html",
+          "ptut-meteores": "page_V1/page_V1.html"
         }
       },
       {
@@ -102,7 +111,8 @@ const SKILL_STRUCTURE = {
         fileByProject: {
           kah: "page_V2/page_V2.html",
           antenne: "page_V2/page_V2.html",
-          robot: "page_V2/page_V2.html"
+          robot: "page_V2/page_V2.html",
+          "ptut-meteores": "page_V2/page_V2.html"
         }
       }
     ],
@@ -202,7 +212,7 @@ window.portfolioData = {
       introSummary: "Ce projet tutoré vise à détecter, enregistrer et analyser des météores via le radar GRAVES autour de 143,050 MHz, en transformant une simple observation radio en une mesure horodatée, rejouable et exploitable.",
       introDetails: [
         "Le point de départ est une limite d'instrumentation : le récepteur IC-705 permet d'observer le spectre et la waterfall, mais pas de sauvegarder proprement des événements brefs pour les analyser a posteriori.",
-        "Nous avons donc construit une chaîne complète de mesure : réception radio, récupération des trames CI-V via wfview, transport réseau en TCP, décodage Python, affichage temps réel, enregistrement CSV et relecture comme une vidéo.",
+        "Avec mes coéquipiers, nous avons donc construit une chaîne complète de mesure : réception radio, récupération des trames CI-V via wfview, transport réseau en TCP, décodage Python, affichage temps réel, enregistrement CSV et relecture comme une vidéo.",
         "L'ensemble permet de détecter automatiquement des événements transitoires, de les calibrer en dBm, d'extraire leurs signatures Doppler et d'envisager une corrélation avec d'autres sources comme FRIPON."
       ],
       caseStudy: {
@@ -257,7 +267,7 @@ window.portfolioData = {
           {
             title: "Traitement des données",
             paragraphs: [
-              "Nous avons développé une interface temps réel affichant le spectre et la waterfall sur un span de 5 kHz autour de 143,050 MHz. Chaque trame est enregistrée en CSV avec horodatage, paramètres et 475 points spectraux.",
+              "Avec mes coéquipiers, nous avons développé une interface temps réel affichant le spectre et la waterfall sur un span de 5 kHz autour de 143,050 MHz. Chaque trame est enregistrée en CSV avec horodatage, paramètres et 475 points spectraux.",
               "Ce format rend la mesure rejouable, mesurable et exportable. Un lecteur dédié permet ensuite de naviguer dans les captures, de positionner des marqueurs et d'exporter une waterfall complète sur toute la durée de l'événement."
             ]
           },

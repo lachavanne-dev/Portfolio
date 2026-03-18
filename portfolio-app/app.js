@@ -241,7 +241,7 @@ function openProjectModal(project) {
   modalBody.appendChild(createEyebrow(project.context));
   modalBody.appendChild(createTitle(project.title));
 
-  if (project.caseStudy) {
+  if (project.caseStudy && project.category !== 'tutored') {
     modalBody.appendChild(createSubtitle(project.caseStudy.subtitle || "Vue d'ensemble du projet."));
     modalBody.appendChild(createCaseStudyLayout(project));
     showModal();

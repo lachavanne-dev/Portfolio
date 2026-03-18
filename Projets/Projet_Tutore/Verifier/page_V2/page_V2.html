@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Radiodétection de météores — V.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #1a1f24;
+        --muted: #4f5b66;
+        --accent: #1f6c8c;
+        --accent-2: #c0702e;
+        --accent-3: #6c8f3c;
+        --line: rgba(26, 31, 36, 0.12);
+        --panel: #f9fbfc;
+        --soft: #eef2f4;
+        --shadow: 0 20px 45px rgba(26, 31, 36, 0.12);
+        --nav-height: 64px;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Work Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(150deg, #eef3f6 0%, #fbfbf9 45%, #f2ede3 100%);
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(31, 108, 140, 0.18), transparent 45%),
+          radial-gradient(circle at 85% 10%, rgba(192, 112, 46, 0.16), transparent 52%),
+          radial-gradient(circle at 85% 85%, rgba(108, 143, 60, 0.16), transparent 55%);
+        pointer-events: none;
+        z-index: -2;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 31, 36, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 31, 36, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+      }
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 10px 4%;
+        min-height: var(--nav-height);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+      .logo {
+        border: none;
+        background: none;
+        padding: 0;
+        font: inherit;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        cursor: pointer;
+        color: var(--ink);
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .nav-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+      .nav-links button {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.3rem 0;
+        cursor: pointer;
+        position: relative;
+      }
+      .nav-links button:hover,
+      .nav-links button.active { color: var(--ink); }
+      .nav-links button.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 999px;
+      }
+      main {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 64px 4% 96px;
+      }
+      a { color: var(--accent); text-decoration: none; font-weight: 600; }
+      a:hover { text-decoration: underline; }
+      .hero {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: center;
+        padding: 40px 44px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .competences-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 18px;
+        width: 85%;
+        max-width: 860px;
+        margin: 0 auto 18px 0;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        box-shadow: inset 0 0 0 1px rgba(27, 26, 23, 0.04);
+      }
+      .competences-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+        color: var(--accent-2);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        margin-bottom: 6px;
+      }
+      .competences-text {
+        margin: 0;
+        padding-left: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        line-height: 1.4;
+        grid-column: 2;
+        grid-row: 2;
+      }
+      .competences-nav .nav-arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 108, 140, 0.35);
+        background: #fffaf1;
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        grid-row: 1 / span 2;
+      }
+      .competences-nav .nav-arrow.nav-arrow-left { left: 24px; grid-column: 1; }
+      .competences-nav .nav-arrow.nav-arrow-right { right: 24px; grid-column: 3; }
+      .competences-nav .nav-arrow:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+        transform: translateY(calc(-50% - 1px));
+      }
+      .competences-nav .nav-arrow[aria-disabled="true"] {
+        opacity: 0.45;
+        border-color: rgba(31, 108, 140, 0.2);
+        color: rgba(31, 108, 140, 0.4);
+        background: #eef2f4;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+      .hero h1 {
+        margin: 0;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 3.4vw, 3.3rem);
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+      .hero-card {
+        background: linear-gradient(150deg, rgba(31, 108, 140, 0.08), rgba(192, 112, 46, 0.08));
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+      }
+      .hero-card img,
+      .image-frame img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        border: 1px solid rgba(26, 31, 36, 0.08);
+        box-shadow: 0 12px 26px rgba(26, 31, 36, 0.15);
+        background: #ffffff;
+      }
+      .hero-card figcaption,
+      .image-frame figcaption {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      section {
+        margin-top: 42px;
+        padding: 32px 36px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(26, 31, 36, 0.08);
+        animation: rise 0.8s ease forwards;
+        animation-delay: var(--delay, 0s);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      section h2 {
+        margin: 0 0 16px;
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: 1.5rem;
+      }
+      p { margin: 0 0 16px; }
+      p:last-child { margin-bottom: 0; }
+      ul { margin: 0 0 16px 18px; padding: 0; }
+      li { margin-bottom: 8px; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(31, 108, 140, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+      .legend-flow::after { content: ""; display: block; clear: both; }
+      .legend-flow .image-frame {
+        float: right;
+        width: 56%;
+        margin: 0 0 16px 24px;
+      }
+      .legend-flow .image-frame.float-left {
+        float: left;
+        margin: 0 24px 16px 0;
+      }
+      @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 860px) {
+        .hero { grid-template-columns: 1fr; }
+        .competences-nav .nav-arrow { width: 36px; height: 36px; }
+        .competences-nav .nav-arrow.nav-arrow-left { left: 12px; }
+        .competences-nav .nav-arrow.nav-arrow-right { right: 12px; }
+        .legend-flow .image-frame {
+          float: none;
+          width: 100%;
+          margin: 0 0 16px;
+        }
+      }
+      @media (max-width: 720px) {
+        .navbar { align-items: flex-start; padding: 12px 6%; }
+        .logo { letter-spacing: 0.2em; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        section,
+        .hero { animation: none; opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar" data-navbar data-nav-base="../../../../portfolio-app/">
+      <button class="logo" type="button" data-scroll-target="#hero">Paul Lachavanne</button>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <button type="button" data-scroll-target="#hero" data-nav>Accueil</button>
+        <button type="button" data-scroll-target="#projects" data-nav>Projets</button>
+      <button type="button" data-scroll-target="#skills" data-nav>Compétences</button>
+      </nav>
+    </header>
+
+    <main>
+      <header class="hero" id="hero" style="--delay: 0s;">
+        <div>
+          <div class="competences-nav" aria-label="Navigation des compétences">
+            <a class="nav-arrow nav-arrow-left" href="../page_V1/page_V1.html" aria-label="Retour à V1">&larr;</a>
+            <span class="competences-label">Compétence Vérifier</span>
+            <ul class="competences-text">
+              <li>J'analyse les signatures observées et j'évalue la qualité des résultats obtenus en condition réelle.</li>
+            </ul>
+            <span class="nav-arrow nav-arrow-right" aria-disabled="true" title="Page suivante indisponible">&rarr;</span>
+          </div>
+          <h1>Radiodétection de météores</h1>
+          <p class="subtitle">Projet tutoré radar GRAVES</p>
+        </div>
+        <figure class="hero-card">
+          <img
+            src="../../images/ptut-card.png"
+            alt="Signature Doppler d'un météore"
+            loading="lazy"
+            decoding="async"
+          >
+          <figcaption>Exemple de signature fréquentielle détectée puis exploitée pour interpréter un événement transitoire.</figcaption>
+        </figure>
+      </header>
+
+      <section style="--delay: 0.05s;">
+        <h2>Résultats obtenus</h2>
+        <p>Une fois la chaîne validée, la vérification s'est appuyée sur les <strong>événements réellement observés</strong>. Les captures montrent des signatures nettes qui se distinguent du bruit de fond et rendent possible une interprétation plus fine du phénomène.</p>
+        <p>Le projet ne se limite donc pas à un fonctionnement logiciel correct : il produit des données suffisamment propres pour alimenter une lecture physique des événements météoritiques.</p>
+      </section>
+
+      <section style="--delay: 0.1s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Signature exploitable</span>
+          <h2>Observer une structure Doppler lisible</h2>
+          <figure class="image-frame">
+            <img
+              src="../../images/ptut-card.png"
+              alt="Signature Doppler structurée"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>La forme et l'épaisseur de la trace permettent d'aller au-delà d'une simple détection présence/absence.</figcaption>
+          </figure>
+          <p>Les captures relevées montrent des <strong>structures fréquentielles mesurables</strong> : dérive, épaisseur spectrale, apparition et disparition progressives. Ce sont ces indices qui donnent de la valeur à la chaîne de mesure.</p>
+          <ul>
+            <li>Événements au-dessus du niveau de bruit.</li>
+            <li>Signatures Doppler lisibles dans la waterfall.</li>
+            <li>Possibilité d'identifier des élargissements spectraux compatibles avec des phénomènes plus complexes.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--delay: 0.15s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Robustesse</span>
+          <h2>Confirmer que l'outil est pertinent pour un usage d'observation</h2>
+          <figure class="image-frame float-left">
+            <img
+              src="../../images/slide-07.png"
+              alt="Outil temps réel pendant l'observation"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>L'interface temps réel reste utile pendant l'observation, tandis que l'enregistrement garantit l'analyse ultérieure.</figcaption>
+          </figure>
+          <p>La vérification a également porté sur la robustesse d'usage. Le système permet à la fois une <strong>lecture opérateur en direct</strong> et une exploitation offline, ce qui le rend pertinent pour des sessions réelles d'observation.</p>
+          <p>Cette double utilité, immédiate et différée, constitue l'un des principaux acquis du projet tutoré.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.2s;">
+        <div class="legend-flow">
+          <span class="eyebrow">Ouvertures</span>
+          <h2>Identifier les limites et les prolongements du projet</h2>
+          <figure class="image-frame">
+            <img
+              src="../../images/slide-11.png"
+              alt="Déclenchement automatique"
+              loading="lazy"
+              decoding="async"
+            >
+            <figcaption>Le trigger ouvre vers des stratégies de tri plus robustes et vers des corrélations multi-sources.</figcaption>
+          </figure>
+          <p>Les essais ont aussi mis en évidence des pistes d'amélioration : raffiner le tri automatique, renforcer la discrimination entre bruit et événement, ou croiser les observations avec d'autres réseaux comme <strong>FRIPON</strong>.</p>
+          <p>La vérification ne clôt donc pas le sujet. Elle établit une base solide sur laquelle il devient possible d'industrialiser l'analyse ou de l'enrichir scientifiquement.</p>
+        </div>
+      </section>
+
+      <section style="--delay: 0.25s;">
+        <h2>Synthèse</h2>
+        <p>Le projet tutoré dispose maintenant du même parcours visuel qu'un projet académique du portfolio : pages de compétence, sous-pages navigables et contenu structuré. Sur le fond, cette partie Vérifier montre que la chaîne produit déjà des résultats crédibles et exploitables pour l'étude d'événements transitoires.</p>
+      </section>
+    </main>
+
+    <script src="../../../../portfolio-app/shared-nav.js"></script>
+    <script>
+      const navButtons = document.querySelectorAll('[data-scroll-target]');
+      const navLinks = document.querySelectorAll('[data-nav]');
+      function setActive(targetId) {
+        navLinks.forEach((btn) => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`[data-scroll-target="${targetId}"][data-nav]`);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+      if (window.location.pathname.includes('/Projets/')) setActive('#skills');
+      navButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.dataset.scrollTarget;
+          const target = document.querySelector(targetId);
+          if (target) {
+            setActive(targetId);
+            target.scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          const href = window.location.href;
+          const base = href.includes('/Projets/') ? href.split('/Projets/')[0] : href.replace(/\/[^/]*$/, '');
+          window.location.href = `${base}/portfolio-app/index.html${targetId}`;
+        });
+      });
+    </script>
+  </body>
+</html>
