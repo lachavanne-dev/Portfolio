@@ -1,0 +1,44 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="36" fill="#F6EFE4"/>
+  <rect x="48" y="48" width="1104" height="624" rx="30" fill="url(#bg)"/>
+  <circle cx="960" cy="176" r="126" fill="url(#orb)"/>
+  <circle cx="270" cy="540" r="190" fill="url(#orbSoft)"/>
+  <rect x="180" y="170" width="420" height="320" rx="30" fill="#FFFDF7" stroke="#1B1A17" stroke-opacity="0.08" stroke-width="4"/>
+  <rect x="220" y="210" width="340" height="210" rx="22" fill="#132120"/>
+  <path d="M312 294C340.667 272.667 369.333 262 398 262C443.333 262 475.333 293 494 355" stroke="#E0A458" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="398" cy="262" r="28" fill="#FFFDF7"/>
+  <circle cx="398" cy="262" r="16" fill="#C25A38"/>
+  <path d="M312 442H470" stroke="#C25A38" stroke-width="10" stroke-linecap="round"/>
+  <path d="M500 442H560" stroke="#1D6B68" stroke-width="10" stroke-linecap="round"/>
+  <rect x="640" y="168" width="360" height="150" rx="28" fill="#FFF8EE" stroke="#1B1A17" stroke-opacity="0.08" stroke-width="4"/>
+  <rect x="640" y="352" width="360" height="160" rx="28" fill="#FFFDF7" stroke="#1B1A17" stroke-opacity="0.08" stroke-width="4"/>
+  <path d="M762 176L708 112" stroke="#1B1A17" stroke-width="10" stroke-linecap="round"/>
+  <path d="M878 176L932 112" stroke="#1B1A17" stroke-width="10" stroke-linecap="round"/>
+  <path d="M724 196H916" stroke="#1B1A17" stroke-width="12" stroke-linecap="round"/>
+  <path d="M820 196V286" stroke="#1B1A17" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="732" cy="226" r="34" fill="#1D6B68"/>
+  <circle cx="908" cy="226" r="34" fill="#1D6B68"/>
+  <circle cx="732" cy="226" r="18" fill="#FFFDF7"/>
+  <circle cx="908" cy="226" r="18" fill="#FFFDF7"/>
+  <path d="M690 412H950" stroke="#1B1A17" stroke-width="12" stroke-linecap="round"/>
+  <path d="M690 454H910" stroke="#C25A38" stroke-width="12" stroke-linecap="round"/>
+  <path d="M690 496H850" stroke="#1D6B68" stroke-width="12" stroke-linecap="round"/>
+  <rect x="160" y="536" width="880" height="76" rx="22" fill="#FFFDF7" stroke="#1B1A17" stroke-opacity="0.08" stroke-width="4"/>
+  <text x="210" y="585" fill="#1B1A17" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">MiniFollow</text>
+  <text x="470" y="585" fill="#5A554E" font-family="Inter, Arial, sans-serif" font-size="24">Android, vision temps réel, backend et distribution APK</text>
+  <defs>
+    <linearGradient id="bg" x1="90" y1="90" x2="1080" y2="660" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF6EB"/>
+      <stop offset="0.52" stop-color="#FFFDF7"/>
+      <stop offset="1" stop-color="#EEF4F2"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 176) rotate(90) scale(126)">
+      <stop stop-color="#E0A458" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#E0A458" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbSoft" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(270 540) rotate(90) scale(190)">
+      <stop stop-color="#C25A38" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#C25A38" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

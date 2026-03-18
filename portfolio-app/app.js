@@ -6,6 +6,7 @@ const overlay = document.querySelector('[data-modal]');
 const modalBody = document.querySelector('[data-modal-body]');
 const closeModalBtn = document.querySelector('[data-close-modal]');
 const navbar = document.querySelector('[data-navbar]');
+const videoLightbox = createVideoLightbox();
 
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
@@ -67,29 +68,73 @@ function getDefaultPage(skillKey, project) {
 }
 
 // --- 1. GÉNÉRATION GRID PROJETS ---
-let professionalSeparatorInserted = false;
-const createProfessionalSeparator = () => {
+const insertedSeparators = new Set();
+
+function createProjectSeparator(title, description, modifier = '') {
   const separator = document.createElement('div');
-  separator.className = 'project-separator';
+  separator.className = `project-separator ${modifier}`.trim();
   separator.innerHTML = `
-    <h3 class="project-separator__title">Expériences professionnelles</h3>
-    <p class="project-separator__desc">Projet réalisé en contexte d'entreprise.</p>
+    <h3 class="project-separator__title">${title}</h3>
+    <p class="project-separator__desc">${description}</p>
   `;
   return separator;
-};
+}
 
 projects.forEach((project) => {
-  if (!professionalSeparatorInserted && project.category === 'professional') {
-    if (projectGrid) projectGrid.appendChild(createProfessionalSeparator());
-    professionalSeparatorInserted = true;
+  if (!project.category && !insertedSeparators.has('academic')) {
+    if (projectGrid) {
+      projectGrid.appendChild(
+        createProjectSeparator(
+          'Académique',
+          'Réalisations menées dans le cadre du BUT GEII.'
+        )
+      );
+    }
+    insertedSeparators.add('academic');
+  }
+
+  if (project.category === 'personal' && !insertedSeparators.has('personal')) {
+    if (projectGrid) {
+      projectGrid.appendChild(
+        createProjectSeparator(
+          'Personnel',
+          'Produit conçu et développé de bout en bout hors cadre académique.',
+          'project-separator--personal'
+        )
+      );
+    }
+    insertedSeparators.add('personal');
+  }
+
+  if (project.category === 'professional' && !insertedSeparators.has('professional')) {
+    if (projectGrid) {
+      projectGrid.appendChild(
+        createProjectSeparator(
+          'Professionnel',
+          "Projet réalisé en contexte d'entreprise.",
+          'project-separator--professional'
+        )
+      );
+    }
+    insertedSeparators.add('professional');
   }
 
   const card = document.createElement('article');
   card.className = 'card project-card';
+  if (project.category === 'personal' || project.category === 'professional') {
+    card.classList.add('project-card--featured');
+  }
 
   let imageContainerHtml = '';
+  const hasVideoPreview = typeof project.videoPreview === 'string' && project.videoPreview.trim() !== '';
   const hasImage = typeof project.image === 'string' && project.image.trim() !== '';
-  if (hasImage && project.depthImage && window.ParallaxImage) {
+  if (hasVideoPreview) {
+    imageContainerHtml = `
+      <video class="card-image card-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="${project.videoPreview}" type="video/mp4">
+      </video>
+    `;
+  } else if (hasImage && project.depthImage && window.ParallaxImage) {
     imageContainerHtml = `
       <div class="card-image parallax-container" id="parallax-${project.id}" style="position: relative; overflow: hidden;">
         <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
@@ -169,7 +214,15 @@ function openProjectModal(project) {
   modalBody.innerHTML = '';
   modalBody.appendChild(createEyebrow(project.context));
   modalBody.appendChild(createTitle(project.title));
-  modalBody.appendChild(createSubtitle("Cliquez sur une competence pour ouvrir la page d'entree."));
+
+  if (project.caseStudy) {
+    modalBody.appendChild(createSubtitle(project.caseStudy.subtitle || "Vue d'ensemble du projet."));
+    modalBody.appendChild(createCaseStudyLayout(project));
+    showModal();
+    return;
+  }
+
+  modalBody.appendChild(createSubtitle("Cliquez sur une compétence pour ouvrir la page d'entrée."));
 
   const list = document.createElement('div');
   list.className = 'modal-list';
@@ -237,6 +290,191 @@ function openProjectModal(project) {
   showModal();
 }
 
+function createCaseStudyLayout(project) {
+  const layout = document.createElement('div');
+  layout.className = 'case-study-layout';
+
+  const main = document.createElement('div');
+  main.className = 'case-study-main';
+
+  const intro = document.createElement('div');
+  intro.className = 'modal-project-intro';
+  const introTitle = project.introTitle ? `<h3>${project.introTitle}</h3>` : '';
+  const introSummary = project.introSummary ? `<p>${project.introSummary}</p>` : '';
+  const introDetails = Array.isArray(project.introDetails)
+    ? project.introDetails.map((text) => `<p>${text}</p>`).join('')
+    : '';
+  intro.innerHTML = `${introTitle}${introSummary}${introDetails}`;
+
+  const media = project.caseStudy?.media;
+  if (media?.src) {
+    const mediaCard = document.createElement('article');
+    mediaCard.className = 'case-study-media';
+    mediaCard.setAttribute('role', 'button');
+    mediaCard.setAttribute('tabindex', '0');
+    mediaCard.setAttribute('aria-label', `Agrandir la vidéo ${media.title || 'de démonstration'}`);
+    mediaCard.innerHTML = `
+      <div class="case-study-media__header">
+        <p class="eyebrow">${media.title || 'Démonstration'}</p>
+        <span class="case-study-media__hint">Cliquer pour agrandir</span>
+      </div>
+      <video class="case-study-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="${media.src}" type="video/mp4">
+        Votre navigateur ne prend pas en charge la lecture de cette vidéo.
+      </video>
+      ${media.caption ? `<p class="case-study-media__caption">${media.caption}</p>` : ''}
+    `;
+    mediaCard.addEventListener('click', () => openVideoLightbox(media));
+    mediaCard.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openVideoLightbox(media);
+      }
+    });
+    main.appendChild(mediaCard);
+  }
+
+  const site = project.caseStudy?.site;
+  if (site?.href) {
+    const linksCard = document.createElement('article');
+    linksCard.className = 'case-study-links-card';
+    linksCard.innerHTML = `
+      <p class="eyebrow">Accès</p>
+      <div class="case-study-links">
+        <a class="case-study-link case-study-link--primary" href="${site.href}" target="_blank" rel="noopener">${site.label || 'Voir le site'}<span aria-hidden="true">↗</span></a>
+      </div>
+      ${site.meta ? `<p class="case-study-links__meta">${site.meta}</p>` : ''}
+    `;
+    main.appendChild(linksCard);
+  }
+
+  main.appendChild(intro);
+
+  const sections = document.createElement('div');
+  sections.className = 'case-study-sections';
+
+  (project.caseStudy?.sections || []).forEach((section) => {
+    const card = document.createElement('article');
+    card.className = 'case-study-section';
+
+    const title = document.createElement('h4');
+    title.textContent = section.title;
+    card.appendChild(title);
+
+    (section.paragraphs || []).forEach((text) => {
+      const paragraph = document.createElement('p');
+      paragraph.textContent = text;
+      card.appendChild(paragraph);
+    });
+
+    sections.appendChild(card);
+  });
+
+  if (sections.childElementCount) {
+    main.appendChild(sections);
+  }
+
+  const sidebar = document.createElement('aside');
+  sidebar.className = 'case-study-sidebar';
+
+  const stats = project.caseStudy?.stats || [];
+  if (stats.length) {
+    const statsCard = document.createElement('article');
+    statsCard.className = 'case-study-sidecard';
+    statsCard.innerHTML = `
+      <p class="eyebrow">Périmètre</p>
+      <div class="case-study-stats">
+        ${stats.map((item) => `
+          <div class="case-study-stat">
+            <span class="case-study-stat__label">${item.label}</span>
+            <strong class="case-study-stat__value">${item.value}</strong>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    sidebar.appendChild(statsCard);
+  }
+
+  const highlights = project.caseStudy?.highlights || [];
+  if (highlights.length) {
+    const highlightsCard = document.createElement('article');
+    highlightsCard.className = 'case-study-sidecard';
+    highlightsCard.innerHTML = `
+      <p class="eyebrow">Points forts</p>
+      <ul class="case-study-list">
+        ${highlights.map((item) => `<li>${item}</li>`).join('')}
+      </ul>
+    `;
+    sidebar.appendChild(highlightsCard);
+  }
+
+  if (project.caseStudy?.closing) {
+    const closingCard = document.createElement('article');
+    closingCard.className = 'case-study-sidecard case-study-sidecard--accent';
+    closingCard.innerHTML = `
+      <p class="eyebrow">Positionnement</p>
+      <p class="case-study-closing">${project.caseStudy.closing}</p>
+    `;
+    sidebar.appendChild(closingCard);
+  }
+
+  layout.appendChild(main);
+  layout.appendChild(sidebar);
+  return layout;
+}
+
+function createVideoLightbox() {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'video-lightbox';
+  lightbox.hidden = true;
+  lightbox.innerHTML = `
+    <div class="video-lightbox__backdrop" data-video-close></div>
+    <div class="video-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Vidéo en grand format">
+      <button class="video-lightbox__close" type="button" data-video-close aria-label="Fermer la vidéo">&times;</button>
+      <video class="video-lightbox__video" loop playsinline preload="metadata"></video>
+    </div>
+  `;
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLElement && event.target.hasAttribute('data-video-close')) {
+      closeVideoLightbox();
+    }
+  });
+
+  document.body.appendChild(lightbox);
+  return lightbox;
+}
+
+function openVideoLightbox(media) {
+  const video = videoLightbox.querySelector('.video-lightbox__video');
+  if (!(video instanceof HTMLVideoElement)) return;
+
+  video.innerHTML = '';
+  const source = document.createElement('source');
+  source.src = media.src;
+  source.type = 'video/mp4';
+  video.appendChild(source);
+  video.muted = true;
+  video.currentTime = 0;
+  video.load();
+
+  videoLightbox.hidden = false;
+  document.body.style.overflow = 'hidden';
+  void video.play().catch(() => {});
+}
+
+function closeVideoLightbox() {
+  const video = videoLightbox.querySelector('.video-lightbox__video');
+  if (video instanceof HTMLVideoElement) {
+    video.pause();
+    video.innerHTML = '';
+    video.load();
+  }
+
+  videoLightbox.hidden = true;
+  document.body.style.overflow = overlay.hidden ? '' : 'hidden';
+}
+
 // --- LOGIQUE B : MODALE SELECTEUR PROJET (On a la page, on choisit le projet) ---
 function openProjectSelectorModal(skillKey) {
   const skillData = structure[skillKey];
@@ -276,6 +514,9 @@ function showModal() {
 }
 
 function hideModal() {
+  if (!videoLightbox.hidden) {
+    closeVideoLightbox();
+  }
   overlay.hidden = true;
   document.body.style.overflow = '';
 }
@@ -303,7 +544,14 @@ function createSubtitle(text) {
 // Event Listeners génériques
 if (closeModalBtn) closeModalBtn.addEventListener('click', hideModal);
 if (overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) hideModal(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (!videoLightbox.hidden) {
+    closeVideoLightbox();
+    return;
+  }
+  hideModal();
+});
 
 // --- GESTION DE LA NAVIGATION ET DU SCROLL ---
 
