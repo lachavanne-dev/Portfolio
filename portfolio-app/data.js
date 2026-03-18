@@ -182,6 +182,97 @@ window.portfolioData = {
       ]
     },
     {
+      id: "ptut-meteores",
+      folderRoot: "../Projets/Projet_Tutore",
+      title: "Radiodétection de météores",
+      tagline: "Radar GRAVES, acquisition CI-V et analyse Doppler sur 143,050 MHz",
+      image: "../Projets/Projet_Tutore/images/ptut-card.png",
+      cardBackground: {
+        src: "../Projets/Projet_Tutore/images/ptut-card.png",
+        size: "120%",
+        position: "50% 100%",
+        offsetX: "-10px",
+        offsetY: "0px"
+      },
+      context: "PROJET TUTORÉ",
+      year: "2026",
+      category: "tutored",
+      tags: ["Python", "Radio", "Signal", "Trigger", "Doppler"],
+      introTitle: "Chaîne de radiodétection et d'analyse d'événements transitoires",
+      introSummary: "Ce projet tutoré vise à détecter, enregistrer et analyser des météores via le radar GRAVES autour de 143,050 MHz, en transformant une simple observation radio en une mesure horodatée, rejouable et exploitable.",
+      introDetails: [
+        "Le point de départ est une limite d'instrumentation : le récepteur IC-705 permet d'observer le spectre et la waterfall, mais pas de sauvegarder proprement des événements brefs pour les analyser a posteriori.",
+        "Nous avons donc construit une chaîne complète de mesure : réception radio, récupération des trames CI-V via wfview, transport réseau en TCP, décodage Python, affichage temps réel, enregistrement CSV et relecture comme une vidéo.",
+        "L'ensemble permet de détecter automatiquement des événements transitoires, de les calibrer en dBm, d'extraire leurs signatures Doppler et d'envisager une corrélation avec d'autres sources comme FRIPON."
+      ],
+      caseStudy: {
+        subtitle: "Projet d'instrumentation radio réalisé en équipe, centré sur la capture et l'analyse d'événements météoriques transitoires.",
+        media: {
+          type: "image",
+          src: "../Projets/Projet_Tutore/images/ptut-card.png",
+          title: "Signature Doppler",
+          alt: "Waterfall montrant une signature Doppler liée à un événement transitoire",
+          caption: "Exemple de signature fréquentielle structurée exploitée pour l'interprétation physique d'un événement détecté."
+        },
+        gallery: [
+          {
+            src: "../Projets/Projet_Tutore/images/slide-05.png",
+            title: "Chaîne d'instrumentation",
+            caption: "Architecture matérielle et flux de données entre antenne, IC-705, wfview et application Python."
+          },
+          {
+            src: "../Projets/Projet_Tutore/images/slide-07.png",
+            title: "Application temps réel",
+            caption: "Visualisation simultanée du spectre et de la waterfall avec une résolution de 475 points."
+          },
+          {
+            src: "../Projets/Projet_Tutore/images/slide-09.png",
+            title: "Relecture CSV",
+            caption: "Outil de relecture, mesure et export développé pour rejouer une capture comme une vidéo."
+          },
+          {
+            src: "../Projets/Projet_Tutore/images/slide-11.png",
+            title: "Mode trigger",
+            caption: "Capture automatique avec seuil, buffers avant/après événement et nommage utile des fichiers."
+          }
+        ],
+        stats: [
+          { label: "Fréquence", value: "143,050 MHz" },
+          { label: "Acquisition", value: "475 points / trame" },
+          { label: "Workflow", value: "Réception → CSV → relecture" }
+        ],
+        highlights: [
+          "Transformation d'un affichage opérateur en une chaîne de mesure exploitable et horodatée.",
+          "Développement d'une application Python de décodage, visualisation, enregistrement et relecture.",
+          "Analyse d'événements transitoires par calibration, trigger et interprétation Doppler."
+        ],
+        sections: [
+          {
+            title: "Contexte et instrumentation",
+            paragraphs: [
+              "L'objectif était de dépasser les limites du scope embarqué de l'IC-705 pour enregistrer fidèlement des événements courts, impossibles à analyser sérieusement sans sauvegarde continue et horodatée.",
+              "La chaîne d'instrumentation s'appuie sur le radar GRAVES en réception, l'IC-705 pour l'acquisition, wfview comme passerelle CI-V/TCP, puis une application Python chargée du décodage, du traitement et de l'exploitation des trames."
+            ]
+          },
+          {
+            title: "Traitement des données",
+            paragraphs: [
+              "Nous avons développé une interface temps réel affichant le spectre et la waterfall sur un span de 5 kHz autour de 143,050 MHz. Chaque trame est enregistrée en CSV avec horodatage, paramètres et 475 points spectraux.",
+              "Ce format rend la mesure rejouable, mesurable et exportable. Un lecteur dédié permet ensuite de naviguer dans les captures, de positionner des marqueurs et d'exporter une waterfall complète sur toute la durée de l'événement."
+            ]
+          },
+          {
+            title: "Détection et résultats",
+            paragraphs: [
+              "Le mode trigger surveille la valeur maximale du spectre et déclenche automatiquement une capture lorsque le seuil est dépassé, en conservant un buffer avant et après l'événement pour ne pas perdre le contexte.",
+              "Les résultats montrent des événements nets au-dessus du bruit, avec des signatures Doppler mesurables et parfois des élargissements spectraux compatibles avec des phénomènes de fragmentation. Le projet ouvre naturellement vers un tri plus robuste et des corrélations multi-sources."
+            ]
+          }
+        ],
+        closing: "Ce projet m'a permis de relier radio, instrumentation, traitement du signal et développement logiciel autour d'un cas réel de détection d'événements transitoires."
+      }
+    },
+    {
       id: "minifollow",
       folderRoot: "../Projets/MiniFollow",
       title: "MiniFollow",

@@ -106,6 +106,19 @@ projects.forEach((project) => {
     insertedSeparators.add('personal');
   }
 
+  if (project.category === 'tutored' && !insertedSeparators.has('tutored')) {
+    if (projectGrid) {
+      projectGrid.appendChild(
+        createProjectSeparator(
+          'Projet tutoré',
+          'Projet mené en équipe autour d’une chaîne complète de radiodétection et d’analyse.',
+          'project-separator--tutored'
+        )
+      );
+    }
+    insertedSeparators.add('tutored');
+  }
+
   if (project.category === 'professional' && !insertedSeparators.has('professional')) {
     if (projectGrid) {
       projectGrid.appendChild(
@@ -121,18 +134,31 @@ projects.forEach((project) => {
 
   const card = document.createElement('article');
   card.className = 'card project-card';
-  if (project.category === 'personal' || project.category === 'professional') {
+  card.classList.add(`project-card--${project.id}`);
+  if (project.category === 'personal' || project.category === 'tutored' || project.category === 'professional') {
     card.classList.add('project-card--featured');
   }
 
   let imageContainerHtml = '';
   const hasVideoPreview = typeof project.videoPreview === 'string' && project.videoPreview.trim() !== '';
+  const hasCardBackground = Boolean(project.cardBackground?.src);
   const hasImage = typeof project.image === 'string' && project.image.trim() !== '';
   if (hasVideoPreview) {
     imageContainerHtml = `
       <video class="card-image card-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
         <source src="${project.videoPreview}" type="video/mp4">
       </video>
+    `;
+  } else if (hasCardBackground) {
+    imageContainerHtml = `
+      <div
+        class="card-image card-image--background"
+        role="img"
+        aria-label="${project.title}"
+        style="--card-bg-size: ${project.cardBackground.size || '100%'}; --card-bg-position: ${project.cardBackground.position || 'center'}; --card-bg-offset-x: ${project.cardBackground.offsetX || '0px'}; --card-bg-offset-y: ${project.cardBackground.offsetY || '0px'};"
+      >
+        <img src="${project.cardBackground.src}" alt="${project.title}">
+      </div>
     `;
   } else if (hasImage && project.depthImage && window.ParallaxImage) {
     imageContainerHtml = `
@@ -309,28 +335,40 @@ function createCaseStudyLayout(project) {
   const media = project.caseStudy?.media;
   if (media?.src) {
     const mediaCard = document.createElement('article');
-    mediaCard.className = 'case-study-media';
-    mediaCard.setAttribute('role', 'button');
-    mediaCard.setAttribute('tabindex', '0');
-    mediaCard.setAttribute('aria-label', `Agrandir la vidéo ${media.title || 'de démonstration'}`);
-    mediaCard.innerHTML = `
-      <div class="case-study-media__header">
-        <p class="eyebrow">${media.title || 'Démonstration'}</p>
-        <span class="case-study-media__hint">Cliquer pour agrandir</span>
-      </div>
-      <video class="case-study-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-        <source src="${media.src}" type="video/mp4">
-        Votre navigateur ne prend pas en charge la lecture de cette vidéo.
-      </video>
-      ${media.caption ? `<p class="case-study-media__caption">${media.caption}</p>` : ''}
-    `;
-    mediaCard.addEventListener('click', () => openVideoLightbox(media));
-    mediaCard.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openVideoLightbox(media);
-      }
-    });
+    const mediaType = media.type || 'video';
+    mediaCard.className = `case-study-media ${mediaType === 'video' ? 'case-study-media--interactive' : 'case-study-media--static'}`;
+
+    if (mediaType === 'video') {
+      mediaCard.setAttribute('role', 'button');
+      mediaCard.setAttribute('tabindex', '0');
+      mediaCard.setAttribute('aria-label', `Agrandir la vidéo ${media.title || 'de démonstration'}`);
+      mediaCard.innerHTML = `
+        <div class="case-study-media__header">
+          <p class="eyebrow">${media.title || 'Démonstration'}</p>
+          <span class="case-study-media__hint">Cliquer pour agrandir</span>
+        </div>
+        <video class="case-study-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+          <source src="${media.src}" type="video/mp4">
+          Votre navigateur ne prend pas en charge la lecture de cette vidéo.
+        </video>
+        ${media.caption ? `<p class="case-study-media__caption">${media.caption}</p>` : ''}
+      `;
+      mediaCard.addEventListener('click', () => openVideoLightbox(media));
+      mediaCard.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openVideoLightbox(media);
+        }
+      });
+    } else {
+      mediaCard.innerHTML = `
+        <div class="case-study-media__header">
+          <p class="eyebrow">${media.title || 'Visuel'}</p>
+        </div>
+        <img class="case-study-image" src="${media.src}" alt="${media.alt || media.title || project.title}">
+        ${media.caption ? `<p class="case-study-media__caption">${media.caption}</p>` : ''}
+      `;
+    }
     main.appendChild(mediaCard);
   }
 
@@ -349,6 +387,27 @@ function createCaseStudyLayout(project) {
   }
 
   main.appendChild(intro);
+
+  const gallery = project.caseStudy?.gallery || [];
+  if (gallery.length) {
+    const galleryCard = document.createElement('article');
+    galleryCard.className = 'case-study-gallery-card';
+    galleryCard.innerHTML = `
+      <p class="eyebrow">Extraits du projet</p>
+      <div class="case-study-gallery">
+        ${gallery.map((item) => `
+          <figure class="case-study-gallery-item">
+            <img src="${item.src}" alt="${item.alt || item.title || project.title}">
+            <figcaption>
+              ${item.title ? `<strong>${item.title}</strong>` : ''}
+              ${item.caption ? `<span>${item.caption}</span>` : ''}
+            </figcaption>
+          </figure>
+        `).join('')}
+      </div>
+    `;
+    main.appendChild(galleryCard);
+  }
 
   const sections = document.createElement('div');
   sections.className = 'case-study-sections';
