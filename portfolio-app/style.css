@@ -245,19 +245,7 @@ body {
   border-top: 1px solid var(--line);
 }
 
-.project-separator--personal {
-  text-align: left;
-  padding-top: 0.35rem;
-  margin-bottom: -0.35rem;
-}
-
-.project-separator--tutored {
-  text-align: left;
-  padding-top: 0.35rem;
-  margin-bottom: -0.35rem;
-}
-
-.project-separator--professional {
+.project-separator--featured-group {
   text-align: left;
   padding-top: 0.35rem;
   margin-bottom: -0.35rem;
@@ -274,57 +262,6 @@ body {
   max-width: 520px;
 }
 
-.project-separator--personal .project-separator__desc {
-  width: min(100%, 560px);
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 680px;
-  font-size: 0.95rem;
-}
-
-.project-separator--tutored .project-separator__desc {
-  width: min(100%, 560px);
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 680px;
-  font-size: 0.95rem;
-}
-
-.project-separator--personal .project-separator__title {
-  width: min(100%, 560px);
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.05rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.project-separator--tutored .project-separator__title {
-  width: min(100%, 560px);
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.05rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.project-separator--professional .project-separator__desc {
-  width: min(100%, 560px);
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 680px;
-  font-size: 0.95rem;
-}
-
-.project-separator--professional .project-separator__title {
-  width: min(100%, 560px);
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.05rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .card {
   background: var(--surface-color);
   border-radius: var(--card-radius);
@@ -338,19 +275,43 @@ body {
 }
 
 .project-card--featured {
-  grid-column: 1 / -1;
-  width: min(100%, 560px);
-  justify-self: center;
+  grid-column: auto;
+  width: auto;
+  justify-self: stretch;
+}
+
+.project-card-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.project-card-shell--featured .project-card {
+  flex: 1;
+}
+
+.project-card-shell__label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.project-card--featured .card-image,
+.project-card--featured .card-video,
+.project-card--featured .card-image--background {
+  height: auto;
+  aspect-ratio: 1080 / 502;
 }
 
 .project-card--featured .card-image:not(.card-video) {
-  height: auto;
-  aspect-ratio: 1080 / 502;
+  object-fit: cover;
 }
 
 .project-card--featured .card-video {
-  height: auto;
-  aspect-ratio: 1080 / 502;
   object-fit: cover;
 }
 

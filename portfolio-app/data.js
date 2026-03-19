@@ -140,56 +140,70 @@ window.portfolioData = {
   structure: SKILL_STRUCTURE,
   projects: [
     {
-      id: "antenne",
-      folderRoot: "../Projets/Antenne_HB9CV", // Dossier racine accessible depuis portfolio-app
-      reportFile: "page_Antenne HB9CV.pdf",
-      title: "Antenne HB9CV",
-      tagline: "Radiogoniométrie 144 MHz : simulation, fabrication et mesures",
-      image: "../Projets/images/Antenne_HB9CV.jpeg",
-      context: "SAE",
-      year: "2025",
-      tags: ["RF", "Simulation", "Mesures"],
-      introTitle: "Contexte du projet",
-      introSummary: "Projet de SAE consistant à concevoir une antenne directionnelle permettant de localiser la provenance d’un signal radio, dans un contexte réel de radiogoniométrie.",
+      id: "minifollow",
+      folderRoot: "../Projets/MiniFollow",
+      title: "MiniFollow",
+      tagline: "Produit complet de suivi autonome DJI : application Android, backend licensing et site de distribution",
+      image: "assets/minifollow.svg",
+      videoPreview: "../Projets/MiniFollow/media/demo-minifollow.mp4",
+      context: "PROJET PRODUIT",
+      year: "2025-2026",
+      category: "personal",
+      tags: ["Android", "Kotlin", "Vision temps réel", "Node.js", "Cloud"],
+      introTitle: "Système logiciel complet pour drone DJI Mini",
+      introSummary: "MiniFollow est un produit distribué hors Play Store, pensé comme une chaîne logicielle complète : acquisition utilisateur, distribution d'APK, activation Premium, suivi autonome et télémétrie minimale.",
       introDetails: [
-        "Le cahier des charges imposait des contraintes concrètes : poids et encombrement réduits, budget limité, utilisation sur le terrain et compatibilité avec une tablette de réception.",
-        "Mon travail a couvert le choix de l’architecture de l’antenne, la simulation de son comportement avant fabrication, le réglage pour limiter les pertes de signal entre l’antenne et le récepteur, puis la fabrication et les tests.",
-        "L’objectif final était d’obtenir une antenne simple, robuste et réellement exploitable en conditions réelles."
-      ]
-    },
-    {
-      id: "kah",
-      folderRoot: "../Projets/KAH",
-      reportFile: "page_KAH.pdf",
-      title: "Kart à Hélice",
-      tagline: "Transmission infrarouge, schémas électriques, PCB, tests et corrections",
-      image: "../Projets/images/KAH.jpeg",
-      context: "SAE",
-      year: "2024",
-      tags: ["Électronique", "C++", "Transmission IR"],
-      introTitle: "Contexte du projet",
-      introSummary: "Kart a helice telecommande, avec transmission infrarouge et controle embarque.",
-      introDetails: [
-        "Conception electronique, programmation C++ et mise au point des commandes.",
-        "Objectif : un systeme fiable et reactif pour piloter direction et vitesse."
-      ]
-    },
-    {
-      id: "robot",
-      folderRoot: "../Projets/Robot_Sumo",
-      reportFile: "page_Robot_sumo.pdf",
-      title: "Robot Sumo autonome",
-      tagline: "Détection adverse, stratégie embarquée, contrôle moteur",
-      image: "../Projets/images/Robot_Sumo.jpeg",
-      context: "SAE",
-      year: "2024",
-      tags: ["Électronique", "C++", "Capteurs"],
-      introTitle: "Contexte du projet",
-      introSummary: "Robot autonome de type sumo : detecter l'adversaire et optimiser la strategie.",
-      introDetails: [
-        "Integration de capteurs, algorithmes de decision et controle moteur.",
-        "Objectif : un robot stable, rapide et capable de gagner des confrontations."
-      ]
+        "Le cœur du projet est une application Android native qui transforme le flux vidéo DJI en commandes de vol temps réel grâce à la détection de personne, au lissage du tracking, au calcul PID et au virtual stick.",
+        "Autour de cette application, j'ai construit un backend Cloud Run qui gère les licences Premium, les webhooks Lemon Squeezy, l'émission de tokens signés pour un usage hors ligne et la télémétrie produit.",
+        "Le site statique complète l'ensemble en servant la landing page, la distribution du dernier APK, les informations de compatibilité et le parcours commercial."
+      ],
+      caseStudy: {
+        subtitle: "Vue d'ensemble du produit, de son architecture et d'un aperçu vidéo intégré à mon portfolio.",
+        site: {
+          href: "https://minifollow.app/",
+          label: "Consulter le site MiniFollow",
+          meta: "Landing page, téléchargement APK et informations produit"
+        },
+        media: {
+          src: "../Projets/MiniFollow/media/demo-minifollow.mp4",
+          title: "Aperçu vidéo",
+          caption: "Démonstration courte de l'interface et du fonctionnement global de MiniFollow."
+        },
+        stats: [
+          { label: "Architecture", value: "App + backend + site" },
+          { label: "Temps réel", value: "Tracking vidéo + PID" },
+          { label: "Distribution", value: "APK direct hors Play Store" }
+        ],
+        highlights: [
+          "Pipeline temps réel complet : flux vidéo DJI, détection ML Kit, lissage du tracking puis commandes virtual stick.",
+          "Produit logiciel complet avec site de distribution, backend de licences et mode Premium utilisable hors ligne.",
+          "Approche robuste face aux variations DJI Mini grâce à des fallbacks et des mécanismes de compatibilité."
+        ],
+        sections: [
+          {
+            title: "Application mobile",
+            paragraphs: [
+              "L'application Android native en Kotlin et Jetpack Compose pilote le drone en temps réel à partir du flux vidéo. Le pipeline exploite le retour vidéo DJI, la détection de personne avec ML Kit, le suivi de cible et un contrôle PID pour ajuster la trajectoire via virtual stick.",
+              "Ce travail m'a amené à gérer des contraintes concrètes de compatibilité Android, de fragmentation des modèles DJI Mini et de fiabilité d'un SDK propriétaire ancien."
+            ]
+          },
+          {
+            title: "Backend et licensing",
+            paragraphs: [
+              "Le backend Node.js/Express sur Cloud Run gère les activations, validations, désactivations et révocations de licences Premium. Il reçoit les webhooks Lemon Squeezy, résout les purchase tokens et émet des tokens RS256 pour autoriser l'usage hors ligne dans l'application.",
+              "Cette couche relie paiement, licensing, télémétrie et expérience utilisateur, tout en restant volontairement simple et concentrée sur la valeur métier."
+            ]
+          },
+          {
+            title: "Site et distribution",
+            paragraphs: [
+              "Le site statique sert la landing page, le téléchargement de l'APK, les informations légales et le flux de mise à jour de l'application. Il fait partie du produit, car il gère l'entrée commerciale et la distribution des releases.",
+              "L'ensemble montre ma capacité à concevoir un système cohérent de bout en bout, depuis l'expérience web jusqu'au logiciel mobile embarqué et au backend cloud."
+            ]
+          }
+        ],
+        closing: "MiniFollow est l'un des projets les plus transversaux de mon parcours : il relie vision temps réel, intégration hardware, architecture backend et logique produit."
+      }
     },
     {
       id: "ptut-meteores",
@@ -283,72 +297,6 @@ window.portfolioData = {
       }
     },
     {
-      id: "minifollow",
-      folderRoot: "../Projets/MiniFollow",
-      title: "MiniFollow",
-      tagline: "Produit complet de suivi autonome DJI : application Android, backend licensing et site de distribution",
-      image: "assets/minifollow.svg",
-      videoPreview: "../Projets/MiniFollow/media/demo-minifollow.mp4",
-      context: "PROJET PRODUIT",
-      year: "2025-2026",
-      category: "personal",
-      tags: ["Android", "Kotlin", "Vision temps réel", "Node.js", "Cloud"],
-      introTitle: "Système logiciel complet pour drone DJI Mini",
-      introSummary: "MiniFollow est un produit distribué hors Play Store, pensé comme une chaîne logicielle complète : acquisition utilisateur, distribution d'APK, activation Premium, suivi autonome et télémétrie minimale.",
-      introDetails: [
-        "Le cœur du projet est une application Android native qui transforme le flux vidéo DJI en commandes de vol temps réel grâce à la détection de personne, au lissage du tracking, au calcul PID et au virtual stick.",
-        "Autour de cette application, j'ai construit un backend Cloud Run qui gère les licences Premium, les webhooks Lemon Squeezy, l'émission de tokens signés pour un usage hors ligne et la télémétrie produit.",
-        "Le site statique complète l'ensemble en servant la landing page, la distribution du dernier APK, les informations de compatibilité et le parcours commercial."
-      ],
-      caseStudy: {
-        subtitle: "Vue d'ensemble du produit, de son architecture et d'un aperçu vidéo intégré à mon portfolio.",
-        site: {
-          href: "https://minifollow.app/",
-          label: "Consulter le site MiniFollow",
-          meta: "Landing page, téléchargement APK et informations produit"
-        },
-        media: {
-          src: "../Projets/MiniFollow/media/demo-minifollow.mp4",
-          title: "Aperçu vidéo",
-          caption: "Démonstration courte de l'interface et du fonctionnement global de MiniFollow."
-        },
-        stats: [
-          { label: "Architecture", value: "App + backend + site" },
-          { label: "Temps réel", value: "Tracking vidéo + PID" },
-          { label: "Distribution", value: "APK direct hors Play Store" }
-        ],
-        highlights: [
-          "Pipeline temps réel complet : flux vidéo DJI, détection ML Kit, lissage du tracking puis commandes virtual stick.",
-          "Produit logiciel complet avec site de distribution, backend de licences et mode Premium utilisable hors ligne.",
-          "Approche robuste face aux variations DJI Mini grâce à des fallbacks et des mécanismes de compatibilité."
-        ],
-        sections: [
-          {
-            title: "Application mobile",
-            paragraphs: [
-              "L'application Android native en Kotlin et Jetpack Compose pilote le drone en temps réel à partir du flux vidéo. Le pipeline exploite le retour vidéo DJI, la détection de personne avec ML Kit, le suivi de cible et un contrôle PID pour ajuster la trajectoire via virtual stick.",
-              "Ce travail m'a amené à gérer des contraintes concrètes de compatibilité Android, de fragmentation des modèles DJI Mini et de fiabilité d'un SDK propriétaire ancien."
-            ]
-          },
-          {
-            title: "Backend et licensing",
-            paragraphs: [
-              "Le backend Node.js/Express sur Cloud Run gère les activations, validations, désactivations et révocations de licences Premium. Il reçoit les webhooks Lemon Squeezy, résout les purchase tokens et émet des tokens RS256 pour autoriser l'usage hors ligne dans l'application.",
-              "Cette couche relie paiement, licensing, télémétrie et expérience utilisateur, tout en restant volontairement simple et concentrée sur la valeur métier."
-            ]
-          },
-          {
-            title: "Site et distribution",
-            paragraphs: [
-              "Le site statique sert la landing page, le téléchargement de l'APK, les informations légales et le flux de mise à jour de l'application. Il fait partie du produit, car il gère l'entrée commerciale et la distribution des releases.",
-              "L'ensemble montre ma capacité à concevoir un système cohérent de bout en bout, depuis l'expérience web jusqu'au logiciel mobile embarqué et au backend cloud."
-            ]
-          }
-        ],
-        closing: "MiniFollow est l'un des projets les plus transversaux de mon parcours : il relie vision temps réel, intégration hardware, architecture backend et logique produit."
-      }
-    },
-    {
       id: "stage-geii",
       folderRoot: "../Projets/Stage_LOMA",
       reportFile: "page_Stage_BUT_GEII.pdf",
@@ -365,6 +313,58 @@ window.portfolioData = {
       introDetails: [
         "L’objectif principal est de valider expérimentalement un prototype sur un seul axe, en amont d’un futur système multi-axes basé sur trois lasers.",
         "Le dispositif repose sur une diode laser, un miroir piézoélectrique et une plateforme Red Pitaya, associés à un traitement du signal en temps réel sous Python et à une boucle d’asservissement PI."
+      ]
+    },
+    {
+      id: "antenne",
+      folderRoot: "../Projets/Antenne_HB9CV", // Dossier racine accessible depuis portfolio-app
+      reportFile: "page_Antenne HB9CV.pdf",
+      title: "Antenne HB9CV",
+      tagline: "Radiogoniométrie 144 MHz : simulation, fabrication et mesures",
+      image: "../Projets/images/Antenne_HB9CV.jpeg",
+      context: "SAE",
+      year: "2025",
+      tags: ["RF", "Simulation", "Mesures"],
+      introTitle: "Contexte du projet",
+      introSummary: "Projet de SAE consistant à concevoir une antenne directionnelle permettant de localiser la provenance d’un signal radio, dans un contexte réel de radiogoniométrie.",
+      introDetails: [
+        "Le cahier des charges imposait des contraintes concrètes : poids et encombrement réduits, budget limité, utilisation sur le terrain et compatibilité avec une tablette de réception.",
+        "Mon travail a couvert le choix de l’architecture de l’antenne, la simulation de son comportement avant fabrication, le réglage pour limiter les pertes de signal entre l’antenne et le récepteur, puis la fabrication et les tests.",
+        "L’objectif final était d’obtenir une antenne simple, robuste et réellement exploitable en conditions réelles."
+      ]
+    },
+    {
+      id: "robot",
+      folderRoot: "../Projets/Robot_Sumo",
+      reportFile: "page_Robot_sumo.pdf",
+      title: "Robot Sumo autonome",
+      tagline: "Détection adverse, stratégie embarquée, contrôle moteur",
+      image: "../Projets/images/Robot_Sumo.jpeg",
+      context: "SAE",
+      year: "2024",
+      tags: ["Électronique", "C++", "Capteurs"],
+      introTitle: "Contexte du projet",
+      introSummary: "Robot autonome de type sumo : detecter l'adversaire et optimiser la strategie.",
+      introDetails: [
+        "Integration de capteurs, algorithmes de decision et controle moteur.",
+        "Objectif : un robot stable, rapide et capable de gagner des confrontations."
+      ]
+    },
+    {
+      id: "kah",
+      folderRoot: "../Projets/KAH",
+      reportFile: "page_KAH.pdf",
+      title: "Kart à Hélice",
+      tagline: "Transmission infrarouge, schémas électriques, PCB, tests et corrections",
+      image: "../Projets/images/KAH.jpeg",
+      context: "SAE",
+      year: "2024",
+      tags: ["Électronique", "C++", "Transmission IR"],
+      introTitle: "Contexte du projet",
+      introSummary: "Kart a helice telecommande, avec transmission infrarouge et controle embarque.",
+      introDetails: [
+        "Conception electronique, programmation C++ et mise au point des commandes.",
+        "Objectif : un systeme fiable et reactif pour piloter direction et vitesse."
       ]
     }
   ],

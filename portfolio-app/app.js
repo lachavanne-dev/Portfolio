@@ -15,6 +15,11 @@ if ('scrollRestoration' in history) {
 // Maps pour accès rapide
 const projectMap = Object.fromEntries(projects.map((p) => [p.id, p]));
 const defaultPageOverrides = new Set(['kah', 'antenne']);
+const featuredCategoryOrder = {
+  professional: 0,
+  personal: 1,
+  tutored: 2
+};
 
 // --- UTILITAIRE : Générateur d'URL ---
 function getFileUrl(project, skillKey, pageDef) {
@@ -69,6 +74,20 @@ function getDefaultPage(skillKey, project) {
 
 // --- 1. GÉNÉRATION GRID PROJETS ---
 const insertedSeparators = new Set();
+const projectsForDisplay = [...projects].sort((a, b) => {
+  const aFeatured = Boolean(a.category);
+  const bFeatured = Boolean(b.category);
+
+  if (aFeatured && bFeatured) {
+    return (featuredCategoryOrder[a.category] ?? 99) - (featuredCategoryOrder[b.category] ?? 99);
+  }
+
+  if (aFeatured !== bFeatured) {
+    return aFeatured ? -1 : 1;
+  }
+
+  return 0;
+});
 
 function createProjectSeparator(title, description, modifier = '') {
   const separator = document.createElement('div');
@@ -80,7 +99,17 @@ function createProjectSeparator(title, description, modifier = '') {
   return separator;
 }
 
-projects.forEach((project) => {
+function getProjectCategoryLabel(project) {
+  const labels = {
+    professional: 'Professionnel',
+    personal: 'Personnel',
+    tutored: 'Tutoré'
+  };
+
+  return labels[project.category] ?? '';
+}
+
+projectsForDisplay.forEach((project) => {
   if (!project.category && !insertedSeparators.has('academic')) {
     if (projectGrid) {
       projectGrid.appendChild(
@@ -91,45 +120,6 @@ projects.forEach((project) => {
       );
     }
     insertedSeparators.add('academic');
-  }
-
-  if (project.category === 'personal' && !insertedSeparators.has('personal')) {
-    if (projectGrid) {
-      projectGrid.appendChild(
-        createProjectSeparator(
-          'Personnel',
-          'Produit conçu et développé de bout en bout hors cadre académique.',
-          'project-separator--personal'
-        )
-      );
-    }
-    insertedSeparators.add('personal');
-  }
-
-  if (project.category === 'tutored' && !insertedSeparators.has('tutored')) {
-    if (projectGrid) {
-      projectGrid.appendChild(
-        createProjectSeparator(
-          'Projet tutoré',
-          'Projet mené en équipe autour d’une chaîne complète de radiodétection et d’analyse.',
-          'project-separator--tutored'
-        )
-      );
-    }
-    insertedSeparators.add('tutored');
-  }
-
-  if (project.category === 'professional' && !insertedSeparators.has('professional')) {
-    if (projectGrid) {
-      projectGrid.appendChild(
-        createProjectSeparator(
-          'Professionnel',
-          "Projet réalisé en contexte d'entreprise.",
-          'project-separator--professional'
-        )
-      );
-    }
-    insertedSeparators.add('professional');
   }
 
   const card = document.createElement('article');
@@ -187,7 +177,17 @@ projects.forEach((project) => {
   `;
 
   card.addEventListener('click', () => openProjectModal(project));
-  if (projectGrid) projectGrid.appendChild(card);
+  if (projectGrid) {
+    if (project.category) {
+      const shell = document.createElement('div');
+      shell.className = 'project-card-shell project-card-shell--featured';
+      shell.innerHTML = `<p class="project-card-shell__label">${getProjectCategoryLabel(project)}</p>`;
+      shell.appendChild(card);
+      projectGrid.appendChild(shell);
+    } else {
+      projectGrid.appendChild(card);
+    }
+  }
 
   // Initialize Parallax if applicable
   if (project.depthImage && window.ParallaxImage) {
