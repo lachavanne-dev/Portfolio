@@ -30,20 +30,25 @@ body {
 }
 
 .about-page {
-  --about-surface: #fffaf4;
-  --about-surface-alt: #f8f1e8;
-  --about-accent: #b85d3b;
-  --about-border: rgba(184, 93, 59, 0.14);
-  --about-border-strong: rgba(184, 93, 59, 0.22);
-  background: linear-gradient(160deg, #f6ede1 0%, #fcf8f2 52%, #f7f1e8 100%);
+  --about-surface: #fffdfa;
+  --about-surface-soft: #fbf5ed;
+  --about-surface-strong: #f3e5d4;
+  --about-accent: #c25a38;
+  --about-accent-strong: #c25a38;
+  --about-ink: #241d18;
+  --about-muted: #62584f;
+  --about-border: rgba(194, 90, 56, 0.14);
+  --about-border-strong: rgba(194, 90, 56, 0.24);
+  background: linear-gradient(180deg, #f6f1ea 0%, #fbf8f3 52%, #f5efe7 100%);
 }
 
 .about-page .background-orb {
-  background: radial-gradient(circle, rgba(184, 93, 59, 0.18), transparent 72%);
+  background: radial-gradient(circle, rgba(194, 90, 56, 0.08), transparent 72%);
+  opacity: 0.55;
 }
 
 .about-page .eyebrow {
-  color: var(--about-accent);
+  color: var(--secondary-color);
 }
 
 .about-page .section-desc,
@@ -52,12 +57,13 @@ body {
 .about-page .about-lead,
 .about-page .card-desc,
 .about-page .formation-school {
-  color: #5d5a54;
+  color: var(--about-muted);
 }
 
 .about-page .card {
   background: var(--about-surface);
   border-color: var(--about-border);
+  box-shadow: none;
 }
 
 #root {
@@ -357,9 +363,8 @@ body {
 }
 
 .about-page .about-card--hero {
-  background:
-    linear-gradient(180deg, #fffaf4 0%, #f7efe5 100%);
-  border-color: var(--about-border-strong);
+  background: var(--about-surface);
+  border-color: var(--about-border);
 }
 
 .formation-headline {
@@ -384,7 +389,7 @@ body {
 }
 
 .about-page .formation-kicker {
-  color: var(--about-accent);
+  color: var(--secondary-color);
 }
 
 .formation-headline h3 {
@@ -400,11 +405,11 @@ body {
 }
 
 .about-page .formation-headline h3 {
-  color: #1f2523;
+  color: var(--about-ink);
 }
 
 .about-page .formation-complement {
-  color: var(--about-accent);
+  color: var(--secondary-color);
 }
 
 .formation-school {
@@ -436,29 +441,17 @@ body {
 }
 
 .about-page .formation-pillar {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 241, 232, 0.92)),
-    var(--about-surface);
+  background: var(--about-surface);
   border-color: var(--about-border);
 }
 
-.about-page .formation-pillar:nth-child(1) {
-  border-color: var(--about-border);
-}
-
-.about-page .formation-pillar:nth-child(2) {
-  background:
-    linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(244, 234, 220, 0.96)),
-    var(--about-surface-alt);
-  border-color: var(--about-border-strong);
-}
-
-.about-page .formation-pillar:nth-child(3) {
+.about-page .formation-pillar--accent {
+  background: var(--about-surface);
   border-color: var(--about-border);
 }
 
 .about-page .formation-pillar .card-title {
-  color: #1f2523;
+  color: var(--about-ink);
 }
 
 .about-grid {
@@ -489,21 +482,19 @@ body {
 }
 
 .about-page .about-card--aside {
-  background:
-    linear-gradient(180deg, rgba(255, 250, 244, 0.94), rgba(246, 239, 229, 0.96));
+  background: var(--about-surface);
   border-color: var(--about-border);
 }
 
 .about-page .about-card:not(.about-card--hero):not(.about-card--aside):not(.formation-pillar) {
-  background:
-    linear-gradient(180deg, rgba(255, 251, 244, 0.94), rgba(247, 241, 233, 0.94));
+  background: var(--about-surface);
   border-color: var(--about-border);
 }
 
 .about-card:hover {
   transform: none;
   box-shadow: none;
-  border-color: var(--line);
+  border-color: var(--about-border);
 }
 
 @media (max-width: 900px) {
@@ -583,15 +574,9 @@ body {
 }
 
 .about-page .tag {
-  background: linear-gradient(180deg, rgba(184, 93, 59, 0.14), rgba(184, 93, 59, 0.08));
-  color: var(--about-accent);
-  border: 1px solid rgba(184, 93, 59, 0.12);
-}
-
-.about-page .tag:nth-child(even) {
-  background: linear-gradient(180deg, rgba(184, 93, 59, 0.14), rgba(184, 93, 59, 0.08));
-  color: var(--about-accent);
-  border-color: rgba(184, 93, 59, 0.12);
+  background: rgba(194, 90, 56, 0.08);
+  color: var(--about-accent-strong);
+  border: 1px solid rgba(194, 90, 56, 0.12);
 }
 
 .skill-card__header {

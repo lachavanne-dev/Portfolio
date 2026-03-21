@@ -143,22 +143,23 @@ window.portfolioData = {
       id: "minifollow",
       folderRoot: "../Projets/MiniFollow",
       title: "MiniFollow",
-      tagline: "Produit complet de suivi autonome DJI : application Android, backend licensing et site de distribution",
+      tagline: "Produit de suivi autonome DJI développé, distribué et commercialisé dans le cadre de ma micro-entreprise",
       image: "assets/minifollow.svg",
       videoPreview: "../Projets/MiniFollow/media/demo-minifollow.mp4",
       context: "PROJET PRODUIT",
       year: "2025-2026",
-      category: "personal",
+      category: "entrepreneurial",
       tags: ["Android", "Kotlin", "Vision temps réel", "Node.js", "Cloud"],
       introTitle: "Système logiciel complet pour drone DJI Mini",
-      introSummary: "MiniFollow est un produit distribué hors Play Store, pensé comme une chaîne logicielle complète : acquisition utilisateur, distribution d'APK, activation Premium, suivi autonome et télémétrie minimale.",
+      introSummary: "MiniFollow est un produit distribué hors Play Store, que je développe dans le cadre de ma micro-entreprise comme une chaîne logicielle complète : acquisition utilisateur, distribution d'APK, activation Premium, suivi autonome et télémétrie minimale.",
       introDetails: [
         "Le cœur du projet est une application Android native qui transforme le flux vidéo DJI en commandes de vol temps réel grâce à la détection de personne, au lissage du tracking, au calcul PID et au virtual stick.",
+        "Au-delà du développement technique, je porte aussi MiniFollow comme un vrai produit : distribution, mises à jour, licensing, parcours commercial et informations légales sont intégrés à une démarche de micro-entreprise.",
         "Autour de cette application, j'ai construit un backend Cloud Run qui gère les licences Premium, les webhooks Lemon Squeezy, l'émission de tokens signés pour un usage hors ligne et la télémétrie produit.",
         "Le site statique complète l'ensemble en servant la landing page, la distribution du dernier APK, les informations de compatibilité et le parcours commercial."
       ],
       caseStudy: {
-        subtitle: "Vue d'ensemble du produit, de son architecture et d'un aperçu vidéo intégré à mon portfolio.",
+        subtitle: "Vue d'ensemble d'un produit développé et commercialisé dans le cadre de ma micro-entreprise, avec son architecture et un aperçu vidéo intégré à mon portfolio.",
         site: {
           href: "https://minifollow.app/",
           label: "Consulter le site MiniFollow",
@@ -170,11 +171,13 @@ window.portfolioData = {
           caption: "Démonstration courte de l'interface et du fonctionnement global de MiniFollow."
         },
         stats: [
+          { label: "Cadre", value: "Micro-entreprise" },
           { label: "Architecture", value: "App + backend + site" },
           { label: "Temps réel", value: "Tracking vidéo + PID" },
           { label: "Distribution", value: "APK direct hors Play Store" }
         ],
         highlights: [
+          "Projet porté dans le cadre de ma micro-entreprise, de la construction du produit jusqu'à sa distribution et son licensing.",
           "Pipeline temps réel complet : flux vidéo DJI, détection ML Kit, lissage du tracking puis commandes virtual stick.",
           "Produit logiciel complet avec site de distribution, backend de licences et mode Premium utilisable hors ligne.",
           "Approche robuste face aux variations DJI Mini grâce à des fallbacks et des mécanismes de compatibilité."
@@ -202,7 +205,7 @@ window.portfolioData = {
             ]
           }
         ],
-        closing: "MiniFollow est l'un des projets les plus transversaux de mon parcours : il relie vision temps réel, intégration hardware, architecture backend et logique produit."
+        closing: "MiniFollow est l'un des projets les plus transversaux de mon parcours : il relie vision temps réel, intégration hardware, architecture backend, logique produit et démarche entrepreneuriale portée dans le cadre de ma micro-entreprise."
       }
     },
     {

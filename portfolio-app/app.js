@@ -17,8 +17,9 @@ const projectMap = Object.fromEntries(projects.map((p) => [p.id, p]));
 const defaultPageOverrides = new Set(['kah', 'antenne']);
 const featuredCategoryOrder = {
   professional: 0,
-  personal: 1,
-  tutored: 2
+  entrepreneurial: 1,
+  personal: 2,
+  tutored: 3
 };
 
 // --- UTILITAIRE : Générateur d'URL ---
@@ -102,6 +103,7 @@ function createProjectSeparator(title, description, modifier = '') {
 function getProjectCategoryLabel(project) {
   const labels = {
     professional: 'Professionnel',
+    entrepreneurial: 'Micro-entreprise',
     personal: 'Personnel',
     tutored: 'Tutoré'
   };
@@ -125,7 +127,7 @@ projectsForDisplay.forEach((project) => {
   const card = document.createElement('article');
   card.className = 'card project-card';
   card.classList.add(`project-card--${project.id}`);
-  if (project.category === 'personal' || project.category === 'tutored' || project.category === 'professional') {
+  if (project.category) {
     card.classList.add('project-card--featured');
   }
 
