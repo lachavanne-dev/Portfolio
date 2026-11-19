@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Portfolio immersif de Paul Lachavanne - navigation fluide entre projets et compétences C1/C2 disponible." />
+    content="Portfolio de Paul Lachavanne — Étudiant en L3 EEA (post-BUT GEII) à l'Université de Bordeaux et auto-entrepreneur (MiniFollow). Projets, stages, compétences techniques et contact." />
   <title>Portfolio - Paul Lachavanne</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,31 +19,40 @@
       <a class="nav-link" href="about.html">Formation</a>
       <a class="nav-link" href="index.html#projects" data-scroll-target="#projects" data-nav>Projets</a>
       <a class="nav-link" href="index.html#skills" data-scroll-target="#skills" data-nav>Compétences</a>
+      <a class="nav-link" href="index.html#contact" data-scroll-target="#contact" data-nav>Contact</a>
     </nav>
   </header>
 
   <main class="container">
     <section id="hero" class="hero">
-      <p class="hero-eyebrow">Portfolio</p>
+      <p class="hero-eyebrow">L3 EEA · Auto-entrepreneur</p>
       <h1>
         Projets et compétences
       </h1>
       <p class="hero-subtext">
-        Accédez aux projets, ou accédez directement aux compétences pour une navigation bidirectionnelle.
+        Étudiant en L3 EEA (poursuite d'études post-BUT GEII) à l'Université de Bordeaux et auto-entrepreneur. Accédez aux projets, aux stages ou directement aux compétences.
       </p>
+      <p class="hero-status-pill">
+        En recherche de stage à partir du 25 mai 2027 (5 à 12 semaines)
+      </p>
+      <div class="hero-actions">
+        <a class="action-btn" href="#projects" data-scroll-target="#projects">Voir les projets</a>
+        <a class="action-btn secondary" href="about.html">Formation &amp; Parcours</a>
+        <a class="action-btn action-btn--ghost" href="#contact" data-scroll-target="#contact">Contact</a>
+      </div>
     </section>
 
     <section id="projects" class="section">
       <header class="section-heading">
         <div>
-          <p class="eyebrow">Projets</p>
+          <p class="eyebrow">Projets &amp; Expériences</p>
           <h2>Des projets techniques représentatifs de mon parcours.</h2>
           <p class="section-desc">
-            Chaque réalisation met en valeur des compétences mobilisées dans des contextes académiques, professionnels ou personnels.
+            Chaque réalisation met en valeur des compétences mobilisées dans des contextes professionnels, entrepreneuriaux ou académiques.
           </p>
         </div>
       </header>
-      <div class="grid" data-project-grid role="list"></div>
+      <div class="grid grid--projects" data-project-grid role="list"></div>
     </section>
 
     <section id="skills" class="section">
@@ -52,11 +61,98 @@
           <p class="eyebrow">Compétences</p>
           <h2>Les compétences mobilisées au fil de mes projets.</h2>
           <p class="section-desc">
-            Chaque compétence renvoie aux projets dans lesquels elle est mise en œuvre.
+            Chaque compétence du référentiel BUT GEII renvoie aux projets dans lesquels elle est mise en œuvre, complétée par mes outils techniques et langues.
           </p>
         </div>
       </header>
-      <div class="grid" data-competence-grid role="list"></div>
+      <div class="grid grid--competences" data-competence-grid role="list"></div>
+
+      <div class="tech-skills-block">
+        <div class="tech-skills-block__header">
+          <p class="eyebrow">Compétences techniques &amp; Langues</p>
+          <h3>Outils, programmation, électronique et langues</h3>
+        </div>
+        <div class="tech-skills-grid">
+          <article class="card tech-skill-card">
+            <div class="card-content">
+              <p class="card-eyebrow">Logiciels principaux</p>
+              <div class="tag-list">
+                <span class="tag">KiCad (schémas &amp; PCB)</span>
+                <span class="tag">Onshape (CAO 3D)</span>
+                <span class="tag">uSimmics (simulation &amp; RF)</span>
+                <span class="tag">Excel</span>
+                <span class="tag">Visual Studio Code</span>
+                <span class="tag">Git / GitHub</span>
+              </div>
+            </div>
+          </article>
+          <article class="card tech-skill-card">
+            <div class="card-content">
+              <p class="card-eyebrow">Programmation</p>
+              <div class="tag-list">
+                <span class="tag">Python</span>
+                <span class="tag">C / C++</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Kotlin (Android)</span>
+              </div>
+            </div>
+          </article>
+          <article class="card tech-skill-card">
+            <div class="card-content">
+              <p class="card-eyebrow">Électronique</p>
+              <ul class="tech-skill-list">
+                <li>Dimensionnement de circuits, composants analogiques &amp; RF</li>
+                <li>Analyse de signaux</li>
+                <li>Soudage traversant &amp; CMS</li>
+              </ul>
+            </div>
+          </article>
+          <article class="card tech-skill-card">
+            <div class="card-content">
+              <p class="card-eyebrow">Langues</p>
+              <ul class="tech-skill-list">
+                <li><strong>Anglais :</strong> B2 (test Cambridge)</li>
+                <li><strong>Espagnol :</strong> B1</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Échanger à propos d'un stage ou d'un projet.</h2>
+          <p class="section-desc">
+            En recherche de stage à partir du 25 mai 2027 (5 à 12 semaines) — basé à Bordeaux (Permis B).
+          </p>
+        </div>
+      </header>
+      <div class="contact-grid">
+        <a class="card contact-card" href="mailto:paul.lachavanne@etu.u-bordeaux.fr">
+          <div class="card-content">
+            <p class="card-eyebrow">Email</p>
+            <strong class="contact-value">paul.lachavanne@etu.u-bordeaux.fr</strong>
+            <span class="contact-meta">Réponse rapide pour toute opportunité de stage</span>
+          </div>
+        </a>
+        <a class="card contact-card" href="tel:+33763324208">
+          <div class="card-content">
+            <p class="card-eyebrow">Téléphone</p>
+            <strong class="contact-value">+33 7 63 32 42 08</strong>
+            <span class="contact-meta">Bordeaux · Permis B</span>
+          </div>
+        </a>
+        <a class="card contact-card" href="https://minifollow.app/" target="_blank" rel="noopener">
+          <div class="card-content">
+            <p class="card-eyebrow">Auto-entrepreneur</p>
+            <strong class="contact-value">minifollow.app ↗</strong>
+            <span class="contact-meta">Application Android publiée et commercialisée</span>
+          </div>
+        </a>
+      </div>
     </section>
 
   </main>

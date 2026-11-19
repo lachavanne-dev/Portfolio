@@ -11,7 +11,8 @@
     { label: 'Accueil', href: `${normalizedBase}index.html#hero`, target: '#hero', nav: true },
     { label: 'Formation', href: `${normalizedBase}about.html`, active: isFormationPage },
     { label: 'Projets', href: `${normalizedBase}index.html#projects`, target: '#projects', nav: true },
-    { label: 'Compétences', href: `${normalizedBase}index.html#skills`, target: '#skills', nav: true }
+    { label: 'Compétences', href: `${normalizedBase}index.html#skills`, target: '#skills', nav: true },
+    { label: 'Contact', href: `${normalizedBase}index.html#contact`, target: '#contact', nav: true }
   ];
 
   header.innerHTML = `

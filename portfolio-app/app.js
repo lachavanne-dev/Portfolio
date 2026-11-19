@@ -103,7 +103,7 @@ function createProjectSeparator(title, description, modifier = '') {
 function getProjectCategoryLabel(project) {
   const labels = {
     professional: 'Professionnel',
-    entrepreneurial: 'Micro-entreprise',
+    entrepreneurial: 'Auto-entrepreneur',
     personal: 'Personnel',
     tutored: 'Tutoré'
   };
@@ -168,10 +168,12 @@ projectsForDisplay.forEach((project) => {
     `;
   }
 
+  const eyebrowText = [project.context, project.year].filter(Boolean).join(' / ');
+
   card.innerHTML = `
     ${imageContainerHtml}
     <div class="card-content">
-      <p class="card-eyebrow">${project.context} / ${project.year}</p>
+      <p class="card-eyebrow">${eyebrowText}</p>
       <h3 class="card-title">${project.title}</h3>
       <p class="card-desc">${project.tagline}</p>
       <div class="tag-list">${project.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
@@ -242,6 +244,13 @@ function openProjectModal(project) {
   modalBody.innerHTML = '';
   modalBody.appendChild(createEyebrow(project.context));
   modalBody.appendChild(createTitle(project.title));
+
+  if (project.underConstruction) {
+    modalBody.appendChild(createSubtitle(project.tagline || 'Page en construction.'));
+    modalBody.appendChild(createUnderConstructionLayout(project));
+    showModal();
+    return;
+  }
 
   if (project.caseStudy && project.category !== 'tutored') {
     modalBody.appendChild(createSubtitle(project.caseStudy.subtitle || "Vue d'ensemble du projet."));
@@ -482,6 +491,18 @@ function createCaseStudyLayout(project) {
   layout.appendChild(main);
   layout.appendChild(sidebar);
   return layout;
+}
+
+function createUnderConstructionLayout(project) {
+  const card = document.createElement('article');
+  card.className = 'modal-project-intro under-construction-card';
+  const note = project.constructionNote || 'Page en construction : le contenu détaillé sera ajouté prochainement.';
+  card.innerHTML = `
+    <span class="status-pill status-pill--construction">Page en construction</span>
+    <h3>Contenu à venir</h3>
+    <p>${note}</p>
+  `;
+  return card;
 }
 
 function createVideoLightbox() {

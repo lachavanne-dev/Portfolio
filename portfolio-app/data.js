@@ -140,18 +140,30 @@ window.portfolioData = {
   structure: SKILL_STRUCTURE,
   projects: [
     {
+      id: "stage-dream",
+      title: "DREAM Électronique",
+      tagline: "Stage BUT 3 (18 semaines) — Page en construction.",
+      image: "assets/dream-construction.svg",
+      context: "STAGE BUT 3 · DREAM ÉLECTRONIQUE",
+      year: "2026",
+      category: "professional",
+      tags: ["Stage BUT 3", "18 semaines", "En construction"],
+      underConstruction: true,
+      constructionNote: "Page en construction : le contenu détaillé, les visuels et la présentation de ce stage de 18 semaines seront ajoutés prochainement."
+    },
+    {
       id: "minifollow",
       folderRoot: "../Projets/MiniFollow",
       title: "MiniFollow",
-      tagline: "Produit de suivi autonome DJI développé, distribué et commercialisé dans le cadre de ma micro-entreprise",
+      tagline: "Application Android de tracking visuel pour drones DJI (SDK DJI), publiée et commercialisée en tant qu'auto-entrepreneur",
       image: "assets/minifollow.svg",
       videoPreview: "../Projets/MiniFollow/media/demo-minifollow.mp4",
-      context: "PROJET PRODUIT",
-      year: "2025-2026",
+      context: "PROJET PERSONNEL ACTUEL",
+      year: "Depuis 2025",
       category: "entrepreneurial",
       tags: ["Android", "Kotlin", "Vision temps réel", "Node.js", "Cloud"],
       introTitle: "Système logiciel complet pour drone DJI Mini",
-      introSummary: "MiniFollow est un produit distribué hors Play Store, que je développe dans le cadre de ma micro-entreprise comme une chaîne logicielle complète : acquisition utilisateur, distribution d'APK, activation Premium, suivi autonome et télémétrie minimale.",
+      introSummary: "MiniFollow est une application publiée et commercialisée (distribuée hors Play Store), que je développe dans le cadre de ma micro-entreprise comme une chaîne logicielle complète : acquisition utilisateur, distribution d'APK, activation Premium, suivi autonome et télémétrie minimale.",
       introDetails: [
         "Le cœur du projet est une application Android native qui transforme le flux vidéo DJI en commandes de vol temps réel grâce à la détection de personne, au lissage du tracking, au calcul PID et au virtual stick.",
         "Au-delà du développement technique, je porte aussi MiniFollow comme un vrai produit : distribution, mises à jour, licensing, parcours commercial et informations légales sont intégrés à une démarche de micro-entreprise.",
@@ -159,7 +171,7 @@ window.portfolioData = {
         "Le site statique complète l'ensemble en servant la landing page, la distribution du dernier APK, les informations de compatibilité et le parcours commercial."
       ],
       caseStudy: {
-        subtitle: "Vue d'ensemble d'un produit développé et commercialisé dans le cadre de ma micro-entreprise, avec son architecture et un aperçu vidéo intégré à mon portfolio.",
+        subtitle: "Vue d'ensemble d'une application Android de tracking visuel pour drones DJI (SDK DJI), publiée et commercialisée dans le cadre de mon activité d'auto-entrepreneur, avec son architecture et un aperçu vidéo intégré à mon portfolio.",
         site: {
           href: "https://minifollow.app/",
           label: "Consulter le site MiniFollow",
@@ -171,7 +183,8 @@ window.portfolioData = {
           caption: "Démonstration courte de l'interface et du fonctionnement global de MiniFollow."
         },
         stats: [
-          { label: "Cadre", value: "Micro-entreprise" },
+          { label: "Cadre", value: "Auto-entrepreneur (micro-entreprise)" },
+          { label: "Statut", value: "Application publiée et commercialisée" },
           { label: "Architecture", value: "App + backend + site" },
           { label: "Temps réel", value: "Tracking vidéo + PID" },
           { label: "Distribution", value: "APK direct hors Play Store" }
@@ -304,15 +317,15 @@ window.portfolioData = {
       folderRoot: "../Projets/Stage_LOMA",
       reportFile: "page_Stage_BUT_GEII.pdf",
       title: "Asservissement nanométrique",
-      tagline: "Self-mixing, traitement du signal, tests et calibration",
+      tagline: "Interféromètre self-mixing, traitement du signal Python, tests et calibration",
       image: "../Projets/images/Stage_LOMA.jpeg",
-      context: "STAGE CNRS - LOMA",
+      context: "STAGE BUT 2 · CNRS - LOMA (10 sem.)",
       year: "2025",
       category: "professional",
       tags: ["Python", "Signal", "Lasers"],
       hideSkillDescriptions: true,
-      introTitle: "Contexte du stage",
-      introSummary: "Ce stage porte sur le développement d’un système de mesure de déplacement nanométrique par effet self-mixing, destiné à la stabilisation active d’un microscope optique.",
+      introTitle: "Contexte du stage (BUT 2 — 10 semaines)",
+      introSummary: "Réalisé au LOMA (CNRS) en BUT 2 durant 10 semaines, ce stage porte sur la réalisation et la programmation d’un interféromètre de précision nanométrique basé sur l’effet self-mixing, comme preuve de concept pour l’asservissement futur de la position d’une platine d’un microscope.",
       introDetails: [
         "L’objectif principal est de valider expérimentalement un prototype sur un seul axe, en amont d’un futur système multi-axes basé sur trois lasers.",
         "Le dispositif repose sur une diode laser, un miroir piézoélectrique et une plateforme Red Pitaya, associés à un traitement du signal en temps réel sous Python et à une boucle d’asservissement PI."
@@ -347,10 +360,10 @@ window.portfolioData = {
       year: "2024",
       tags: ["Électronique", "C++", "Capteurs"],
       introTitle: "Contexte du projet",
-      introSummary: "Robot autonome de type sumo : detecter l'adversaire et optimiser la strategie.",
+      introSummary: "Robot autonome capable de suivre et pousser son adversaire, avec dossier de conception, vérification et fabrication.",
       introDetails: [
-        "Integration de capteurs, algorithmes de decision et controle moteur.",
-        "Objectif : un robot stable, rapide et capable de gagner des confrontations."
+        "Conception électronique et informatique : intégration de capteurs, algorithmes de décision et contrôle moteur.",
+        "Objectif : un robot stable, rapide et capable de détecter l'adversaire pour remporter des confrontations."
       ]
     },
     {
@@ -364,10 +377,10 @@ window.portfolioData = {
       year: "2024",
       tags: ["Électronique", "C++", "Transmission IR"],
       introTitle: "Contexte du projet",
-      introSummary: "Kart a helice telecommande, avec transmission infrarouge et controle embarque.",
+      introSummary: "Kart à hélices télécommandé, avec transmission infrarouge et contrôle embarqué.",
       introDetails: [
-        "Conception electronique, programmation C++ et mise au point des commandes.",
-        "Objectif : un systeme fiable et reactif pour piloter direction et vitesse."
+        "Conception électronique et informatique, programmation C++ et mise au point des commandes (+ dossier de conception, vérification et fabrication).",
+        "Objectif : un système fiable et réactif pour piloter direction et vitesse."
       ]
     }
   ],
